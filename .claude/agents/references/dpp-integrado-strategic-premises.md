@@ -96,18 +96,20 @@ Todo campo público carrega status de evidência visível:
 - Netlify → Vercel quando DPP Studio tiver mais de 10K deploys/mês ou precisar de Edge Functions
 - Supabase → avaliar self-hosted apenas acima de 500 marcas ativas
 
-## 10. Handoffs esperados por líder
+## 10. Handoffs esperados por departamento e agente
 
 - **Founder humano:** direção, prioridades, investimento e go/no-go
+- **Founder humano / Product & Data:** problema, funcionalidades, prioridade, métricas, roadmap e critérios de aceite
+- **Founder humano / Product Design:** jornada, UI, UX, acessibilidade e design QA
 - **Execution Orchestrator:** decomposição, owners, dependências, acompanhamento e escalonamento
-- **Software Engineering Lead:** arquitetura, APIs, segurança, qualidade e release
-- **Product Director:** problema, funcionalidades, prioridade e critérios de aceite
-- **Product Design Lead:** jornada, UI, UX, acessibilidade e design QA
-- **Certification Agent:** mapeamento de requisitos INMETRO e EU ESPR por campo
-- **Data Platform Lead:** contrato e schema DPP, dicionário, eventos e qualidade
-- **Operations Lead:** SLAs, runbooks, filas, incidentes e readiness operacional
-- **CFO:** realizado, comprometido, forecast, premissas, runway e unit economics
-- **Marketing Director e Sales:** recrutamento, demanda, pipeline e posicionamento B2B
+- **Tech Lead Full-stack & Data:** arquitetura, APIs, segurança, qualidade, dados e release
+- **Backend & Data Engineer:** contrato e schema DPP, dicionário, eventos, cálculos, validações e trilha de auditoria
+- **Frontend & Integrations Engineer:** interface, portais públicos, importadores, integrações e estados de evidência
+- **DevOps & Security Agent:** ambientes, deploy controlado, observabilidade, backups, permissões e incidentes
+- **Regulatory Specialist + Regulatory Analyst:** mapeamento de requisitos INMETRO e EU ESPR por campo, fontes e critérios de evidência
+- **Sales & Partnerships:** recrutamento, demanda, pipeline, parcerias, objeções e posicionamento B2B
+- **Implementation & Customer Success:** onboarding, adoção, suporte, health score e feedback operacional
+- **Finance & Administration:** realizado, comprometido, forecast, premissas, runway e unit economics
 
 ## 11. Regulação vigente
 

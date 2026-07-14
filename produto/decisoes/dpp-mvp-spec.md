@@ -294,12 +294,12 @@ pip install "qrcode[pil]"
 
 ## 10. Proximos Passos Imediatos
 
-1. **Product Director valida** esta especificacao e aprova ou ajusta o escopo funcional da Fase 2.
-2. **Software Engineering Lead + DevOps & Security** provisionam o dominio `dpp.phyllos.com.br`, configuram o resolvedor e registram o runbook antes de qualquer uso real do QR.
-3. **Operations Lead + Customer Success** confirmam os identificadores e dados reais necessários ao piloto antes do onboarding.
-4. **Certification Agent + Data Platform Lead + Backend Engineer** documentam campos obrigatorios, regras, evidencias e validacoes no contrato de dados e na API.
-5. **QA & Release Agent** executa o fluxo completo: criar peca com GTIN → criar ficha tecnica com composicao → adicionar etapas → publicar DPP → validar JSON-LD → gerar QR → resolver URL.
+1. **Founder humano / Product & Data** valida esta especificacao e aprova ou ajusta o escopo funcional da Fase 2.
+2. **Tech Lead Full-stack & Data + DevOps & Security Agent** provisionam o dominio `dpp.phyllos.com.br`, configuram o resolvedor e registram o runbook antes de qualquer uso real do QR.
+3. **Implementation & Customer Success Lead + Implementation & Customer Success Analyst** confirmam os identificadores e dados reais necessários ao piloto antes do onboarding.
+4. **Regulatory Specialist + Backend & Data Engineer** documentam campos obrigatorios, regras, evidencias e validacoes no contrato de dados e na API.
+5. **Tech Lead Full-stack & Data + DevOps & Security Agent** executam o fluxo completo: criar peca com GTIN → criar ficha tecnica com composicao → adicionar etapas → publicar DPP → validar JSON-LD → gerar QR → resolver URL.
 
 ---
 
-*Documento mantido por Product Director, Software Engineering Lead e Data Platform Lead. Versionar junto ao codigo e atualizar a cada ciclo que altere modelo, endpoints ou regras de publicacao.*
+*Documento mantido por Founder humano / Product & Data, Tech Lead Full-stack & Data e Backend & Data Engineer. Versionar junto ao codigo e atualizar a cada ciclo que altere modelo, endpoints ou regras de publicacao.*

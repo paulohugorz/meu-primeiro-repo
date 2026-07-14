@@ -1,7 +1,7 @@
 # Roadmap e Cronograma - PHYLLOS DPP Integrado
 
-**Data:** 2026-07-02
-**Status:** plano executivo v0.3 - atualizado para o sistema operacional de agentes 2.0
+**Data:** 2026-07-14
+**Status:** plano executivo v0.4 - atualizado para o sistema operacional de agentes 3.0
 **Premissa:** toda a tecnologia deve ser desenvolvida internamente com apoio de Codex, Claude e agentes PHYLLOS.
 **Produto:** DPP middleware para moda - importacao/input tecnico, calculo por peca, evidencia, QR e passaporte público.
 **Versao atual do prototipo:** `phyllos/dpp-studio.html`, hash `560add24d6e31860fee858805644270b31e030b0a5d0d5ab273d21d52194b8c2`, conforme `produto/decisoes/dpp-studio-versao-canonica-2026-06-25.md`.
@@ -49,20 +49,22 @@ Motivo: a PHYLLOS consegue desenvolver internamente a primeira versao com Codex/
 - Integracao nativa com todos os softwares de modelagem.
 - Edicao de molde ou desenho.
 
-## 3. Liderancas e responsabilidades
+## 3. Departamentos, agentes e responsabilidades
 
-| Lider | Responsabilidade no roadmap | Entregavel principal |
+| Departamento / owner | Responsabilidade no roadmap | Entregavel principal |
 |---|---|---|
 | Founder humano | Direção, prioridades, investimento e go/no-go | decisões e limites aprovados |
+| Founder humano / Product & Data | Problema, resultado, funcionalidades, métricas, prioridades e critérios de aceite | PRD do DPP Integrado e decisões de produto |
+| Founder humano / Product Design | UX, UI, jornadas, estados e design QA | protótipo e especificação de experiência |
 | Execution Orchestrator | Decomposição, owners, dependências e acompanhamento | Execution Brief e cadência semanal |
-| Product Director | Problema, resultado, funcionalidades e critérios de aceite | PRD do DPP Integrado |
-| Product Design Lead | UX, UI, jornadas, estados e design QA | protótipo e especificação de experiência |
-| Software Engineering Lead | arquitetura, plano técnico, qualidade e release | ADRs e backlog técnico integrado |
-| Data Platform Lead | contrato de dados, schema, eventos e métricas | data contract e data dictionary |
-| Operations Lead | operação do SaaS, SLAs, filas, runbooks e incidentes | service blueprint e readiness operacional |
-| Marketing Director | GTM, ICP, canais, campanhas e demanda | plano de marketing e pipeline |
-| QA & Release Agent | testes, acessibilidade, regressão e gate de release | plano de QA e evidências de publicação |
-| CFO | realizado, comprometido, forecast, premissas e unit economics | controles, orçamento e gatilhos financeiros |
+| Tech Lead Full-stack & Data | arquitetura, plano técnico, qualidade, dados e release | ADRs, contrato técnico e backlog integrado |
+| Backend & Data Engineer | APIs, schema, cálculos, validações, trilha de auditoria e pipelines | API, migrations, data contract e data dictionary |
+| Frontend & Integrations Engineer | telas, integrações, portal público, QR e estados de evidência | experiência implementada e integrada |
+| DevOps & Security Agent | ambientes, CI/CD, observabilidade, backup, permissões e incidentes | runbook, deploy controlado e evidências de ambiente |
+| Regulatory Specialist + Regulatory Analyst | fontes, interpretação, critérios de evidência e risco de claims | matriz regulatória e critérios por campo |
+| Sales & Partnerships | ICP, contas, parcerias, demanda, pipeline e posicionamento B2B | plano comercial, pipeline e objeções |
+| Implementation & Customer Success | piloto, onboarding, adoção, suporte, feedback e readiness operacional | plano de implementação e health score |
+| Finance & Administration | realizado, comprometido, forecast, premissas, runway e unit economics | controles, orçamento e gatilhos financeiros |
 
 O founder humano decide. O Execution Orchestrator organiza e acompanha a execução, sem substituir essa autoridade.
 
@@ -117,12 +119,13 @@ Entregas:
 Responsaveis:
 
 - Execution Orchestrator.
-- Product Director.
-- Product Design Lead.
-- Software Engineering Lead.
-- Data Platform Lead.
-- Marketing Director.
-- CFO.
+- Founder humano / Product & Data.
+- Founder humano / Product Design.
+- Tech Lead Full-stack & Data.
+- Backend & Data Engineer.
+- Regulatory Specialist.
+- Sales & Partnerships Lead.
+- Finance & Administration.
 
 Critério de aceite:
 
@@ -146,10 +149,11 @@ Entregas:
 
 Responsaveis:
 
-- Product Design Lead.
-- Data Platform Lead.
-- Certification Agent.
-- QA & Release Agent.
+- Founder humano / Product Design.
+- Tech Lead Full-stack & Data.
+- Backend & Data Engineer.
+- Regulatory Specialist.
+- Frontend & Integrations Engineer.
 
 Uso de Codex/Claude:
 
@@ -178,11 +182,10 @@ Entregas:
 
 Responsaveis:
 
-- Software Engineering Lead.
-- Backend Engineer.
-- Data Platform Lead e Data Engineer.
-- Integration Engineer.
-- QA & Release Agent.
+- Tech Lead Full-stack & Data.
+- Backend & Data Engineer.
+- Frontend & Integrations Engineer.
+- DevOps & Security Agent.
 
 Uso de Codex/Claude:
 
@@ -212,12 +215,11 @@ Entregas:
 
 Responsaveis:
 
-- Product Design Lead.
-- Frontend Engineer.
-- Backend Engineer.
-- Integration Engineer.
-- Data Platform Lead.
-- QA & Release Agent.
+- Founder humano / Product Design.
+- Tech Lead Full-stack & Data.
+- Frontend & Integrations Engineer.
+- Backend & Data Engineer.
+- DevOps & Security Agent.
 
 Critério de aceite:
 
@@ -242,12 +244,13 @@ Entregas:
 
 Responsaveis:
 
-- Product Director.
-- Customer Insights Agent.
-- Customer Success & Onboarding Agent.
-- Operations Lead.
-- Marketing Director e Sales Agent.
-- QA & Release Agent.
+- Founder humano / Product & Data.
+- Sales & Partnerships Lead.
+- Account Executive & Partnerships.
+- Implementation & Customer Success Lead.
+- Implementation & Customer Success Analyst.
+- Regulatory Specialist.
+- Tech Lead Full-stack & Data.
 - Execution Orchestrator, que leva o go/no-go ao founder.
 
 Critério de aceite:
@@ -277,13 +280,14 @@ Entregas:
 
 Responsaveis:
 
-- Software Engineering Lead.
-- Product Design Lead.
-- Data Platform Lead.
+- Tech Lead Full-stack & Data.
+- Founder humano / Product Design.
+- Backend & Data Engineer.
+- Frontend & Integrations Engineer.
 - DevOps & Security Agent.
-- Customer Success & Onboarding Agent.
-- QA & Release Agent.
-- CFO.
+- Implementation & Customer Success Lead.
+- Implementation & Customer Success Analyst.
+- Finance & Administration.
 
 Critério de aceite:
 
@@ -306,11 +310,10 @@ Entregas:
 
 Responsaveis:
 
-- Software Engineering Lead.
-- Integration Engineer.
-- Backend Engineer.
-- Data Platform Lead e Data Engineer.
-- QA & Release Agent.
+- Tech Lead Full-stack & Data.
+- Backend & Data Engineer.
+- Frontend & Integrations Engineer.
+- DevOps & Security Agent.
 
 Critério de aceite:
 
