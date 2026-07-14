@@ -1,49 +1,59 @@
 # Skill: Content Voice Review
 
-Use esta skill para revisar qualquer texto da marca antes de publicação — post, caption, e-mail, press release, copy de anúncio, texto de site, embalagem, tag de produto.
+Use esta skill para revisar qualquer texto da PHYLLOS antes de publicação ou envio externo: site, proposta, demo, passaporte digital, e-mail, apresentação, press release, material comercial, onboarding ou comunicação com cliente.
 
-**Quem usa:** brand-voice-agent, communication-lead, content-creator, brand-director
+**Quem usa:** sales-partnerships-lead, account-executive-partnerships, regulatory-specialist, implementation-cs-lead, frontend-integrations-engineer, execution-orchestrator
 
 ---
 
-## Tom de voz Phyllos — o que é e o que não é
+## Tom de voz PHYLLOS
+
+A PHYLLOS deve soar como infraestrutura de evidência: clara, precisa, verificável e útil para decisão. A linguagem deve ensinar o leitor a distinguir dado, promessa, prova, limitação e responsabilidade.
 
 ### Aprovado
-- Frases curtas e densas
-- Dados e especificações no lugar de adjetivos genéricos
-- Quebra de linha como instrumento de ritmo
-- Perguntas que abrem reflexão real
-- Honestidade sobre limitações
-- Voz de editora que informa, não de vendedora que convence
+- Frases claras e específicas.
+- Dados, fontes e níveis de evidência no lugar de adjetivos genéricos.
+- Separação explícita entre fato, estimativa, hipótese e recomendação.
+- Honestidade sobre limitações, lacunas e escopo.
+- Linguagem B2B direta, sem exagero promocional.
+- Claims qualificados por fonte, data, método e fronteira.
+- Texto que ajuda marca, buyer ou parceiro a tomar decisão informada.
 
 ### Reprovado
-- "Incrível", "perfeito", "revolucionário", "transformador"
-- "Você vai amar!" / "Não perca!"
-- Urgência artificial ("Corre!", "Só hoje!", "Últimas unidades!")
-- Hashtags em excesso (máximo 5, só relevantes)
-- Emojis decorativos (0–2 por post, nunca para substituir palavras)
-- Clichê de sustentabilidade ("planeta mais verde", "juntos somos mais fortes")
-- Participação em meme, trend ou challenge
-- Greenwashing de qualquer tipo
+- "Incrível", "perfeito", "revolucionário", "transformador".
+- Urgência artificial ou pressão comercial sem base.
+- Promessa de conformidade sem validação jurídica.
+- Claim ambiental sem evidência.
+- Linguagem vaga como "sustentável", "eco", "verde" ou "consciente" sem prova.
+- Dizer que algo está publicado, certificado, integrado ou automatizado sem evidência.
+- Omitir limitação relevante para deixar a comunicação mais bonita.
 
 ## Verificações por canal
 
 | Canal | Verifique também |
-|-------|-----------------|
-| Instagram | Tom adequado ao pilar (performance / consciência / presença)? Hashtags relevantes? CTA preciso? |
-| LinkedIn | Linguagem profissional sem ser corporativa? Dado ou insight real? |
-| E-mail | Assunto sem clickbait? Preview text coerente? |
-| Site / produto | Claim técnico tem evidência? Instrução de cuidado completa? |
-| Press release | Fatos verificáveis? Citações reais? |
+|---|---|
+| Passaporte digital | Campo, fonte, nível de evidência, limitação e responsabilidade estão claros? |
+| Proposta comercial | Preço, prazo, escopo, integração e obrigação estão dentro do aprovado? |
+| Site público | O texto não promete produto, mercado ou conformidade além do disponível? |
+| Demo | O que é real, protótipo, manual ou futuro está rotulado? |
+| E-mail | Assunto e CTA são precisos, sem clickbait? |
+| Press release | Fatos, citações, números e claims podem ser verificados? |
 
 ## Formato de saída
 
-```
+```text
 Status: aprovado / aprovado com ajustes / reprovado
 
 Trechos problemáticos:
-- [trecho original] → problema: [descrição] → sugestão: [versão corrigida]
+- [trecho original] -> problema: [descrição] -> sugestão: [versão corrigida]
+
+Claims que exigem validação:
+- [claim] -> skill/agente responsável
 
 Versão final revisada:
 [texto completo após ajustes]
 ```
+
+## Regra final
+
+Comunicação da PHYLLOS não deve parecer maior que a evidência. Se a prova ainda não existe, o texto deve dizer isso ou ficar em silêncio.

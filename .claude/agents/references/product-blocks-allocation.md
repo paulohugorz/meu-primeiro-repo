@@ -1,90 +1,92 @@
 ---
 name: product-blocks-allocation
-description: Alocação dos agentes PHYLLOS por bloco de produto, com funções contínuas e entregáveis ativados por fase.
+description: Alocação dos agentes PHYLLOS por bloco de produto, com founder/product/data e product design mantidos como funções humanas.
 metadata:
   type: project
-  version: 2.0.0
-  last_reviewed: 2026-07-02
+  version: 3.0.0
+  last_reviewed: 2026-07-14
 ---
 
-# PHYLLOS — Blocos de produto e alocação operacional
+# PHYLLOS - Blocos de produto e alocação operacional
 
 ## Princípio
 
-Agente contínuo não significa trabalho artificial. Significa manter uma rotina mínima de observação, controle ou preparação. Agentes executores são acionados por entregável, mas nunca ficam desconectados do fluxo principal.
+Agente contínuo não significa trabalho artificial. Significa manter uma rotina mínima de observação, controle ou preparação. Como founder/product/data e product design são funções humanas, os agentes devem preparar insumos e evidências para essas decisões, não substituí-las.
 
-## Funções contínuas em todos os blocos
+## Funções contínuas
 
 | Agente | Rotina mínima permanente |
 |---|---|
 | `execution-orchestrator` | Plano, owners, dependências, status, riscos e decisões pendentes |
-| `innovation-intelligence-lead` | Alertas materiais, resumo semanal e radar mensal |
-| `cfo` | Caixa semanal, premissas, forecast e desvios |
-| `product-director` | Resultado de produto, backlog e critérios de aceite |
-| `data-platform-lead` | Contratos de dados, eventos e qualidade por funcionalidade |
-| `operations-lead` | Readiness operacional, runbooks, filas e incidentes |
-| `marketing-director` | ICP, mensagem, canais, calendário e pipeline de demanda |
-| `ai-automation-lead` | Memória, automações e integridade do sistema de agentes |
+| `tech-lead-fullstack-data` | Arquitetura, padrões, critérios técnicos, dívida e coordenação de engenharia |
+| `regulatory-specialist` | Critérios de evidência, risco de claims e atualizações regulatórias relevantes |
+| `sales-partnerships-lead` | ICP, pipeline, forecast, parcerias e objeções estratégicas |
+| `implementation-cs-lead` | Readiness de cliente, adoção, riscos, health score e feedback operacional |
+| `finance-administration` | Caixa, orçamento, compromissos, runway, custos e métricas SaaS |
 
-## B0 — Fundação
+## B0 - Fundação
 
-**Resultado:** saber o que construir, para quem, com qual evidência e dentro de qual limite financeiro.
+**Resultado:** saber o que construir, para quem, com qual evidência, dentro de qual limite financeiro e operacional.
 
 | Frente | Entregáveis |
 |---|---|
+| Direção humana | Problema, prioridade, produto, dados estratégicos, design e go/no-go |
 | Execução | Execution Brief, mapa de dependências e sequência validada |
-| Produto | ICP, PRD, jornada assistida e critérios de aceite Tier 1 |
-| Design | Fluxo navegável e estados de erro, evidência e publicação |
-| Engenharia | arquitetura, ADRs, contrato de API e backlog técnico |
-| Dados | schema, dicionário, migrations iniciais e catálogo de eventos |
-| Operações | runbook do piloto, filas, responsabilidades e plano de incidente |
-| Marketing | posicionamento inicial, lista de contas e plano de recrutamento do piloto |
+| Regulação | fontes oficiais, matriz preliminar de obrigações e critérios de evidência |
+| Engenharia | arquitetura, ADRs, contrato de API, schema e plano de teste |
+| Implementação | plano piloto, critérios de sucesso, riscos de onboarding e suporte |
+| Comercial | ICP, lista inicial de contas, objeções esperadas e playbook preliminar |
 | Finanças | orçamento, caixa, premissas e limites do piloto |
 
-**Gate B0 → B1:** direção aprovada pelo founder; PRD, UX, API, dados, teste, operação, aquisição e orçamento possuem owner e critério de aceite.
+**Gate B0 -> B1:** direção aprovada pelo founder humano; regulação, engenharia, implantação, comercial e finanças possuem owner, evidência esperada e critério de aceite.
 
-## B1 — Passaporte mínimo
+## B1 - Passaporte mínimo
 
 **Resultado:** uma marca publica, o buyer lê, o QR funciona e cada campo mostra seu nível de evidência.
 
-Agentes de execução principais: `backend-engineer`, `frontend-engineer`, `integration-engineer`, `data-engineer`, `qa-release-agent`, `devops-security-agent`, `customer-success-onboarding-agent`.
+Agentes principais:
 
-Agentes de descoberta e mercado: `customer-insights-agent`, `product-marketing-brand-agent`, `content-seo-agent`, `demand-generation-agent`, `sales-agent`.
+- `backend-data-engineer`: APIs, dados, cálculos, validações e trilha de auditoria.
+- `frontend-integrations-engineer`: fluxo de coleta, dashboard, portal público e estados de evidência.
+- `regulatory-analyst`: pesquisa de fontes e atualização de cronogramas.
+- `regulatory-specialist`: critérios de evidência e bloqueio de claims frágeis.
+- `implementation-cs-analyst`: checklist, treinamento, coleta de dados e registros de cliente.
+- `devops-security-agent`: ambiente, observabilidade, backup, permissões e segurança.
 
-**Gate B1 → B2:** fluxo completo validado em ambiente publicado; documentação, tracking e runbook atualizados; uso real e objeções registrados.
+**Gate B1 -> B2:** fluxo completo validado em ambiente publicado; documentação, tracking, runbook, critérios de evidência e uso real registrados.
 
-## B2 — Auto-serviço e cobrança
+## B2 - Auto-serviço e cobrança
 
-**Resultado:** a marca cadastra, publica e paga sem depender do founder.
+**Resultado:** a marca cadastra, publica e paga com menos dependência do founder humano.
 
 Entregáveis adicionais:
 
 - autenticação, organização e permissões;
 - cadastro multi-SKU;
-- pagamento e recibo;
+- pagamento, recibo e controle administrativo;
 - CRM de ativação;
-- funil aquisição → cadastro → publicação → pagamento;
+- funil aquisição -> cadastro -> publicação -> pagamento;
 - suporte, alertas e operação de incidentes;
 - forecast e unit economics atualizados com dados reais.
 
-**Gate B2 → B3:** receita real, onboarding mensurado, CAC e custo de servir conhecidos, regressão aprovada e suporte operável.
+**Gate B2 -> B3:** receita real, onboarding mensurado, CAC e custo de servir conhecidos, regressão aprovada e suporte operável.
 
-## B3 — Retenção
+## B3 - Retenção
 
 **Resultado:** histórico, renovação, uso recorrente e gestão de compliance sustentam assinatura.
 
 Entregáveis adicionais:
 
-- histórico imutável e alertas de vencimento;
+- histórico versionado e alertas de vencimento;
 - dashboard por marca;
-- lifecycle CRM e customer success;
-- análises de cohort, churn e LTV;
+- rotinas de sucesso, suporte e business review;
+- análises de cohort, churn e LTV quando houver dados suficientes;
 - conteúdo e cases baseados em evidência;
-- upsell e expansão de contas.
+- expansão de contas dentro de escopo aprovado.
 
-**Gate B3 → B4:** retenção e margem comprovadas; segurança, dados e operação preparados para contratos maiores.
+**Gate B3 -> B4:** retenção e margem comprovadas; segurança, dados e operação preparados para contratos maiores.
 
-## B4 — Plataforma
+## B4 - Plataforma
 
 **Resultado:** API B2B, integrações e contratos enterprise.
 
@@ -93,9 +95,9 @@ Entregáveis adicionais:
 - API pública versionada e documentação para developers;
 - conectores priorizados por demanda comprovada;
 - observabilidade, SLA e segurança contratual;
-- data residency e governança compatíveis com mercados atendidos;
+- governança de dados compatível com mercados atendidos;
 - parcerias estratégicas e vendas enterprise;
-- tese de captação somente se ativada pelo founder.
+- tese de captação somente se ativada pelo founder humano.
 
 ## Regra de status
 

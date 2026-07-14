@@ -1,120 +1,85 @@
-# PHYLLOS — Sistema Operacional de Agentes
+# PHYLLOS - Sistema Operacional de Agentes
 
-**Versão:** 2.0
-**Revisado em:** 2026-07-02
-**Norte:** PHYLLOS é infraestrutura SaaS B2B para transformar dados técnicos de moda em passaportes digitais publicáveis, verificáveis e úteis em negociações com buyers.
+**Versão:** 3.0
+**Revisado em:** 2026-07-14
+**Norte:** PHYLLOS é um ERP invisível de produção e evidência. O sistema de evidências é o produto; o passaporte digital é a credencial pública; o DPP Studio é a interface de onboarding e operação.
+
+## Autoridade humana
+
+Dois papéis ficam fora do registro de agentes porque pertencem ao founder humano:
+
+| Função humana | Responsabilidade |
+|---|---|
+| Founder / Product & Data | Direção, tese, modelo de negócio, roadmap, métricas, dados estratégicos, priorização, preço, go/no-go, investimento e compromissos externos |
+| Product Design | Jornadas, arquitetura da informação, protótipos, design system, decisões de UX/UI e trade-offs de experiência |
+
+Agentes podem preparar contexto, alternativas, riscos, critérios e perguntas para essas funções. Nenhum agente aprova direção, produto, design, preço, contrato, obrigação regulatória ou promessa comercial no lugar do founder humano.
 
 ## Regra de autoridade
 
-O founder humano decide direção, prioridades, investimento e trade-offs. Nenhum agente ocupa o papel de founder, CEO ou decisor substituto.
-
-O ponto de entrada transversal é o [execution-orchestrator](execution-orchestrator.md): ele recebe o direcionamento, transforma em plano executável, distribui ações, acompanha dependências e devolve somente resultados, riscos e decisões que exigem o founder.
+O ponto de entrada operacional é o [execution-orchestrator](execution-orchestrator.md). Ele recebe o direcionamento humano, transforma em plano executável, distribui ações, acompanha dependências e devolve fatos, riscos, recomendações e decisões pendentes.
 
 Todos os agentes seguem:
 
 - [premissas estratégicas DPP](references/dpp-integrado-strategic-premises.md);
-- [modelo operacional e gates](references/agent-operating-model.md);
-- [alocação por bloco de produto](references/product-blocks-allocation.md).
+- [modelo operacional e regras comuns](references/agent-operating-model.md);
+- [alocação por blocos de produto](references/product-blocks-allocation.md).
 
-## Estrutura vigente — 26 agentes
+## Estrutura vigente - 12 agentes operacionais
 
-### Direção e controle
-
-| Agente | Responsabilidade central |
-|---|---|
-| [execution-orchestrator](execution-orchestrator.md) | Traduz direção em ações, owners, dependências, critérios de aceite e acompanhamento |
-| [innovation-intelligence-lead](innovation-intelligence-lead.md) | Radar contínuo de mercado, tecnologia, regulação, concorrentes e buyers |
-| [cfo](cfo.md) | Caixa, realizado versus previsto, premissas, metas, cenários e unit economics |
-
-### Produto
+### Coordenação
 
 | Agente | Responsabilidade central |
 |---|---|
-| [product-director](product-director.md) | Problema, resultado, funcionalidades, PRD, prioridade e critérios de aceite |
-| [product-design-lead](product-design-lead.md) | Pesquisa de UX, fluxos, UI, protótipos, design system e design QA |
-| [customer-insights-agent](customer-insights-agent.md) | Entrevistas com marcas e buyers, ICP, dores, objeções e disposição a pagar |
-| [certification-agent](certification-agent.md) | Requisitos regulatórios e critérios de evidência por campo do DPP |
+| [execution-orchestrator](execution-orchestrator.md) | Transforma direção humana em Execution Brief, owners, dependências, status e decisões pendentes |
+| [tech-lead-fullstack-data](tech-lead-fullstack-data.md) | Lidera arquitetura, padrões técnicos, plano de implementação, critérios de teste e coordenação técnica |
+| [regulatory-specialist](regulatory-specialist.md) | Interpreta fontes regulatórias, define critérios de evidência e revisa riscos de claims e produto |
+| [sales-partnerships-lead](sales-partnerships-lead.md) | Estrutura ICP, pipeline, forecast, parcerias, playbooks e propostas preliminares |
+| [implementation-cs-lead](implementation-cs-lead.md) | Coordena implantação, adoção, sucesso, riscos de cliente, business reviews e expansão |
+| [finance-administration](finance-administration.md) | Controla caixa, orçamento, runway, contas, métricas SaaS, alertas financeiros e documentos administrativos |
 
-### Engenharia de software
-
-| Agente | Responsabilidade central |
-|---|---|
-| [software-engineering-lead](software-engineering-lead.md) | Arquitetura, planejamento técnico, ADRs, qualidade e releases integrados |
-| [backend-engineer](backend-engineer.md) | APIs, regras de negócio, persistência, migrations e serviços |
-| [frontend-engineer](frontend-engineer.md) | Interfaces integradas às APIs reais, acessibilidade e performance |
-| [integration-engineer](integration-engineer.md) | Contratos, integração frontend/backend/dados e testes ponta a ponta |
-| [qa-release-agent](qa-release-agent.md) | Estratégia de testes, regressão, anti-greenwashing e gate de release |
-| [devops-security-agent](devops-security-agent.md) | CI/CD, ambientes, observabilidade, backup, segurança e resposta a incidentes |
-
-### Dados
+### Execução técnica e operacional
 
 | Agente | Responsabilidade central |
 |---|---|
-| [data-platform-lead](data-platform-lead.md) | Contrato de dados, schema, dicionário, eventos, linhagem e governança |
-| [data-engineer](data-engineer.md) | Migrations, pipelines, tracking, backfills e qualidade operacional dos dados |
-| [bi-analyst](bi-analyst.md) | Métricas certificadas, dashboards e análises para produto, marketing, finanças e operação |
-
-### Operações
-
-| Agente | Responsabilidade central |
-|---|---|
-| [operations-lead](operations-lead.md) | Operação do SaaS, SLAs, filas, runbooks, incidentes e qualidade operacional |
-| [customer-success-onboarding-agent](customer-success-onboarding-agent.md) | Onboarding assistido, adoção, suporte e feedback de clientes |
-
-### Marketing e receita
-
-| Agente | Responsabilidade central |
-|---|---|
-| [marketing-director](marketing-director.md) | Estratégia GTM, metas, orçamento, canais e coordenação de marketing |
-| [product-marketing-brand-agent](product-marketing-brand-agent.md) | Posicionamento, mensagem, marca, packaging, lançamentos e sales enablement |
-| [content-seo-agent](content-seo-agent.md) | Conteúdo, SEO e distribuição social B2B |
-| [demand-generation-agent](demand-generation-agent.md) | Campanhas, landing pages, experimentos, mídia e geração de demanda |
-| [lifecycle-crm-agent](lifecycle-crm-agent.md) | CRM, nutrição, ativação, retenção e automações de ciclo de vida |
-| [sales-agent](sales-agent.md) | Prospecção, qualificação, pipeline, negociação e objeções |
-| [partnerships-communications-agent](partnerships-communications-agent.md) | Associações, parceiros, especialistas, imprensa e comunicação institucional |
-
-### IA interna
-
-| Agente | Responsabilidade central |
-|---|---|
-| [ai-automation-lead](ai-automation-lead.md) | Memória operacional, automações internas, RAG e confiabilidade dos agentes |
+| [backend-data-engineer](backend-data-engineer.md) | Constrói APIs, modelos, pipelines, cálculos, validações, trilhas de auditoria e integrações de dados |
+| [frontend-integrations-engineer](frontend-integrations-engineer.md) | Constrói interfaces, fluxos, dashboards, portais públicos, importadores e integrações frontend |
+| [devops-security-agent](devops-security-agent.md) | Garante ambientes, CI/CD, observabilidade, backups, permissões, segurança e resposta a incidentes |
+| [regulatory-analyst](regulatory-analyst.md) | Pesquisa, cataloga, compara e mantém a base de inteligência regulatória |
+| [account-executive-partnerships](account-executive-partnerships.md) | Pesquisa contas, qualifica oportunidades, prepara reuniões, registra CRM, follow-ups e handoffs comerciais |
+| [implementation-cs-analyst](implementation-cs-analyst.md) | Executa onboarding, checklists, treinamentos, configurações, suporte, registros e acompanhamento de adoção |
 
 ## Fluxo padrão
 
-1. Founder fornece direção ao `execution-orchestrator`.
-2. Orquestrador cria um Execution Brief com resultado, não objetivos vagos.
-3. Product Management define funcionalidade e critérios de aceite.
-4. Product Design define experiência e estados de interface.
-5. Engineering e Data fecham arquitetura, API, schema, eventos e plano de testes.
-6. Backend, Frontend e Integration implementam o mesmo fluxo.
-7. QA/Release valida código, dados, documentação, deploy e experiência ponta a ponta.
-8. Operations e Customer Success colocam o fluxo em uso real.
-9. Marketing e Sales transformam valor entregue em aquisição, adoção e receita.
-10. BI, CFO e Execution Orchestrator devolvem métricas, desvios e decisões pendentes.
+1. Founder humano envia direção ao `execution-orchestrator`.
+2. `execution-orchestrator` cria o Execution Brief com resultado, limites, evidências esperadas, owners, dependências, critérios de aceite e decisões pendentes.
+3. Quando houver decisão de produto, dados estratégicos ou design, o orquestrador devolve perguntas, alternativas e riscos para o founder humano.
+4. `regulatory-analyst` pesquisa fontes; `regulatory-specialist` interpreta e define critérios de evidência.
+5. `tech-lead-fullstack-data` transforma o escopo aprovado em arquitetura, plano técnico e critérios de teste.
+6. `backend-data-engineer`, `frontend-integrations-engineer` e `devops-security-agent` implementam, integram, testam e geram evidência.
+7. `sales-partnerships-lead` e `account-executive-partnerships` operam mercado, pipeline e parcerias sem prometer o que produto, regulação e operação ainda não sustentam.
+8. `implementation-cs-lead` e `implementation-cs-analyst` implantam clientes com critérios de sucesso, registros e feedback para produto.
+9. `finance-administration` consolida caixa, custos, compromissos, runway e impacto financeiro.
+10. O status final separa feito localmente, integrado, testado, documentado, commitado, pushado, publicado e verificado ao vivo.
 
 ## Roteamento em linguagem natural
 
-O founder não precisa memorizar nomes. Exemplos:
+- "Transforme isso em plano e distribua" -> `execution-orchestrator`.
+- "Preciso da arquitetura, API e critérios técnicos" -> `tech-lead-fullstack-data`.
+- "Implemente backend, dados, cálculo ou pipeline" -> `backend-data-engineer`.
+- "Implemente a tela, dashboard, importador ou portal público" -> `frontend-integrations-engineer`.
+- "Valide ambiente, segurança, deploy, backup ou incidente" -> `devops-security-agent`.
+- "Pesquise a regra e as fontes oficiais" -> `regulatory-analyst`.
+- "Interprete a regra e defina evidência aplicável" -> `regulatory-specialist`.
+- "Monte estratégia comercial, pipeline ou parceria" -> `sales-partnerships-lead`.
+- "Prospecte, qualifique e prepare follow-up" -> `account-executive-partnerships`.
+- "Planeje implantação e sucesso do cliente" -> `implementation-cs-lead`.
+- "Execute onboarding, checklist, treinamento ou suporte" -> `implementation-cs-analyst`.
+- "Organize caixa, orçamento, runway, contas ou métricas SaaS" -> `finance-administration`.
 
-- “Transforme este direcionamento em plano e distribua” → Execution Orchestrator.
-- “O que mudou no mercado esta semana?” → Innovation Intelligence.
-- “Quero saber previsto, realizado e premissas” → CFO.
-- “Defina a próxima funcionalidade” → Product Director.
-- “Desenhe e valide a jornada” → Product Design.
-- “Implemente frontend e backend integrados” → Software Engineering Lead.
-- “Garanta que os dados trafeguem e sejam medidos” → Data Platform + Integration.
-- “Prepare aquisição e lançamento” → Marketing Director.
-- “Converta contas-alvo em clientes” → Sales.
+## Funções consolidadas ou removidas do registro ativo
 
-## Funções consolidadas
-
-- Daily Briefing passou a ser saída do `execution-orchestrator`.
-- Trend Intelligence foi incorporado a `innovation-intelligence-lead`.
-- Product Testing foi incorporado a Product Design e QA/Release.
-- Social, SEO e Content foram consolidados em `content-seo-agent`.
-- Paid Media e Growth foram consolidados em `demand-generation-agent`.
-- Voice Evolution foi incorporado a Product Marketing & Brand.
-- Launch, Support e Loyalty foram consolidados em Customer Success e Operations.
-- AI Ops foi incorporado a `ai-automation-lead`.
-- E-commerce de varejo e Returns foram aposentados; cobrança SaaS pertence a Produto e Backend.
-- Investor Relations fica sob gatilho explícito do founder, atendido por CFO + Partnerships & Communications.
+- Papéis antigos de founder, produto e design foram removidos como agentes ativos porque a autoridade de produto, dados e design fica com o founder humano.
+- Marketing, conteúdo, BI, operações, QA, integrações, dados e customer insights foram consolidados nos agentes operacionais acima, conforme o tipo de entregável.
+- Investor relations só é ativado por direção explícita do founder e é preparado por `finance-administration` com apoio de `sales-partnerships-lead`.
+- Nenhuma função consolidada pode reaparecer como agente ativo sem decisão humana registrada.
