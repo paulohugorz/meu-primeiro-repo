@@ -1,135 +1,46 @@
-let protocol = null;
-let session = null;
-let stepIndex = 0;
-const $ = (id) => document.getElementById(id);
-const escapeHtml = (value) => String(value)
-  .replaceAll("&", "&amp;")
-  .replaceAll("<", "&lt;")
-  .replaceAll(">", "&gt;")
-  .replaceAll('"', "&quot;")
-  .replaceAll("'", "&#039;");
+const $ = id => document.getElementById(id);
+const allowedStates = new Set(["idle","sample_loading","sample_invalid","sample_ready","session_creating","capture_in_progress","capture_incomplete","capture_ready","session_confirming","session_confirmed","recognition_starting","recognition_running","recognition_completed","recognition_abstained","recognition_failed","session_superseded"]);
+const app = {state:"idle", protocol:null, mapping:null, session:null, result:null, run:null, files:new Map(), previews:new Map(), startedAt:null};
+const qualityLabels = [
+  ["correct_view","A imagem corresponde à vista solicitada"],
+  ["sample_visible","O tecido está suficientemente visível"],
+  ["focus_ok","O foco permite observar a estrutura necessária"],
+  ["lighting_ok","A iluminação é adequada"],
+  ["no_obstruction","Não existem obstruções relevantes"],
+  ["not_edited","A imagem não foi editada para alterar a amostra"]
+];
 
-async function api(path, options = {}) {
-  const response = await fetch(path, {
-    headers: {"Content-Type": "application/json"},
-    ...options
-  });
-  const body = await response.json();
-  if (!response.ok) throw new Error(body.error || "Erro");
-  return body;
-}
+function transition(next){if(!allowedStates.has(next))throw new Error(`Estado inválido: ${next}`);app.state=next;document.body.dataset.state=next}
+function esc(value){return String(value??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;")}
+function fmtBytes(bytes){if(!bytes)return"0 B";const units=["B","KB","MB","GB"];const i=Math.min(Math.floor(Math.log(bytes)/Math.log(1024)),3);return`${(bytes/1024**i).toFixed(i?1:0)} ${units[i]}`}
+function showNotice(message,type="error"){const box=$("notice");box.textContent=message;box.className=`notice ${type}`;box.scrollIntoView({behavior:"smooth",block:"center"})}
+function hideNotice(){$("notice").className="notice hidden"}
+async function api(path,options={}){const response=await fetch(path,{headers:{"Content-Type":"application/json"},...options});let body;try{body=await response.json()}catch{throw new Error("A API retornou uma resposta incompatível.")}if(!response.ok)throw new Error(body.error||`Erro HTTP ${response.status}`);return body}
+async function fileToBase64(file){const bytes=new Uint8Array(await file.arrayBuffer());let binary="";for(let i=0;i<bytes.length;i+=0x8000)binary+=String.fromCharCode(...bytes.subarray(i,i+0x8000));return btoa(binary)}
+async function inspectImage(file){if(!file||file.size===0)throw new Error("O arquivo está vazio.");if(!app.protocol.allowed_mime_types.includes(file.type))throw new Error("Formato não aceito. Envie uma imagem JPEG, PNG ou WebP.");if(file.size>app.protocol.max_file_bytes)throw new Error("O arquivo excede o limite definido pelo serviço.");const url=URL.createObjectURL(file);try{const image=new Image();await new Promise((resolve,reject)=>{image.onload=resolve;image.onerror=()=>reject(new Error("Não foi possível decodificar esta imagem. Selecione outro arquivo."));image.src=url});return{width:image.naturalWidth,height:image.naturalHeight,url}}catch(error){URL.revokeObjectURL(url);throw error}}
 
-async function fileToBase64(file) {
-  const buffer = await file.arrayBuffer();
-  const bytes = new Uint8Array(buffer);
-  let binary = "";
-  const chunk = 0x8000;
-  for (let i = 0; i < bytes.length; i += chunk) {
-    binary += String.fromCharCode(...bytes.subarray(i, i + chunk));
-  }
-  return btoa(binary);
-}
+function showScreen(id){document.querySelectorAll(".screen").forEach(el=>el.classList.toggle("active",el.id===id));document.querySelectorAll(".stepper button").forEach(btn=>{btn.classList.toggle("active",btn.dataset.screen===id);const order=["setup","capture","review","processing","result"];btn.disabled=order.indexOf(btn.dataset.screen)>order.indexOf(id)});hideNotice();window.scrollTo({top:0,behavior:"smooth"})}
+function renderIdentity(){const m=app.mapping;if(!m)return;$("identityPanel").innerHTML=`<div class="identity-grid"><div><small>ID operacional</small><code>${esc(m.ops_id)}</code></div><div><small>ID do serviço</small><code>${esc(m.service_sample_id)}</code></div><div><small>Nó têxtil</small><code>${esc(m.textile_sample_node_id)}</code></div></div><div class="identity-status"><span class="pill">${esc(m.operations_status)}</span><span class="safe-chip">capture_allowed=${esc(m.capture_allowed)}</span></div>`;$("startButton").disabled=!(m.capture_allowed&&$("operatorId").value.trim())}
+async function loadSample(){transition("sample_loading");$("startButton").disabled=true;$("identityPanel").innerHTML='<p class="muted">Consultando o mapeamento persistido…</p>';try{const ref=$("sampleId").value;if(!/^OPS-SYN-00[1-5]$/.test(ref))throw new Error("Esta candidata ainda não possui amostra física recebida e não está autorizada para captura. O ambiente atual aceita apenas fixtures sintéticos em modo shadow.");app.mapping=await api(`/api/resolve-id?sample_ref=${encodeURIComponent(ref)}`);if(app.mapping.record_kind!=="synthetic_fixture"||!app.mapping.capture_allowed)throw new Error("A amostra não está autorizada para captura neste ambiente.");transition("sample_ready");renderIdentity()}catch(error){transition("sample_invalid");app.mapping=null;$("identityPanel").innerHTML=`<p class="status error">${esc(error.message)}</p>`;showNotice(error.message)}}
 
-function renderStep() {
-  const step = protocol.steps[stepIndex];
-  $("progress").value = stepIndex + 1;
-  $("progressText").textContent = `${stepIndex + 1}/${protocol.steps.length}`;
-  $("stepContainer").innerHTML = `
-    <article class="capture-card">
-      <p class="eyebrow">Etapa ${step.sequence}</p>
-      <h3>${step.title}</h3>
-      <p>${step.instruction}</p>
-      <label>Imagem
-        <input id="captureFile" type="file"
-          accept="image/jpeg,image/png,image/webp" capture="environment">
-      </label>
-      <div class="quality">
-        <label><input id="focusOk" type="checkbox"> Foco adequado</label>
-        <label><input id="lightingOk" type="checkbox"> Iluminação adequada</label>
-        <label><input id="fillsFrame" type="checkbox"> Amostra ocupa o quadro</label>
-        <label><input id="noLeak" type="checkbox"> Sem etiqueta ou nome revelador</label>
-      </div>
-      <p class="muted">Os controles começam desmarcados. A confirmação é registrada no nome do operador.</p>
-      <button id="saveCapture">Salvar esta captura</button>
-      <p id="stepStatus" class="status"></p>
-    </article>`;
-  $("saveCapture").onclick = saveCapture;
-}
+async function startSession(){if(!app.mapping||!$("operatorId").value.trim())return;transition("session_creating");$("startButton").disabled=true;try{const payload={sample_ref:app.mapping.ops_id,operator_id:$("operatorId").value.trim(),device_id:navigator.userAgent,metadata:{frontend:"textile-recognition-lab-v0.1",mode:"shadow"}};if(app.supersedes){payload.supersedes_session_id=app.supersedes;payload.supersession_reason="controlled frontend retest"}app.session=await api("/api/sessions",{method:"POST",body:JSON.stringify(payload)});app.supersedes=null;transition("capture_in_progress");renderCaptureGrid();showScreen("capture")}catch(error){transition("sample_ready");renderIdentity();showNotice(`Não foi possível iniciar a sessão. ${error.message}`)}}
+function cardFor(step,index){return`<article class="capture-card" data-shot="${esc(step.shot_type)}"><div class="capture-head"><span class="capture-number">${index+1}</span><div><h3>${esc(step.title)}</h3><span class="technical-name">${esc(step.shot_type)}</span><p>${esc(step.instruction)}</p></div></div><label class="drop-zone" for="file-${esc(step.shot_type)}"><input id="file-${esc(step.shot_type)}" type="file" accept="image/jpeg,image/png,image/webp" capture="environment"><b>Arraste ou selecione uma imagem</b><small> JPEG, PNG ou WebP</small></label><div class="preview hidden"></div><div class="quality">${qualityLabels.map(([key,label])=>`<label><input type="checkbox" data-quality="${key}"> ${esc(label)}</label>`).join("")}</div><div class="card-actions"><button class="upload">Confirmar e enviar</button><button class="remove ghost" disabled>Remover</button></div><p class="status" aria-live="polite">Aguardando imagem.</p></article>`}
+function renderCaptureGrid(){$("captureGrid").innerHTML=app.protocol.steps.map(cardFor).join("");document.querySelectorAll(".capture-card").forEach(card=>{const shot=card.dataset.shot;const input=card.querySelector('input[type="file"]');input.addEventListener("change",()=>selectFile(card,input.files[0]));const zone=card.querySelector(".drop-zone");["dragenter","dragover"].forEach(name=>zone.addEventListener(name,e=>{e.preventDefault();zone.classList.add("drag")}));["dragleave","drop"].forEach(name=>zone.addEventListener(name,e=>{e.preventDefault();zone.classList.remove("drag")}));zone.addEventListener("drop",e=>selectFile(card,e.dataTransfer.files[0]));card.querySelector(".upload").onclick=()=>uploadCard(card);card.querySelector(".remove").onclick=()=>removeFile(shot,card)});updateProgress()}
+async function selectFile(card,file){const status=card.querySelector(".status");try{const old=app.previews.get(card.dataset.shot);if(old)URL.revokeObjectURL(old);const info=await inspectImage(file);app.files.set(card.dataset.shot,{file,...info});app.previews.set(card.dataset.shot,info.url);card.querySelector(".preview").classList.remove("hidden");card.querySelector(".preview").innerHTML=`<img src="${info.url}" alt="Prévia da captura ${esc(card.dataset.shot)}"><div class="file-meta"><b>${esc(file.name)}</b><br>${esc(file.type)} · ${info.width}×${info.height}<br>${fmtBytes(file.size)}</div>`;card.querySelector(".remove").disabled=false;status.textContent="Imagem pronta. Confirme os critérios antes do envio.";status.className="status";updateUsage()}catch(error){status.textContent=error.message;status.className="status error"}}
+async function removeFile(shot,card){try{if(card.dataset.itemId){await api(`/api/sessions/${encodeURIComponent(app.session.session_id)}/captures/${encodeURIComponent(card.dataset.itemId)}`,{method:"DELETE"});await refreshSession()}const url=app.previews.get(shot);if(url)URL.revokeObjectURL(url);app.previews.delete(shot);app.files.delete(shot);card.classList.remove("complete");delete card.dataset.itemId;card.querySelector(".preview").classList.add("hidden");card.querySelector(".preview").innerHTML="";card.querySelectorAll("input,button").forEach(el=>el.disabled=false);card.querySelector('input[type="file"]').value="";card.querySelector(".status").textContent="Aguardando imagem.";card.querySelector(".remove").disabled=true;transition("capture_in_progress");updateProgress()}catch(error){showNotice(`Não foi possível remover a captura. ${error.message}`)}}
+async function uploadCard(card){const shot=card.dataset.shot,status=card.querySelector(".status"),selected=app.files.get(shot);if(!selected){status.textContent="Selecione uma imagem.";status.className="status error";return}const confirmations={};card.querySelectorAll("[data-quality]").forEach(box=>confirmations[box.dataset.quality]=box.checked);if(!Object.values(confirmations).every(Boolean)){status.textContent="Confirme todos os critérios de qualidade antes de enviar.";status.className="status error";return}const quality={focus_ok:confirmations.focus_ok,lighting_ok:confirmations.lighting_ok,sample_fills_frame:confirmations.sample_visible&&confirmations.no_obstruction,no_label_leak:confirmations.correct_view&&confirmations.not_edited};status.textContent="Validando arquivo e registrando Evidence…";try{const item=await api(`/api/sessions/${encodeURIComponent(app.session.session_id)}/captures`,{method:"POST",body:JSON.stringify({shot_type:shot,mime_type:selected.file.type,file_name:selected.file.name,data_base64:await fileToBase64(selected.file),quality_confirmed_by_actor_id:$("operatorId").value.trim(),quality})});if(!item.accepted)throw new Error(`Captura rejeitada: ${item.rejection_reasons.join(", ")}`);card.classList.add("complete");card.dataset.itemId=item.item_id;card.querySelectorAll("input,button").forEach(el=>el.disabled=true);card.querySelector(".remove").disabled=false;status.textContent=`Aceita · Evidence ${item.evidence.evidence_id}`;status.className="status ok";await refreshSession();updateProgress()}catch(error){status.textContent=error.message;status.className="status error"}}
+async function refreshSession(){app.session=await api(`/api/sessions/${encodeURIComponent(app.session.session_id)}`)}
+function updateUsage(){const local=[...app.files.values()].reduce((sum,x)=>sum+x.file.size,0);const persisted=(app.session?.items||[]).reduce((sum,x)=>sum+x.bytes_size,0);$("sessionUsage").textContent=`${fmtBytes(Math.max(local,persisted))} de ${fmtBytes(app.protocol.max_session_bytes)} utilizados nesta sessão`}
+function updateProgress(){const accepted=app.session?.completion?.accepted_shot_types?.length||0;$("progress").value=accepted;$("progressText").textContent=`${accepted} de 6`;$("reviewButton").disabled=accepted!==6;if(accepted===6)transition("capture_ready");updateUsage()}
+function renderReview(){const byShot=new Map(app.session.items.filter(x=>x.accepted).map(x=>[x.shot_type,x]));$("reviewGrid").innerHTML=app.protocol.steps.map(step=>{const item=byShot.get(step.shot_type),url=app.previews.get(step.shot_type);return`<article class="review-card"><img src="${url||""}" alt="${esc(step.title)}"><div class="review-card-body"><h3>${esc(step.title)}</h3><span class="technical-name">${esc(step.shot_type)}</span><p class="file-meta">${esc(item.file_name||"")} · ${item.width_px}×${item.height_px} · ${fmtBytes(item.bytes_size)}</p><p class="check-line">✓ Qualidade confirmada por ${esc(item.quality.confirmed_by_actor_id)}<br>✓ ${esc(item.quality.confirmed_at)}</p></div></article>`}).join("");$("reviewTotal").textContent=fmtBytes(app.session.items.reduce((s,x)=>s+x.bytes_size,0));showScreen("review")}
+async function confirmSession(){transition("session_confirming");$("confirmSession").disabled=true;try{app.session=await api(`/api/sessions/${encodeURIComponent(app.session.session_id)}/finalize`,{method:"POST",body:"{}"});if(app.session.status!=="complete")throw new Error("A sessão permanece incompleta e foi enviada para revisão de qualidade.");transition("session_confirmed");await runRecognition()}catch(error){transition("capture_incomplete");$("confirmSession").disabled=false;showNotice(error.message)}}
+async function runRecognition(){showScreen("processing");transition("recognition_starting");app.startedAt=Date.now();$("processingSession").textContent=app.session.session_id;const items=[...$("timeline").children];let stage=0;const timer=setInterval(()=>{const elapsed=Math.floor((Date.now()-app.startedAt)/1000);$("elapsed").textContent=`${elapsed} s`;if(stage<4)items[stage++].classList.add("done")},350);try{transition("recognition_running");app.run=await api("/api/recognition-runs",{method:"POST",body:JSON.stringify({capture_session_id:app.session.session_id,mode:"shadow"})});$("processingRun").textContent=app.run.recognition_run_id;app.result=await api(`/api/recognition-runs/${encodeURIComponent(app.run.recognition_run_id)}/result`);clearInterval(timer);items.forEach(x=>x.classList.add("done"));transition(app.result.abstained?"recognition_abstained":"recognition_completed");setTimeout(renderResult,450)}catch(error){clearInterval(timer);transition("recognition_failed");showNotice(`O reconhecimento não foi concluído. ${error.message}`)}}
+function renderResult(){const r=app.result,h=r.hypothesis;if(r.abstained){$("summaryTab").innerHTML=`<div class="hypothesis-card"><p class="kicker">Abstinência responsável</p><h2>O sistema se absteve de classificar</h2><p>Não há evidência sintética suficiente para produzir uma hipótese com segurança.</p><div class="metric"><div><small>Motivo</small><b>${esc((r.abstention_reason||[]).join(", ")||"inconclusivo")}</b></div><div><small>Ação recomendada</small><b>Revisar qualidade ou recapturar</b></div></div></div>`}else{$("summaryTab").innerHTML=`<div class="hypothesis-grid"><article class="hypothesis-card"><p class="kicker">Hipótese principal</p><h2>${esc(h.class)}</h2><p>A análise indica maior compatibilidade com <b>${esc(h.family)}</b>. A classificação precisa de revisão humana.</p><div class="metric"><div><small>Família estrutural provável</small><b>${esc(h.family)}</b></div><div><small>Classe provável</small><b>${esc(h.class)}</b></div><div><small>Transparência observada</small><b>${esc(h.characteristics.visual_transparency)}</b></div><div><small>Score</small><b>Não calibrado / não exibido</b></div></div></article><aside class="detail-card"><p class="kicker">Cobertura</p><h2>${esc(r.coverage.accepted_views)} de ${esc(r.coverage.required_views)} vistas</h2><p>${esc(r.notice)}</p><hr><small>Método</small><p><code>${esc(r.method_version)}</code></p></aside></div>`}renderEvidence();$("schemaVersion").textContent=r.schema_version;$("jsonResult").textContent=JSON.stringify({recognition_run:app.run,result:r,capture_session:app.session},null,2);showScreen("result")}
+function renderEvidence(){$("evidenceTab").innerHTML=`<div class="evidence-list">${app.session.items.map(item=>{const e=item.evidence;return`<details class="evidence-card"><summary>${esc(item.shot_type)} · ${esc(e.evidence_id)}</summary><dl>${[["evidence_id",e.evidence_id],["capture_item_id",e.capture_item_id],["capture_session_id",e.capture_session_id],["artifact_hash_sha256",e.artifact_hash_sha256],["artifact_integrity",e.artifact_integrity],["source_authenticity",e.source_authenticity],["evidentiary_relevance",e.evidentiary_relevance],["review_status",e.review_status],["created_by_actor_id",e.created_by_actor_id],["created_at",e.created_at],["supersedes_evidence_id",e.supersedes_evidence_id],["superseded_by_evidence_id",e.superseded_by_evidence_id]].map(([k,v])=>`<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join("")}</dl></details>`}).join("")}</div>`}
+function cleanup(repeat=false){const previous=app.session?.session_id;app.previews.forEach(URL.revokeObjectURL);app.files.clear();app.previews.clear();app.session=null;app.run=null;app.result=null;app.supersedes=repeat?previous:null;document.querySelectorAll(".timeline li").forEach(x=>x.classList.remove("done"));transition("sample_ready");renderIdentity();showScreen("setup");if(repeat)startSession()}
 
-async function saveCapture() {
-  const file = $("captureFile").files[0];
-  if (!file) return $("stepStatus").textContent = "Selecione uma imagem.";
-  const operator = $("operatorId").value.trim();
-  if (!operator) return $("stepStatus").textContent = "Informe o operador.";
-  $("stepStatus").textContent = "Validando assinatura, dimensões e decodificação…";
-  const step = protocol.steps[stepIndex];
-  try {
-    const result = await api(`/api/sessions/${encodeURIComponent(session.session_id)}/captures`, {
-      method: "POST",
-      body: JSON.stringify({
-        shot_type: step.shot_type,
-        mime_type: file.type,
-        file_name: file.name,
-        data_base64: await fileToBase64(file),
-        quality_confirmed_by_actor_id: operator,
-        quality: {
-          focus_ok: $("focusOk").checked,
-          lighting_ok: $("lightingOk").checked,
-          sample_fills_frame: $("fillsFrame").checked,
-          no_label_leak: $("noLeak").checked
-        }
-      })
-    });
-    $("stepStatus").textContent = result.accepted
-      ? `Aceita · ${result.width_px}×${result.height_px} · Evidence ${result.evidence.evidence_id}`
-      : `Rejeitada · ${result.rejection_reasons.join(", ")}`;
-  } catch (error) {
-    $("stepStatus").textContent = error.message;
-  }
-}
-
-async function start() {
-  protocol = await api("/api/protocol");
-  session = await api("/api/sessions", {
-    method: "POST",
-    body: JSON.stringify({
-      sample_ref: $("sampleId").value,
-      operator_id: $("operatorId").value,
-      device_id: navigator.userAgent
-    })
-  });
-  $("capturePanel").classList.remove("hidden");
-  stepIndex = 0;
-  renderStep();
-}
-
-async function finalize() {
-  const result = await api(`/api/sessions/${encodeURIComponent(session.session_id)}/finalize`, {
-    method: "POST", body: "{}"
-  });
-  $("captureResult").textContent = JSON.stringify({
-    status: result.status,
-    ops_id: result.ops_id,
-    service_sample_id: result.service_sample_id,
-    textile_sample_node_id: result.textile_sample_node_id,
-    ready_for_baseline: result.ready_for_baseline,
-    missing_shot_types: result.completion.missing_shot_types
-  }, null, 2);
-}
-
-async function refreshTasks() {
-  const tasks = await api("/api/tasks");
-  $("tasks").innerHTML = tasks.length ? tasks.map(t => `
-    <article class="task">
-      <strong>${escapeHtml(t.task_type)}</strong>
-      <div class="muted">${escapeHtml(t.sample_id)} · ${escapeHtml(t.priority)} · ${escapeHtml(t.status)}</div>
-      <div class="status">mode=${escapeHtml(t.mode)} affects_official_decision=${escapeHtml(t.affects_official_decision)}</div>
-    </article>`).join("") : `<p class="muted">Nenhuma tarefa.</p>`;
-}
-
-$("startButton").onclick = start;
-$("previousButton").onclick = () => { stepIndex = Math.max(0, stepIndex - 1); renderStep(); };
-$("nextButton").onclick = () => { stepIndex = Math.min(protocol.steps.length - 1, stepIndex + 1); renderStep(); };
-$("finalizeButton").onclick = finalize;
-$("refreshTasks").onclick = refreshTasks;
-refreshTasks();
+$("sampleId").onchange=loadSample;$("operatorId").oninput=renderIdentity;$("startButton").onclick=startSession;$("reviewButton").onclick=renderReview;$("backCapture").onclick=()=>showScreen("capture");$("confirmSession").onclick=confirmSession;$("restartCapture").onclick=()=>cleanup(false);$("newAnalysis").onclick=()=>cleanup(false);$("repeatTest").onclick=()=>cleanup(true);
+document.querySelectorAll(".tab").forEach(tab=>tab.onclick=()=>{document.querySelectorAll(".tab,.tab-panel").forEach(x=>x.classList.remove("active"));tab.classList.add("active");$(`${tab.dataset.tab}Tab`).classList.add("active")});
+$("copyJson").onclick=async()=>{await navigator.clipboard.writeText($("jsonResult").textContent);$("copyJson").textContent="Copiado"};
+$("downloadJson").onclick=()=>{const blob=new Blob([$("jsonResult").textContent],{type:"application/json"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download=`phyllos-diagnostico-${app.run.recognition_run_id.split(":").pop()}.json`;a.click();setTimeout(()=>URL.revokeObjectURL(url),0)};
+async function boot(){try{app.protocol=await api("/api/protocol");await api("/api/health");await loadSample()}catch(error){showNotice(`API indisponível. Inicie o backend local e tente novamente. ${error.message}`)}}boot();

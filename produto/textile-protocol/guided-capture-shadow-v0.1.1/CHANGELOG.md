@@ -2,6 +2,11 @@
 
 ## v0.1.1 — 15/07/2026
 
+- adiciona o PHYLLOS Textile Recognition Lab com fluxo responsivo em cinco etapas;
+- separa Evidence de resultado experimental e oferece diagnóstico JSON local;
+- adiciona execução de reconhecimento shadow como replay explícito da baseline sintética congelada;
+- persiste `recognition_runs` sem mutação oficial ou decisão de publicação;
+- cobre resultado, abstinência, remoção pré-confirmação e bloqueio de sessão incompleta em 31 testes;
 - adiciona ponte persistida `OPS-TX → sample → TextileSample`;
 - bloqueia captura das 70 candidatas enquanto não houver recebimento físico;
 - adiciona cinco fixtures sintéticas isoladas;

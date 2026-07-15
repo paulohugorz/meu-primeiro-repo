@@ -11,8 +11,8 @@ sys.path.insert(0, str(ROOT / "src"))
 
 from db import connect, init_db
 from capture_service import (
-    add_capture_bytes, export_baseline_capture_row, finalize_session,
-    reconcile_artifacts, start_session, validate_image_bytes
+    add_capture_bytes, export_baseline_capture_row, finalize_session, get_session,
+    reconcile_artifacts, remove_capture_item, start_session, validate_image_bytes
 )
 
 SHOTS = [
@@ -95,6 +95,18 @@ class CaptureServiceTests(unittest.TestCase):
         self.assertTrue(item["evidence"]["evidence_id"].startswith("evidence:capture:"))
         self.assertEqual(item["evidence"]["artifact_hash_sha256"], item["sha256"])
         self.assertEqual(item["evidence"]["source_authenticity"], "unreviewed")
+
+    def test_capture_can_be_removed_before_session_confirmation(self):
+        item = self.add("face_overview")
+        artifact = Path(item["artifact_path"])
+        self.assertTrue(artifact.exists())
+        removed = remove_capture_item(
+            self.db, self.session["session_id"], item["item_id"]
+        )
+        self.assertTrue(removed["removed"])
+        self.assertFalse(artifact.exists())
+        refreshed = get_session(self.db, self.session["session_id"])
+        self.assertEqual(refreshed["items"], [])
 
     def test_incomplete_session_goes_to_quality_review(self):
         self.add("face_overview")

@@ -3,54 +3,89 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>PHYLLOS — Captura guiada</title>
+  <title>PHYLLOS Textile Recognition Lab</title>
   <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-  <header>
-    <div>
-      <p class="eyebrow">PHYLLOS Engineering</p>
-      <h1>Captura têxtil guiada</h1>
-      <p>Protocolo v0.1.1 · somente fixtures sintéticas · benchmark 1</p>
-    </div>
-    <span class="shadow-badge">SHADOW MODE</span>
+  <div class="shadow-banner" role="status">AMBIENTE SHADOW — resultado experimental, não revisado e não publicável</div>
+  <header class="site-header">
+    <a class="brand" href="#" aria-label="PHYLLOS Textile Recognition Lab">
+      <span class="brand-mark">P</span><span><b>PHYLLOS</b><small>Textile Recognition Lab</small></span>
+    </a>
+    <div class="header-meta"><span class="status-dot"></span> Sistema local <span class="pill">MVP v0.1</span></div>
   </header>
 
   <main>
-    <section class="panel" id="setup">
-      <h2>Iniciar sessão</h2>
-      <div class="grid">
-        <label>ID da amostra
-          <input id="sampleId" value="OPS-SYN-001">
-        </label>
-        <label>Operador
-          <input id="operatorId" value="operator:field">
-        </label>
+    <nav class="stepper" aria-label="Etapas da análise">
+      <button data-screen="setup" class="active"><span>1</span> Nova análise</button>
+      <button data-screen="capture" disabled><span>2</span> Capturas</button>
+      <button data-screen="review" disabled><span>3</span> Revisão</button>
+      <button data-screen="processing" disabled><span>4</span> Processamento</button>
+      <button data-screen="result" disabled><span>5</span> Resultado</button>
+    </nav>
+
+    <div id="notice" class="notice hidden" role="alert" aria-live="polite"></div>
+
+    <section id="setup" class="screen active">
+      <div class="hero">
+        <p class="eyebrow">Laboratório interno · benchmark 1</p>
+        <h1>Reconhecimento experimental de amostra têxtil</h1>
+        <p>Documente as seis vistas do protocolo e execute uma inferência controlada, sem alterar nenhum registro oficial.</p>
       </div>
-      <button id="startButton">Iniciar captura</button>
+      <div class="panel form-panel">
+        <div class="section-heading"><div><p class="kicker">Etapa 01</p><h2>Identifique a amostra</h2></div><span class="safe-chip">Somente fixtures sintéticos</span></div>
+        <div class="form-grid">
+          <label for="sampleId">Amostra autorizada
+            <select id="sampleId">
+              <option value="OPS-SYN-001">OPS-SYN-001</option><option value="OPS-SYN-002">OPS-SYN-002</option><option value="OPS-SYN-003">OPS-SYN-003</option>
+              <option value="OPS-SYN-004">OPS-SYN-004</option><option value="OPS-SYN-005">OPS-SYN-005</option>
+            </select>
+          </label>
+          <label for="operatorId">Identificação do operador
+            <input id="operatorId" value="operator:local-tester" autocomplete="off">
+          </label>
+        </div>
+        <div id="identityPanel" class="identity-panel" aria-live="polite"><p class="muted">Consultando o mapeamento persistido…</p></div>
+        <div class="action-row"><button id="startButton" disabled>Iniciar captura <span aria-hidden="true">→</span></button></div>
+      </div>
     </section>
 
-    <section class="panel hidden" id="capturePanel">
-      <div class="progress-line">
-        <span id="progressText">0/6</span>
-        <progress id="progress" max="6" value="0"></progress>
-      </div>
-      <div id="stepContainer"></div>
-      <div class="actions">
-        <button id="previousButton" class="secondary">Anterior</button>
-        <button id="nextButton" class="secondary">Próxima</button>
-        <button id="finalizeButton">Finalizar sessão</button>
-      </div>
-      <pre id="captureResult"></pre>
+    <section id="capture" class="screen">
+      <div class="section-heading"><div><p class="kicker">Etapa 02</p><h1>Captura guiada</h1><p>Selecione uma imagem e confirme manualmente os seis critérios de cada vista.</p></div><div class="progress-copy"><b id="progressText">0 de 6</b><small>capturas aceitas</small></div></div>
+      <progress id="progress" max="6" value="0">0 de 6</progress>
+      <p id="sessionUsage" class="usage">0 B utilizados nesta sessão</p>
+      <div id="captureGrid" class="capture-grid"></div>
+      <div class="action-row split"><button id="restartCapture" class="ghost">Reiniciar teste</button><button id="reviewButton" disabled>Continuar para revisão <span>→</span></button></div>
     </section>
 
-    <section class="panel">
-      <h2>Fila de verificação</h2>
-      <p class="muted">Somente observação interna. Nenhuma tarefa altera a decisão oficial.</p>
-      <button id="refreshTasks" class="secondary">Atualizar fila</button>
-      <div id="tasks"></div>
+    <section id="review" class="screen">
+      <div class="section-heading"><div><p class="kicker">Etapa 03</p><h1>Revise as evidências</h1><p>Confira os arquivos e as confirmações antes de fechar a sessão.</p></div><span id="reviewTotal" class="pill"></span></div>
+      <div id="reviewGrid" class="review-grid"></div>
+      <div class="action-row split"><button id="backCapture" class="ghost">← Voltar e corrigir</button><button id="confirmSession">Confirmar sessão</button></div>
+    </section>
+
+    <section id="processing" class="screen">
+      <div class="processing-card panel">
+        <div class="spinner" aria-hidden="true"></div><p class="kicker">Etapa 04</p><h1>Processando em ambiente shadow</h1>
+        <p>O acompanhamento usa estados discretos retornados pela integração, sem porcentagens estimadas.</p>
+        <ol id="timeline" class="timeline">
+          <li>Preparando sessão</li><li>Validando evidências</li><li>Registrando hashes</li>
+          <li>Executando reconhecimento</li><li>Consolidando resposta</li><li>Concluído</li>
+        </ol>
+        <dl class="technical-summary"><div><dt>Capture session ID</dt><dd id="processingSession"></dd></div><div><dt>Recognition run ID</dt><dd id="processingRun">Aguardando…</dd></div><div><dt>Tempo decorrido</dt><dd id="elapsed">0 s</dd></div></dl>
+      </div>
+    </section>
+
+    <section id="result" class="screen">
+      <div class="result-header"><div><p class="kicker">Etapa 05</p><h1>Resultado experimental</h1><p>Revisão humana necessária · modo shadow</p></div><div><button id="repeatTest" class="ghost">Repetir com supersessão</button> <button id="newAnalysis" class="ghost">Nova análise</button></div></div>
+      <div class="warning-card"><b>Nenhuma classificação oficial foi alterada.</b><span>Esta resposta é uma hipótese interna e não pode ser publicada.</span></div>
+      <div class="tabs" role="tablist"><button class="tab active" data-tab="summary">Resumo</button><button class="tab" data-tab="evidence">Evidências capturadas</button><button class="tab" data-tab="json">Resposta técnica</button></div>
+      <div id="summaryTab" class="tab-panel active"></div>
+      <div id="evidenceTab" class="tab-panel"></div>
+      <div id="jsonTab" class="tab-panel"><div class="json-actions"><span id="schemaVersion" class="pill"></span><button id="copyJson" class="ghost">Copiar JSON</button><button id="downloadJson" class="ghost">Baixar diagnóstico JSON</button></div><pre id="jsonResult"></pre></div>
     </section>
   </main>
+  <footer>PHYLLOS Engineering · execução local · sem analytics · sem envio externo</footer>
   <script src="/app.js"></script>
 </body>
 </html>

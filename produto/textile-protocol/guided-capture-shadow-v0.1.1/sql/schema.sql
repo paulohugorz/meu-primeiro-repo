@@ -99,6 +99,21 @@ CREATE TABLE IF NOT EXISTS evidence_records (
     superseded_by_evidence_id TEXT REFERENCES evidence_records(evidence_id)
 );
 
+CREATE TABLE IF NOT EXISTS recognition_runs (
+    recognition_run_id TEXT PRIMARY KEY,
+    capture_session_id TEXT NOT NULL REFERENCES capture_sessions(session_id),
+    mode TEXT NOT NULL CHECK(mode='shadow'),
+    status TEXT NOT NULL CHECK(status IN ('running','completed','failed')),
+    stage TEXT NOT NULL,
+    started_at TEXT NOT NULL,
+    completed_at TEXT,
+    result_json TEXT,
+    error TEXT,
+    schema_version TEXT NOT NULL,
+    official_mutation_applied INTEGER NOT NULL DEFAULT 0 CHECK(official_mutation_applied=0),
+    publication_decision_created INTEGER NOT NULL DEFAULT 0 CHECK(publication_decision_created=0)
+);
+
 CREATE TABLE IF NOT EXISTS official_decision_snapshots (
     snapshot_id TEXT PRIMARY KEY,
     sample_id TEXT NOT NULL,

@@ -306,6 +306,31 @@ def get_capture_item(db_path: str | Path, item_id: str) -> Dict[str, Any]:
     result["evidence"] = dict(evidence) if evidence else None
     return result
 
+def remove_capture_item(
+    db_path: str | Path, session_id: str, item_id: str
+) -> Dict[str, Any]:
+    artifact_path = None
+    with transaction(db_path) as conn:
+        session = conn.execute(
+            "SELECT status FROM capture_sessions WHERE session_id=?", (session_id,)
+        ).fetchone()
+        if not session:
+            raise KeyError("capture session not found")
+        if session["status"] in {"complete", "superseded", "cancelled"}:
+            raise ValueError("confirmed capture session cannot be edited")
+        item = conn.execute(
+            "SELECT artifact_path FROM capture_items WHERE item_id=? AND session_id=?",
+            (item_id, session_id)
+        ).fetchone()
+        if not item:
+            raise KeyError("capture item not found")
+        artifact_path = Path(item["artifact_path"])
+        conn.execute("DELETE FROM evidence_records WHERE capture_item_id=?", (item_id,))
+        conn.execute("DELETE FROM capture_items WHERE item_id=?", (item_id,))
+    if artifact_path and artifact_path.exists():
+        artifact_path.unlink()
+    return {"removed": True, "capture_item_id": item_id, "session_id": session_id}
+
 def completion_status(db_path: str | Path, session_id: str) -> Dict[str, Any]:
     protocol = load_protocol()
     required = [s["shot_type"] for s in protocol["steps"] if s["required"]]

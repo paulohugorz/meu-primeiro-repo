@@ -52,7 +52,22 @@ python src/cli.py serve
 
 Abrir `http://127.0.0.1:8765`.
 
-A interface usa `OPS-SYN-001` por padrão. Uma candidata `OPS-TX-*` é recusada enquanto não houver recebimento físico registrado.
+A interface **PHYLLOS Textile Recognition Lab** conduz seleção, seis capturas,
+revisão, processamento, resultado experimental, Evidence e diagnóstico JSON em
+um único fluxo responsivo. Ela usa `OPS-SYN-001` por padrão. Uma candidata
+`OPS-TX-*` é recusada enquanto não houver recebimento físico registrado.
+
+O reconhecimento disponível neste MVP é uma reprodução controlada da baseline
+congelada dos cinco fixtures sintéticos. Ele valida a integração ponta a ponta,
+mas não representa uma nova inferência visual nem produz métrica empírica.
+
+## Hospedagem de demonstração
+
+O `render.yaml` na raiz do repositório cria um Web Service isolado chamado
+`phyllos-textile-recognition-lab`, com health check em `/api/health` e deploy
+automático desabilitado. O filesystem da instância gratuita é efêmero: sessões,
+imagens e diagnósticos existem apenas para demonstração e podem ser descartados
+quando o serviço reiniciar ou receber um novo deploy.
 
 ## Validação
 

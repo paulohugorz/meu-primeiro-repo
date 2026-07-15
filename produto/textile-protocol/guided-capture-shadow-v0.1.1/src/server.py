@@ -9,11 +9,13 @@ from urllib.parse import parse_qs, urlparse
 from db import init_db
 from id_service import resolve_mapping
 from capture_service import (
-    add_capture_base64, finalize_session, get_session, load_protocol, start_session
+    add_capture_base64, finalize_session, get_session, load_protocol,
+    remove_capture_item, start_session
 )
 from task_service import (
     compare_shadow_decision, get_task, list_tasks, resolve_task, shadow_report
 )
+from recognition_service import get_recognition, get_recognition_result, start_recognition
 
 ROOT = Path(__file__).resolve().parents[1]
 WEB_ROOT = ROOT / "web"
@@ -66,6 +68,12 @@ class Handler(SimpleHTTPRequestHandler):
             if path == "/api/resolve-id":
                 ref = parse_qs(parsed.query).get("sample_ref", [None])[0]
                 return self._json(200, resolve_mapping(self.db_path, ref))
+            m = re.fullmatch(r"/api/recognition-runs/([^/]+)/result", path)
+            if m:
+                return self._json(200, get_recognition_result(self.db_path, m.group(1)))
+            m = re.fullmatch(r"/api/recognition-runs/([^/]+)", path)
+            if m:
+                return self._json(200, get_recognition(self.db_path, m.group(1)))
             m = re.fullmatch(r"/api/sessions/([^/]+)", path)
             if m:
                 return self._json(200, get_session(self.db_path, m.group(1)))
@@ -73,6 +81,20 @@ class Handler(SimpleHTTPRequestHandler):
             if m:
                 return self._json(200, get_task(self.db_path, m.group(1)))
             return super().do_GET()
+        except KeyError as exc:
+            return self._json(404, {"error": str(exc)})
+        except Exception as exc:
+            return self._json(400, {"error": str(exc)})
+
+    def do_DELETE(self):
+        path = urlparse(self.path).path
+        try:
+            m = re.fullmatch(r"/api/sessions/([^/]+)/captures/([^/]+)", path)
+            if m:
+                return self._json(200, remove_capture_item(
+                    self.db_path, m.group(1), m.group(2)
+                ))
+            return self._json(404, {"error": "endpoint not found"})
         except KeyError as exc:
             return self._json(404, {"error": str(exc)})
         except Exception as exc:
@@ -88,6 +110,12 @@ class Handler(SimpleHTTPRequestHandler):
                     payload.get("device_id"), payload.get("metadata"),
                     payload.get("supersedes_session_id"),
                     payload.get("supersession_reason")
+                ))
+            if path == "/api/recognition-runs":
+                if payload.get("mode", "shadow") != "shadow":
+                    raise ValueError("only shadow recognition is allowed")
+                return self._json(201, start_recognition(
+                    self.db_path, payload["capture_session_id"]
                 ))
             m = re.fullmatch(r"/api/sessions/([^/]+)/captures", path)
             if m:
