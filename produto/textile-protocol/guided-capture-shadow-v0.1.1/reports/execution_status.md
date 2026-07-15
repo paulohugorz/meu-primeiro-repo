@@ -14,7 +14,7 @@
 ## Validação técnica
 
 - testes: aprovados;
-- total de testes: 32;
+- total de testes: 33;
 - frontend validado: desktop 1440×900 e móvel 390×844;
 - reconhecimento do MVP: replay da baseline sintética congelada;
 - mappings persistidos: 75;

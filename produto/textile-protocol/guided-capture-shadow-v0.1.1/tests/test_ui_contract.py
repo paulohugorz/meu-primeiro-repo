@@ -31,3 +31,9 @@ class UIContractTests(unittest.TestCase):
         self.assertIn("allowedStates", js)
         self.assertIn("/^OPS-SYN-00[1-5]$/", js)
         self.assertIn("URL.revokeObjectURL", js)
+
+    def test_review_unlock_uses_confirmed_cards_and_refreshes_session(self):
+        js = (ROOT / "web" / "app.js").read_text(encoding="utf-8")
+        self.assertIn('document.querySelectorAll(".capture-card.complete").length', js)
+        self.assertIn('$("reviewButton").onclick=async()=>', js)
+        self.assertIn("await refreshSession();renderReview()", js)
