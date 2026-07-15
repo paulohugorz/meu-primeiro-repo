@@ -4,7 +4,7 @@ import json
 import re
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
-from urllib.parse import parse_qs, urlparse
+from urllib.parse import parse_qs, unquote, urlparse
 
 from db import init_db
 from id_service import resolve_mapping
@@ -70,16 +70,16 @@ class Handler(SimpleHTTPRequestHandler):
                 return self._json(200, resolve_mapping(self.db_path, ref))
             m = re.fullmatch(r"/api/recognition-runs/([^/]+)/result", path)
             if m:
-                return self._json(200, get_recognition_result(self.db_path, m.group(1)))
+                return self._json(200, get_recognition_result(self.db_path, unquote(m.group(1))))
             m = re.fullmatch(r"/api/recognition-runs/([^/]+)", path)
             if m:
-                return self._json(200, get_recognition(self.db_path, m.group(1)))
+                return self._json(200, get_recognition(self.db_path, unquote(m.group(1))))
             m = re.fullmatch(r"/api/sessions/([^/]+)", path)
             if m:
-                return self._json(200, get_session(self.db_path, m.group(1)))
+                return self._json(200, get_session(self.db_path, unquote(m.group(1))))
             m = re.fullmatch(r"/api/tasks/([^/]+)", path)
             if m:
-                return self._json(200, get_task(self.db_path, m.group(1)))
+                return self._json(200, get_task(self.db_path, unquote(m.group(1))))
             return super().do_GET()
         except KeyError as exc:
             return self._json(404, {"error": str(exc)})
@@ -92,7 +92,7 @@ class Handler(SimpleHTTPRequestHandler):
             m = re.fullmatch(r"/api/sessions/([^/]+)/captures/([^/]+)", path)
             if m:
                 return self._json(200, remove_capture_item(
-                    self.db_path, m.group(1), m.group(2)
+                    self.db_path, unquote(m.group(1)), unquote(m.group(2))
                 ))
             return self._json(404, {"error": "endpoint not found"})
         except KeyError as exc:
@@ -120,22 +120,22 @@ class Handler(SimpleHTTPRequestHandler):
             m = re.fullmatch(r"/api/sessions/([^/]+)/captures", path)
             if m:
                 return self._json(201, add_capture_base64(
-                    self.db_path, self.artifacts_root, m.group(1), payload
+                    self.db_path, self.artifacts_root, unquote(m.group(1)), payload
                 ))
             m = re.fullmatch(r"/api/sessions/([^/]+)/finalize", path)
             if m:
-                return self._json(200, finalize_session(self.db_path, m.group(1)))
+                return self._json(200, finalize_session(self.db_path, unquote(m.group(1))))
             m = re.fullmatch(r"/api/tasks/([^/]+)/resolve", path)
             if m:
                 return self._json(200, resolve_task(
-                    self.db_path, m.group(1), payload["outcome"],
+                    self.db_path, unquote(m.group(1)), payload["outcome"],
                     payload["performed_by_actor_id"], payload.get("notes", ""),
                     payload.get("evidence_ids"), payload.get("proposed_decision")
                 ))
             m = re.fullmatch(r"/api/tasks/([^/]+)/compare", path)
             if m:
                 return self._json(200, compare_shadow_decision(
-                    self.db_path, m.group(1), payload["proposed_decision"]
+                    self.db_path, unquote(m.group(1)), payload["proposed_decision"]
                 ))
             return self._json(404, {"error": "endpoint not found"})
         except KeyError as exc:

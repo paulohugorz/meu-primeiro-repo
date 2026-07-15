@@ -2,6 +2,7 @@
 
 ## v0.1.1 — 15/07/2026
 
+- decodifica IDs percent-encoded nas rotas HTTP de sessões, capturas, tarefas e reconhecimento;
 - adiciona o PHYLLOS Textile Recognition Lab com fluxo responsivo em cinco etapas;
 - separa Evidence de resultado experimental e oferece diagnóstico JSON local;
 - adiciona execução de reconhecimento shadow como replay explícito da baseline sintética congelada;
