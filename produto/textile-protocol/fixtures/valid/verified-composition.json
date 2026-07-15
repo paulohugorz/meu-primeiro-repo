@@ -1,0 +1,16 @@
+{
+  "id": "assertion:TX-002:composition:001",
+  "sample_id": "TX-002",
+  "dimension_revision_id": "dimension-revision:fiber_composition:v0.3",
+  "literal_value": "100% algodao",
+  "assertion_kind": "measured",
+  "evidence_status": "verified",
+  "confidence_level": "high",
+  "confidence_is_calibrated": false,
+  "capture_quality": "not_applicable",
+  "review_state": "accepted",
+  "status": "active",
+  "asserted_at": "2026-07-15T12:15:00-03:00",
+  "source_evidence_ids": ["evidence:LAB-TX002-001"],
+  "execution_id": null
+}

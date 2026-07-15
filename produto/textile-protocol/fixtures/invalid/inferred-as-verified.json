@@ -1,0 +1,16 @@
+{
+  "id": "assertion:TX-003:composition:001",
+  "sample_id": "TX-003",
+  "dimension_revision_id": "dimension-revision:fiber_composition:v0.3",
+  "literal_value": "viscose",
+  "assertion_kind": "inferred",
+  "evidence_status": "verified",
+  "confidence_level": "high",
+  "confidence_is_calibrated": false,
+  "capture_quality": "adequate",
+  "review_state": "unreviewed",
+  "status": "active",
+  "asserted_at": "2026-07-15T12:30:00-03:00",
+  "source_evidence_ids": ["evidence:IMG-TX003-001"],
+  "execution_id": "execution:CLASSIFY-TX003-001"
+}

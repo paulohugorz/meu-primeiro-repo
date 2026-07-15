@@ -1,0 +1,116 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://phyllos.internal/schemas/assertion-v0.4.schema.json",
+  "title": "PHYLLOS Textile Assertion v0.4",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "sample_id",
+    "dimension_revision_id",
+    "assertion_kind",
+    "evidence_status",
+    "confidence_level",
+    "confidence_is_calibrated",
+    "capture_quality",
+    "review_state",
+    "status",
+    "asserted_at",
+    "source_evidence_ids"
+  ],
+  "properties": {
+    "id": {"type": "string", "minLength": 1},
+    "sample_id": {"type": "string", "minLength": 1},
+    "dimension_revision_id": {"type": "string", "minLength": 1},
+    "concept_revision_id": {"type": ["string", "null"]},
+    "literal_value": {"type": ["string", "number", "boolean", "null"]},
+    "assertion_kind": {
+      "enum": ["observed", "measured", "inferred", "declared", "derived"]
+    },
+    "evidence_status": {
+      "enum": ["absent", "declared", "calculated", "documented", "verified"]
+    },
+    "confidence_level": {
+      "enum": ["high", "medium", "low", "indeterminate"]
+    },
+    "confidence_is_calibrated": {"type": "boolean"},
+    "calibrated_probability": {
+      "type": ["number", "null"],
+      "minimum": 0,
+      "maximum": 1
+    },
+    "calibration_version": {"type": ["string", "null"]},
+    "capture_quality": {
+      "enum": ["adequate", "limited", "insufficient", "not_applicable"]
+    },
+    "review_state": {
+      "enum": ["unreviewed", "accepted", "corrected", "disputed", "rejected"]
+    },
+    "status": {
+      "enum": ["active", "superseded", "rejected", "under_review"]
+    },
+    "asserted_at": {"type": "string", "format": "date-time"},
+    "source_evidence_ids": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "uniqueItems": true
+    },
+    "execution_id": {"type": ["string", "null"]},
+    "supersedes_assertion_id": {"type": ["string", "null"]}
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {"assertion_kind": {"const": "inferred"}},
+        "required": ["assertion_kind"]
+      },
+      "then": {
+        "required": ["execution_id"],
+        "properties": {
+          "execution_id": {"type": "string", "minLength": 1},
+          "evidence_status": {"const": "absent"}
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {"confidence_is_calibrated": {"const": true}},
+        "required": ["confidence_is_calibrated"]
+      },
+      "then": {
+        "required": ["calibrated_probability", "calibration_version"],
+        "properties": {
+          "calibrated_probability": {"type": "number"},
+          "calibration_version": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {"evidence_status": {"const": "verified"}},
+        "required": ["evidence_status"]
+      },
+      "then": {
+        "properties": {
+          "review_state": {"const": "accepted"},
+          "source_evidence_ids": {"minItems": 1}
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {"capture_quality": {"const": "insufficient"}},
+        "required": ["capture_quality"]
+      },
+      "then": {
+        "properties": {
+          "confidence_level": {"const": "indeterminate"}
+        }
+      }
+    }
+  ],
+  "anyOf": [
+    {"required": ["concept_revision_id"]},
+    {"required": ["literal_value"]}
+  ]
+}

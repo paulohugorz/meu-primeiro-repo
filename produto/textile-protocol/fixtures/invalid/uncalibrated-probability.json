@@ -1,0 +1,18 @@
+{
+  "id": "assertion:TX-004:familia:001",
+  "sample_id": "TX-004",
+  "dimension_revision_id": "dimension-revision:familia_estrutural:v0.3",
+  "concept_revision_id": "concept-revision:estrutura.tecido_plano:v0.3",
+  "assertion_kind": "inferred",
+  "evidence_status": "absent",
+  "confidence_level": "high",
+  "confidence_is_calibrated": true,
+  "calibrated_probability": 0.97,
+  "calibration_version": null,
+  "capture_quality": "adequate",
+  "review_state": "unreviewed",
+  "status": "active",
+  "asserted_at": "2026-07-15T12:45:00-03:00",
+  "source_evidence_ids": ["evidence:IMG-TX004-001"],
+  "execution_id": "execution:CLASSIFY-TX004-001"
+}
