@@ -1,0 +1,6 @@
+sample_id,image_count,has_macro,has_backlight,focus_ok,warp_weft_visible,loop_structure_visible,knit_direction,web_structure_visible,braided_visible,stitch_bonded_visible,composite_layers_visible,diagonal_ribs_visible,long_floats_visible,regular_over_under_visible,transparency_observation,document_available,document_structure_family,document_construction,notes
+sample:synthetic:001,6,yes,yes,yes,yes,no,not_applicable,no,no,no,no,no,no,yes,opaque,no,,,synthetic
+sample:synthetic:002,6,yes,yes,yes,yes,no,not_applicable,no,no,no,no,yes,no,no,semi_opaque,no,,,synthetic
+sample:synthetic:003,6,yes,yes,yes,no,yes,courses,no,no,no,no,no,no,no,opaque,no,,,synthetic
+sample:synthetic:004,2,no,no,unknown,unknown,unknown,indeterminate,unknown,unknown,unknown,unknown,unknown,unknown,unknown,indeterminate,no,,,synthetic insufficient fixture
+sample:synthetic:005,6,yes,yes,yes,yes,no,not_applicable,no,no,no,no,yes,no,yes,opaque,no,,,synthetic conflict fixture

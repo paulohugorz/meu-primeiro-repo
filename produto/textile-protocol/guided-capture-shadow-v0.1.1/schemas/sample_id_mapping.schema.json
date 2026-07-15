@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:phyllos:engineering:sample-id-mapping:0.1.1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "mapping_id",
+    "ops_id",
+    "service_sample_id",
+    "textile_sample_node_id",
+    "record_kind",
+    "operations_status",
+    "physical_sample_received",
+    "capture_allowed",
+    "source_package"
+  ],
+  "properties": {
+    "mapping_id": {
+      "type": "string",
+      "pattern": "^sample-id-mapping:"
+    },
+    "ops_id": {
+      "type": "string",
+      "pattern": "^OPS-(TX-[0-9]{3}|SYN-[0-9]{3})$"
+    },
+    "service_sample_id": {
+      "type": "string",
+      "pattern": "^sample:"
+    },
+    "textile_sample_node_id": {
+      "type": "string",
+      "pattern": "^textile-sample:"
+    },
+    "record_kind": {
+      "enum": [
+        "operations_candidate",
+        "synthetic_fixture"
+      ]
+    },
+    "operations_status": {
+      "type": "string"
+    },
+    "physical_sample_received": {
+      "type": "boolean"
+    },
+    "capture_allowed": {
+      "type": "boolean"
+    },
+    "source_package": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:phyllos:engineering:capture-session:0.1.1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "session_id",
+    "mapping_id",
+    "ops_id",
+    "service_sample_id",
+    "textile_sample_node_id",
+    "protocol_version",
+    "status",
+    "operator_id",
+    "created_at",
+    "ready_for_baseline"
+  ],
+  "properties": {
+    "session_id": {
+      "type": "string",
+      "pattern": "^capture-session:"
+    },
+    "mapping_id": {
+      "type": "string",
+      "pattern": "^sample-id-mapping:"
+    },
+    "ops_id": {
+      "type": "string",
+      "pattern": "^OPS-"
+    },
+    "service_sample_id": {
+      "type": "string",
+      "pattern": "^sample:"
+    },
+    "textile_sample_node_id": {
+      "type": "string",
+      "pattern": "^textile-sample:"
+    },
+    "protocol_version": {
+      "const": "0.1.1"
+    },
+    "status": {
+      "enum": [
+        "draft",
+        "in_progress",
+        "quality_review",
+        "complete",
+        "superseded",
+        "cancelled"
+      ]
+    },
+    "operator_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "device_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "completed_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "ready_for_baseline": {
+      "type": "boolean"
+    },
+    "supersedes_session_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "superseded_by_session_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "supersession_reason": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "metadata": {
+      "type": "object"
+    },
+    "items": {
+      "type": "array"
+    },
+    "completion": {
+      "type": "object"
+    }
+  }
+}

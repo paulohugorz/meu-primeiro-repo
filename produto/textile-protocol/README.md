@@ -23,6 +23,7 @@ Toda sugestão visual permanece privada e recebe a proveniência auxiliar `infer
 - [Fixtures de validação](fixtures/README.md)
 - [Pacote executável v0.4.1](executavel-v0.4.1/README.md)
 - [Operations — coleta de amostras v1.1.1](operations-coleta-v1.1.1/README.md)
+- [Engineering — captura guiada shadow v0.1.1](guided-capture-shadow-v0.1.1/README.md)
 
 ## Implementação executável vigente
 
@@ -43,6 +44,16 @@ O diretório `operations-coleta-v1.1.1/` organiza 70 candidatas, os gates de ent
 python -m pip install -r produto/textile-protocol/operations-coleta-v1.1.1/requirements.txt
 python produto/textile-protocol/operations-coleta-v1.1.1/validate_operations.py \
   --registry produto/textile-protocol/operations-coleta-v1.1.1/candidate-registry-v1.1.1.json
+```
+
+## Captura guiada em shadow mode
+
+O diretório `guided-capture-shadow-v0.1.1/` implementa a ponte de IDs, seis vistas guiadas, validação real de imagens, Evidence por captura e tarefas de verificação em shadow. As 70 candidatas permanecem bloqueadas: `field_test_enabled=false`, nenhuma amostra física foi recebida e somente as fixtures `OPS-SYN-*` podem executar o piloto interno.
+
+```bash
+python -m pip install -r produto/textile-protocol/guided-capture-shadow-v0.1.1/requirements.txt
+python -m unittest discover \
+  -s produto/textile-protocol/guided-capture-shadow-v0.1.1/tests -v
 ```
 
 ## Gate central

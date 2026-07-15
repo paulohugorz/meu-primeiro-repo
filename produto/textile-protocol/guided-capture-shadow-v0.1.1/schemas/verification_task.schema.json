@@ -1,0 +1,128 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:phyllos:engineering:verification-task:0.1.1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "task_id",
+    "task_key",
+    "sample_id",
+    "source_decision_id",
+    "source_ruleset_version",
+    "source_benchmark_version_id",
+    "source_snapshot_id",
+    "task_type",
+    "status",
+    "priority",
+    "mode",
+    "trigger_reason",
+    "requested_evidence",
+    "created_at",
+    "affects_official_decision",
+    "user_notification_sent",
+    "events"
+  ],
+  "properties": {
+    "task_id": {
+      "type": "string",
+      "pattern": "^verification-task:"
+    },
+    "task_key": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "sample_id": {
+      "type": "string",
+      "pattern": "^sample:"
+    },
+    "source_decision_id": {
+      "type": "string"
+    },
+    "source_ruleset_version": {
+      "type": "string"
+    },
+    "source_benchmark_version_id": {
+      "const": "benchmark-version:benchmark-1:v1.0.0"
+    },
+    "source_snapshot_id": {
+      "type": "string",
+      "pattern": "^official-snapshot:"
+    },
+    "task_type": {
+      "enum": [
+        "recapture_focus",
+        "recapture_macro_structure",
+        "recapture_backlight",
+        "complete_capture_set",
+        "resolve_structural_conflict",
+        "verify_structure_family",
+        "verify_construction_primary",
+        "verify_visual_transparency",
+        "quality_audit_limited_capture",
+        "control_audit"
+      ]
+    },
+    "status": {
+      "enum": [
+        "open",
+        "assigned",
+        "resolved",
+        "cancelled"
+      ]
+    },
+    "priority": {
+      "enum": [
+        "high",
+        "medium",
+        "low"
+      ]
+    },
+    "mode": {
+      "const": "shadow"
+    },
+    "trigger_reason": {
+      "type": "string"
+    },
+    "requested_evidence": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "assigned_actor_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "resolution": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "resolved_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "affects_official_decision": {
+      "const": false
+    },
+    "user_notification_sent": {
+      "const": false
+    },
+    "events": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    }
+  }
+}

@@ -1,0 +1,117 @@
+{
+  "protocol_id": "capture-protocol:phyllos.textile.guided:v0.1.1",
+  "version": "0.1.1",
+  "effective_from": "2026-07-15",
+  "benchmark_version_id": "benchmark-version:benchmark-1:v1.0.0",
+  "max_file_bytes": 26214400,
+  "allowed_mime_types": [
+    "image/jpeg",
+    "image/png",
+    "image/webp"
+  ],
+  "steps": [
+    {
+      "shot_type": "face_overview",
+      "sequence": 1,
+      "required": true,
+      "title": "Vista geral da face",
+      "instruction": "Posicione a amostra plana, ocupe a maior parte do quadro e evite etiquetas ou embalagens.",
+      "quality_gates": [
+        "focus_ok",
+        "lighting_ok",
+        "sample_fills_frame",
+        "no_label_leak"
+      ]
+    },
+    {
+      "shot_type": "reverse_overview",
+      "sequence": 2,
+      "required": true,
+      "title": "Vista geral do verso",
+      "instruction": "Vire a amostra e registre o verso sob a mesma iluminação.",
+      "quality_gates": [
+        "focus_ok",
+        "lighting_ok",
+        "sample_fills_frame",
+        "no_label_leak"
+      ]
+    },
+    {
+      "shot_type": "macro_structure",
+      "sequence": 3,
+      "required": true,
+      "title": "Macro da estrutura",
+      "instruction": "Aproxime até que fios, laçadas, manta ou entrelaçamento fiquem visíveis, sem perder o foco.",
+      "quality_gates": [
+        "focus_ok",
+        "lighting_ok",
+        "sample_fills_frame",
+        "no_label_leak"
+      ]
+    },
+    {
+      "shot_type": "drape_fold",
+      "sequence": 4,
+      "required": true,
+      "title": "Dobra e caimento",
+      "instruction": "Registre uma dobra livre. Esta imagem documenta forma aparente, não mede drapeabilidade.",
+      "quality_gates": [
+        "focus_ok",
+        "lighting_ok",
+        "no_label_leak"
+      ]
+    },
+    {
+      "shot_type": "backlight_transparency",
+      "sequence": 5,
+      "required": true,
+      "title": "Contraluz controlada",
+      "instruction": "Use uma fonte difusa atrás da amostra para avaliar transparência aparente.",
+      "quality_gates": [
+        "focus_ok",
+        "lighting_ok",
+        "sample_fills_frame",
+        "no_label_leak"
+      ]
+    },
+    {
+      "shot_type": "scale_reference",
+      "sequence": 6,
+      "required": true,
+      "title": "Referência de escala",
+      "instruction": "Inclua régua ou escala neutra sem revelar marca, composição ou nome comercial.",
+      "quality_gates": [
+        "focus_ok",
+        "lighting_ok",
+        "sample_fills_frame",
+        "no_label_leak"
+      ]
+    }
+  ],
+  "completion_rule": "all required shot types must have at least one accepted capture",
+  "evidence_semantics": {
+    "artifact_integrity": "SHA-256 confirms file integrity only",
+    "visual_inference": {
+      "assertion_kind": "inferred",
+      "evidence_status": "absent"
+    },
+    "capture_record": "documented capture artifact; does not verify textile property"
+  },
+  "max_session_bytes": 157286400,
+  "image_validation": {
+    "min_width_px": 800,
+    "min_height_px": 600,
+    "max_width_px": 12000,
+    "max_height_px": 12000,
+    "max_pixels": 80000000,
+    "verify_signature": true,
+    "decode_full_image": true,
+    "claimed_mime_must_match_actual": true
+  },
+  "quality_confirmation": {
+    "default_checked": false,
+    "actor_required": true,
+    "timestamp_required": true,
+    "scope": "per_capture_item"
+  }
+}

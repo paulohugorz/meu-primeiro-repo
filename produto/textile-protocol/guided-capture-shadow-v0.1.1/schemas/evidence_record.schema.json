@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:phyllos:engineering:evidence-record:0.1.1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "evidence_id",
+    "ops_id",
+    "service_sample_id",
+    "textile_sample_node_id",
+    "capture_session_id",
+    "capture_item_id",
+    "evidence_type",
+    "artifact_path",
+    "artifact_hash_sha256",
+    "artifact_integrity",
+    "source_authenticity",
+    "evidentiary_relevance",
+    "review_status",
+    "record_kind",
+    "created_by_actor_id",
+    "created_at"
+  ],
+  "properties": {
+    "evidence_id": {
+      "type": "string",
+      "pattern": "^evidence:"
+    },
+    "ops_id": {
+      "type": "string"
+    },
+    "service_sample_id": {
+      "type": "string"
+    },
+    "textile_sample_node_id": {
+      "type": "string"
+    },
+    "capture_session_id": {
+      "type": "string"
+    },
+    "capture_item_id": {
+      "type": "string"
+    },
+    "evidence_type": {
+      "const": "photograph"
+    },
+    "artifact_path": {
+      "type": "string"
+    },
+    "artifact_hash_sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "artifact_integrity": {
+      "const": "sha256_recorded"
+    },
+    "source_authenticity": {
+      "const": "unreviewed"
+    },
+    "evidentiary_relevance": {
+      "const": "unreviewed"
+    },
+    "review_status": {
+      "enum": [
+        "captured_unreviewed_shadow",
+        "superseded_capture"
+      ]
+    },
+    "record_kind": {
+      "enum": [
+        "operations_candidate",
+        "synthetic_fixture"
+      ]
+    },
+    "created_by_actor_id": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "supersedes_evidence_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "superseded_by_evidence_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  }
+}

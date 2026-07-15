@@ -1,0 +1,55 @@
+{
+  "mode": "shadow",
+  "policy_version": "0.1.1",
+  "tasks_total": 6,
+  "tasks_by_status": {
+    "resolved": 1,
+    "open": 5
+  },
+  "tasks_by_type": {
+    "recapture_focus": 1,
+    "recapture_macro_structure": 1,
+    "recapture_backlight": 1,
+    "complete_capture_set": 1,
+    "resolve_structural_conflict": 1,
+    "verify_construction_primary": 1
+  },
+  "tasks_by_priority": {
+    "high": 5,
+    "medium": 1
+  },
+  "official_snapshots": 5,
+  "shadow_evaluations": 1,
+  "would_change_count": 1,
+  "would_change_rate": 1.0,
+  "capture_sessions": 6,
+  "superseded_sessions": 1,
+  "evidence_records": 36,
+  "official_mutations": 0,
+  "user_notifications_sent": 0,
+  "promotion_enabled": false,
+  "synthetic_record_count": 5,
+  "physical_samples_received": 0,
+  "gold_sample_count": 0,
+  "empirical_metrics_allowed": false,
+  "ingest": {
+    "processed_predictions": 5,
+    "derived_task_specs": 6,
+    "new_tasks": 6,
+    "total_tasks": 6,
+    "mode": "shadow"
+  },
+  "artifact_reconciliation": {
+    "referenced_files": 36,
+    "filesystem_files": 36,
+    "missing_files": [],
+    "orphan_files": [],
+    "stale_temp_files": [],
+    "deleted_files": [],
+    "healthy": true
+  },
+  "evidence_export": {
+    "output": "/Users/paulonascimento/.codex/worktrees/5f96/meu-primeiro-repo/produto/textile-protocol/guided-capture-shadow-v0.1.1/outputs/synthetic_pilot_evidence.jsonl",
+    "records": 36
+  }
+}

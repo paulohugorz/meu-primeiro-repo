@@ -1,0 +1,45 @@
+{
+  "pilot_id": "synthetic-pilot:engineering-v0.1.1",
+  "record_count": 5,
+  "synthetic": true,
+  "physical_samples_received": 0,
+  "gold_sample_count": 0,
+  "empirical_metrics_allowed": false,
+  "records": [
+    {
+      "ops_id": "OPS-SYN-001",
+      "service_sample_id": "sample:synthetic:001",
+      "textile_sample_node_id": "textile-sample:synthetic:001",
+      "synthetic": true,
+      "physical_sample_received": false
+    },
+    {
+      "ops_id": "OPS-SYN-002",
+      "service_sample_id": "sample:synthetic:002",
+      "textile_sample_node_id": "textile-sample:synthetic:002",
+      "synthetic": true,
+      "physical_sample_received": false
+    },
+    {
+      "ops_id": "OPS-SYN-003",
+      "service_sample_id": "sample:synthetic:003",
+      "textile_sample_node_id": "textile-sample:synthetic:003",
+      "synthetic": true,
+      "physical_sample_received": false
+    },
+    {
+      "ops_id": "OPS-SYN-004",
+      "service_sample_id": "sample:synthetic:004",
+      "textile_sample_node_id": "textile-sample:synthetic:004",
+      "synthetic": true,
+      "physical_sample_received": false
+    },
+    {
+      "ops_id": "OPS-SYN-005",
+      "service_sample_id": "sample:synthetic:005",
+      "textile_sample_node_id": "textile-sample:synthetic:005",
+      "synthetic": true,
+      "physical_sample_received": false
+    }
+  ]
+}

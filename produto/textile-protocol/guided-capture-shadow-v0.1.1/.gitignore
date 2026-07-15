@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+runtime/*.db
+runtime/*.db-*
+runtime/artifacts/*
+!runtime/artifacts/.gitkeep

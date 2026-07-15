@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>PHYLLOS — Captura guiada</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header>
+    <div>
+      <p class="eyebrow">PHYLLOS Engineering</p>
+      <h1>Captura têxtil guiada</h1>
+      <p>Protocolo v0.1.1 · somente fixtures sintéticas · benchmark 1</p>
+    </div>
+    <span class="shadow-badge">SHADOW MODE</span>
+  </header>
+
+  <main>
+    <section class="panel" id="setup">
+      <h2>Iniciar sessão</h2>
+      <div class="grid">
+        <label>ID da amostra
+          <input id="sampleId" value="OPS-SYN-001">
+        </label>
+        <label>Operador
+          <input id="operatorId" value="operator:field">
+        </label>
+      </div>
+      <button id="startButton">Iniciar captura</button>
+    </section>
+
+    <section class="panel hidden" id="capturePanel">
+      <div class="progress-line">
+        <span id="progressText">0/6</span>
+        <progress id="progress" max="6" value="0"></progress>
+      </div>
+      <div id="stepContainer"></div>
+      <div class="actions">
+        <button id="previousButton" class="secondary">Anterior</button>
+        <button id="nextButton" class="secondary">Próxima</button>
+        <button id="finalizeButton">Finalizar sessão</button>
+      </div>
+      <pre id="captureResult"></pre>
+    </section>
+
+    <section class="panel">
+      <h2>Fila de verificação</h2>
+      <p class="muted">Somente observação interna. Nenhuma tarefa altera a decisão oficial.</p>
+      <button id="refreshTasks" class="secondary">Atualizar fila</button>
+      <div id="tasks"></div>
+    </section>
+  </main>
+  <script src="/app.js"></script>
+</body>
+</html>

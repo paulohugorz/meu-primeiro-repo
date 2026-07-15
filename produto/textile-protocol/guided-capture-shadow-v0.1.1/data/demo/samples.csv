@@ -1,0 +1,15 @@
+sample_id,image_count,has_macro,has_backlight,focus_ok,warp_weft_visible,loop_structure_visible,knit_direction,web_structure_visible,braided_visible,stitch_bonded_visible,composite_layers_visible,diagonal_ribs_visible,long_floats_visible,regular_over_under_visible,transparency_observation,document_available,document_structure_family,document_construction,notes
+sample:demo:001,3,yes,yes,yes,yes,no,not_applicable,no,no,no,no,no,no,yes,opaque,no,,,woven plain
+sample:demo:002,4,yes,yes,yes,yes,no,not_applicable,no,no,no,no,yes,no,no,semi_opaque,no,,,woven twill
+sample:demo:003,3,yes,yes,yes,yes,no,not_applicable,no,no,no,no,no,yes,no,semi_transparent,no,,,woven satin
+sample:demo:004,3,yes,yes,yes,no,yes,courses,no,no,no,no,no,no,no,opaque,no,,,weft knit
+sample:demo:005,2,yes,no,yes,no,yes,wales,no,no,no,no,no,no,no,semi_transparent,no,,,warp knit limited
+sample:demo:006,3,yes,yes,yes,no,no,not_applicable,yes,no,no,no,no,no,no,opaque,no,,,nonwoven
+sample:demo:007,3,yes,yes,yes,no,no,not_applicable,no,yes,no,no,no,no,no,transparent,no,,,braided
+sample:demo:008,3,yes,yes,yes,no,no,not_applicable,no,no,no,yes,no,no,no,opaque,no,,,composite
+sample:demo:009,1,no,no,unknown,unknown,unknown,indeterminate,unknown,unknown,unknown,unknown,unknown,unknown,unknown,indeterminate,no,,,insufficient
+sample:demo:010,3,yes,yes,yes,yes,no,not_applicable,no,no,no,no,yes,no,yes,opaque,no,,,construction conflict
+sample:demo:011,3,yes,yes,yes,unknown,unknown,indeterminate,unknown,unknown,unknown,unknown,unknown,unknown,unknown,semi_opaque,no,,,family unknown
+sample:demo:012,2,yes,no,yes,unknown,unknown,indeterminate,unknown,unknown,unknown,unknown,unknown,unknown,unknown,opaque,yes,woven_fabric,twill,documented
+sample:demo:013,3,yes,yes,yes,no,no,not_applicable,no,no,yes,no,no,no,no,opaque,no,,,stitch bonded
+sample:demo:014,3,yes,yes,yes,yes,no,not_applicable,no,no,no,no,no,no,yes,indeterminate,no,,,transparency indeterminate

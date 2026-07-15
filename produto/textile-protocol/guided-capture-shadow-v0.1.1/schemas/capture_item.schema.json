@@ -1,0 +1,143 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:phyllos:engineering:capture-item:0.1.1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "item_id",
+    "session_id",
+    "shot_type",
+    "sequence_no",
+    "artifact_path",
+    "sha256",
+    "claimed_mime_type",
+    "actual_mime_type",
+    "image_format",
+    "width_px",
+    "height_px",
+    "bytes_size",
+    "captured_at",
+    "quality",
+    "accepted",
+    "rejection_reasons",
+    "evidence"
+  ],
+  "properties": {
+    "item_id": {
+      "type": "string",
+      "pattern": "^capture-item:"
+    },
+    "session_id": {
+      "type": "string",
+      "pattern": "^capture-session:"
+    },
+    "shot_type": {
+      "enum": [
+        "face_overview",
+        "reverse_overview",
+        "macro_structure",
+        "drape_fold",
+        "backlight_transparency",
+        "scale_reference"
+      ]
+    },
+    "sequence_no": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "artifact_path": {
+      "type": "string",
+      "minLength": 1
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "claimed_mime_type": {
+      "enum": [
+        "image/jpeg",
+        "image/png",
+        "image/webp"
+      ]
+    },
+    "actual_mime_type": {
+      "enum": [
+        "image/jpeg",
+        "image/png",
+        "image/webp"
+      ]
+    },
+    "image_format": {
+      "enum": [
+        "JPEG",
+        "PNG",
+        "WEBP"
+      ]
+    },
+    "width_px": {
+      "type": "integer",
+      "minimum": 800
+    },
+    "height_px": {
+      "type": "integer",
+      "minimum": 600
+    },
+    "bytes_size": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "captured_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "quality": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "focus_ok",
+        "lighting_ok",
+        "sample_fills_frame",
+        "no_label_leak",
+        "confirmed_by_actor_id",
+        "confirmed_at"
+      ],
+      "properties": {
+        "focus_ok": {
+          "type": "boolean"
+        },
+        "lighting_ok": {
+          "type": "boolean"
+        },
+        "sample_fills_frame": {
+          "type": "boolean"
+        },
+        "no_label_leak": {
+          "type": "boolean"
+        },
+        "confirmed_by_actor_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "confirmed_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "accepted": {
+      "type": "boolean"
+    },
+    "rejection_reasons": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "evidence": {
+      "type": [
+        "object",
+        "null"
+      ]
+    }
+  }
+}

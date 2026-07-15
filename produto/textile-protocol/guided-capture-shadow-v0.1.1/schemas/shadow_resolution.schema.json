@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:phyllos:engineering:shadow-resolution:0.1.1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "outcome",
+    "performed_by_actor_id",
+    "notes",
+    "evidence_ids"
+  ],
+  "properties": {
+    "outcome": {
+      "enum": [
+        "confirmed",
+        "corrected",
+        "inconclusive",
+        "evidence_unavailable",
+        "cancelled"
+      ]
+    },
+    "performed_by_actor_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "notes": {
+      "type": "string"
+    },
+    "evidence_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^evidence:"
+      }
+    },
+    "proposed_decision": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "structure_family": {
+          "type": "string"
+        },
+        "construction_primary": {
+          "type": "string"
+        },
+        "visual_transparency": {
+          "type": "string"
+        },
+        "capture_quality": {
+          "type": "string"
+        },
+        "decision": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

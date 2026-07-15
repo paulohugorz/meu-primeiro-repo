@@ -1,0 +1,13 @@
+{
+  "operations_package": "phyllos-operacoes-coleta-amostras-v1.1.1",
+  "status": "prepared_not_sent",
+  "candidate_count": 70,
+  "requests_sent": 0,
+  "physical_samples_received": 0,
+  "validated_evidence_count": 0,
+  "gold_sample_count": 0,
+  "field_test_enabled": false,
+  "wave_1_send_enabled": false,
+  "next_external_gate": "at_least_one_physical_sample_identified_with_corresponding_document",
+  "updated_at": "2026-07-15"
+}

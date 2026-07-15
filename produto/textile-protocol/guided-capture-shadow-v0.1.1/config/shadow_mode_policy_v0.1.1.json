@@ -1,0 +1,62 @@
+{
+  "policy_id": "shadow-policy:phyllos.verification_tasks:v0.1.1",
+  "version": "0.1.1",
+  "mode": "shadow",
+  "effective_from": "2026-07-15",
+  "control_audit_rate": 0.2,
+  "guarantees": [
+    "verification tasks cannot mutate official decisions",
+    "official decision snapshots are immutable",
+    "task events are append-only",
+    "resolutions are stored separately",
+    "comparison may calculate would_change but cannot promote",
+    "task generation is idempotent",
+    "no user-facing notification is sent in shadow mode",
+    "would_change compares only frozen benchmark fields",
+    "unknown proposal fields are rejected",
+    "proposal values are validated against benchmark version 1.0.0"
+  ],
+  "promotion_gate": {
+    "enabled": false,
+    "requires_future_policy_version": true,
+    "minimum_requirements": [
+      "empirical benchmark completed",
+      "false positive and false negative rates reviewed",
+      "task completion cost measured",
+      "human approval workflow defined",
+      "rollback plan tested"
+    ]
+  },
+  "task_types": {
+    "recapture_focus": {
+      "priority": "high"
+    },
+    "recapture_macro_structure": {
+      "priority": "high"
+    },
+    "recapture_backlight": {
+      "priority": "high"
+    },
+    "complete_capture_set": {
+      "priority": "high"
+    },
+    "resolve_structural_conflict": {
+      "priority": "high"
+    },
+    "verify_structure_family": {
+      "priority": "medium"
+    },
+    "verify_construction_primary": {
+      "priority": "medium"
+    },
+    "verify_visual_transparency": {
+      "priority": "medium"
+    },
+    "quality_audit_limited_capture": {
+      "priority": "low"
+    },
+    "control_audit": {
+      "priority": "low"
+    }
+  }
+}
