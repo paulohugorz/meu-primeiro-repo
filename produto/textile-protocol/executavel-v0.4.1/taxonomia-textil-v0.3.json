@@ -1,0 +1,4950 @@
+{
+  "metadata": {
+    "taxonomy_id": "taxonomy:phyllos.textile",
+    "taxonomy_version_id": "taxonomy-version:phyllos.textile:v0.3",
+    "taxonomy_version": "0.3.0",
+    "graph_model_version": "0.4.1",
+    "graph_model_status": "implementation_candidate_corrected",
+    "decision_date": "2026-07-15",
+    "preserves_benchmark_version_id": "benchmark-version:benchmark-1:v1.0.0",
+    "schema_file": "taxonomia-textil-v0.3.schema.json",
+    "canonical_id_policy": "stable identity nodes plus immutable revision nodes; colon-delimited canonical identifiers",
+    "source_model": "modelagem-grafo-v0.4.md",
+    "immutable_content_hash": "d74ed82a6047890fd8fe8cdf184346e012f364d2107edd66f10099894bfa5f32"
+  },
+  "taxonomy_versions": [
+    {
+      "id": "taxonomy-version:phyllos.textile:v0.3",
+      "taxonomy_id": "taxonomy:phyllos.textile",
+      "version": "0.3.0",
+      "status": "accepted_discovery",
+      "supersedes_versions": [
+        "0.1",
+        "0.2"
+      ],
+      "immutable": true
+    }
+  ],
+  "node_types": [
+    {
+      "id": "TaxonomyVersion",
+      "required_fields": [
+        "id",
+        "taxonomy_id",
+        "version"
+      ]
+    },
+    {
+      "id": "TaxonomyModule",
+      "required_fields": [
+        "id"
+      ]
+    },
+    {
+      "id": "TaxonomyModuleRevision",
+      "required_fields": [
+        "id",
+        "module_id",
+        "part_of_version_id"
+      ]
+    },
+    {
+      "id": "TaxonomyDimension",
+      "required_fields": [
+        "id"
+      ]
+    },
+    {
+      "id": "TaxonomyDimensionRevision",
+      "required_fields": [
+        "id",
+        "dimension_id",
+        "part_of_version_id"
+      ]
+    },
+    {
+      "id": "TaxonomyConcept",
+      "required_fields": [
+        "id"
+      ]
+    },
+    {
+      "id": "TaxonomyConceptRevision",
+      "required_fields": [
+        "id",
+        "concept_id",
+        "part_of_version_id"
+      ]
+    },
+    {
+      "id": "TextileSample",
+      "required_fields": [
+        "id"
+      ]
+    },
+    {
+      "id": "Assertion",
+      "required_fields": [
+        "id",
+        "dimension_revision_id",
+        "assertion_kind",
+        "evidence_status",
+        "confidence_level",
+        "publication_decision_id"
+      ]
+    },
+    {
+      "id": "Evidence",
+      "required_fields": [
+        "id",
+        "evidence_type",
+        "artifact_integrity",
+        "source_authenticity",
+        "evidentiary_relevance"
+      ]
+    },
+    {
+      "id": "Execution",
+      "required_fields": [
+        "id",
+        "executed_by_actor_id",
+        "model_version_id",
+        "prompt_version_id"
+      ]
+    },
+    {
+      "id": "Review",
+      "required_fields": [
+        "id",
+        "assertion_id",
+        "outcome",
+        "performed_by_actor_id"
+      ]
+    },
+    {
+      "id": "PublicationDecision",
+      "required_fields": [
+        "id",
+        "assertion_id",
+        "outcome",
+        "policy_version_id"
+      ]
+    },
+    {
+      "id": "PublicationPolicyVersion",
+      "required_fields": [
+        "id",
+        "version",
+        "immutable_hash"
+      ]
+    },
+    {
+      "id": "AssertionConflict",
+      "required_fields": [
+        "id",
+        "assertion_ids",
+        "conflict_type",
+        "status"
+      ]
+    },
+    {
+      "id": "Measurement",
+      "required_fields": [
+        "id",
+        "measurement_type_id",
+        "numeric_value",
+        "unit_id",
+        "method_version_id"
+      ]
+    },
+    {
+      "id": "CompositionComponent",
+      "required_fields": [
+        "id",
+        "fiber_revision_id"
+      ]
+    },
+    {
+      "id": "FinishApplication",
+      "required_fields": [
+        "id",
+        "process_revision_id"
+      ]
+    },
+    {
+      "id": "CommercialNameRevision",
+      "required_fields": [
+        "id",
+        "commercial_name_id",
+        "ambiguity_level"
+      ]
+    },
+    {
+      "id": "BenchmarkVersion",
+      "required_fields": [
+        "id",
+        "allowed_dimension_revision_ids",
+        "allowed_concept_revision_ids"
+      ]
+    },
+    {
+      "id": "Actor",
+      "required_fields": [
+        "id",
+        "actor_type"
+      ]
+    }
+  ],
+  "module_identities": [
+    {
+      "id": "module:evidence"
+    },
+    {
+      "id": "module:structure"
+    },
+    {
+      "id": "module:yarn"
+    },
+    {
+      "id": "module:construction"
+    },
+    {
+      "id": "module:patterning"
+    },
+    {
+      "id": "module:attributes"
+    },
+    {
+      "id": "module:measurements"
+    },
+    {
+      "id": "module:composite"
+    },
+    {
+      "id": "module:nonwoven"
+    },
+    {
+      "id": "module:finishing"
+    },
+    {
+      "id": "module:composition"
+    },
+    {
+      "id": "module:commercial_name"
+    }
+  ],
+  "module_revisions": [
+    {
+      "id": "module-revision:evidence:v0.3",
+      "module_id": "module:evidence",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "label_pt": "Evidência e confiança",
+      "order": 0,
+      "status": "active",
+      "immutable": true
+    },
+    {
+      "id": "module-revision:structure:v0.3",
+      "module_id": "module:structure",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "label_pt": "Estrutura física",
+      "order": 1,
+      "status": "active",
+      "immutable": true
+    },
+    {
+      "id": "module-revision:yarn:v0.3",
+      "module_id": "module:yarn",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "label_pt": "Fio",
+      "order": 2,
+      "status": "active",
+      "immutable": true
+    },
+    {
+      "id": "module-revision:construction:v0.3",
+      "module_id": "module:construction",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "label_pt": "Construção primária",
+      "order": 3,
+      "status": "active",
+      "immutable": true
+    },
+    {
+      "id": "module-revision:patterning:v0.3",
+      "module_id": "module:patterning",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "label_pt": "Padronização e derivação",
+      "order": 4,
+      "status": "active",
+      "immutable": true
+    },
+    {
+      "id": "module-revision:attributes:v0.3",
+      "module_id": "module:attributes",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "label_pt": "Atributos visuais e táteis",
+      "order": 5,
+      "status": "active",
+      "immutable": true
+    },
+    {
+      "id": "module-revision:measurements:v0.3",
+      "module_id": "module:measurements",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "label_pt": "Propriedades ensaiadas",
+      "order": 6,
+      "status": "active",
+      "immutable": true
+    },
+    {
+      "id": "module-revision:composite:v0.3",
+      "module_id": "module:composite",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "label_pt": "Estrutura composta",
+      "order": 7,
+      "status": "active",
+      "immutable": true
+    },
+    {
+      "id": "module-revision:nonwoven:v0.3",
+      "module_id": "module:nonwoven",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "label_pt": "Não tecidos",
+      "order": 8,
+      "status": "backlog",
+      "immutable": true
+    },
+    {
+      "id": "module-revision:finishing:v0.3",
+      "module_id": "module:finishing",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "label_pt": "Acabamento",
+      "order": 9,
+      "status": "active",
+      "immutable": true
+    },
+    {
+      "id": "module-revision:composition:v0.3",
+      "module_id": "module:composition",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "label_pt": "Composição, origem, certificação e rastreabilidade",
+      "order": 10,
+      "status": "active",
+      "immutable": true
+    },
+    {
+      "id": "module-revision:commercial_name:v0.3",
+      "module_id": "module:commercial_name",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "label_pt": "Nome comercial",
+      "order": 11,
+      "status": "active",
+      "immutable": true
+    }
+  ],
+  "dimension_identities": [
+    {
+      "id": "dimension:structure.family"
+    },
+    {
+      "id": "dimension:yarn.continuity"
+    },
+    {
+      "id": "dimension:yarn.spinning_system"
+    },
+    {
+      "id": "dimension:yarn.plies"
+    },
+    {
+      "id": "dimension:yarn.twist"
+    },
+    {
+      "id": "dimension:yarn.linear_density_system"
+    },
+    {
+      "id": "dimension:yarn.texturization"
+    },
+    {
+      "id": "dimension:yarn.fancy_type"
+    },
+    {
+      "id": "dimension:construction.primary"
+    },
+    {
+      "id": "dimension:patterning.weave_derivation"
+    },
+    {
+      "id": "dimension:patterning.mechanism"
+    },
+    {
+      "id": "dimension:patterning.special_construction"
+    },
+    {
+      "id": "dimension:patterning.surface_multilayer"
+    },
+    {
+      "id": "dimension:visual.transparency"
+    },
+    {
+      "id": "dimension:visual.gloss"
+    },
+    {
+      "id": "dimension:visual.texture"
+    },
+    {
+      "id": "dimension:visual.regularity"
+    },
+    {
+      "id": "dimension:visual.color_appearance"
+    },
+    {
+      "id": "dimension:visual.color_uniformity"
+    },
+    {
+      "id": "dimension:visual.pattern_descriptor"
+    },
+    {
+      "id": "dimension:visual.warp_weft_contrast"
+    },
+    {
+      "id": "dimension:visual.coverage"
+    },
+    {
+      "id": "dimension:visual.hairiness"
+    },
+    {
+      "id": "dimension:visual.relief"
+    },
+    {
+      "id": "dimension:visual.face_reverse"
+    },
+    {
+      "id": "dimension:visual.defects"
+    },
+    {
+      "id": "dimension:tactile.hand"
+    },
+    {
+      "id": "dimension:capture.quality"
+    },
+    {
+      "id": "dimension:composite.type"
+    },
+    {
+      "id": "dimension:nonwoven.web_formation"
+    },
+    {
+      "id": "dimension:nonwoven.extrusion"
+    },
+    {
+      "id": "dimension:nonwoven.consolidation"
+    },
+    {
+      "id": "dimension:nonwoven.orientation"
+    },
+    {
+      "id": "dimension:nonwoven.layers"
+    },
+    {
+      "id": "dimension:nonwoven.named_combination"
+    },
+    {
+      "id": "dimension:finishing.process"
+    },
+    {
+      "id": "dimension:finishing.declared_function"
+    },
+    {
+      "id": "dimension:composition.status"
+    },
+    {
+      "id": "dimension:commercial_name"
+    },
+    {
+      "id": "dimension:measurement.mass_per_area"
+    },
+    {
+      "id": "dimension:measurement.thread_density"
+    },
+    {
+      "id": "dimension:measurement.thickness"
+    },
+    {
+      "id": "dimension:measurement.usable_width"
+    },
+    {
+      "id": "dimension:measurement.elongation"
+    },
+    {
+      "id": "dimension:measurement.recovery"
+    },
+    {
+      "id": "dimension:measurement.drape"
+    },
+    {
+      "id": "dimension:measurement.wetting_time"
+    },
+    {
+      "id": "dimension:measurement.tensile_strength"
+    },
+    {
+      "id": "dimension:measurement.tear_strength"
+    },
+    {
+      "id": "dimension:measurement.bursting_strength"
+    },
+    {
+      "id": "dimension:measurement.abrasion"
+    },
+    {
+      "id": "dimension:measurement.pilling"
+    },
+    {
+      "id": "dimension:measurement.dimensional_change"
+    },
+    {
+      "id": "dimension:measurement.air_permeability"
+    },
+    {
+      "id": "dimension:measurement.water_vapor_permeability"
+    },
+    {
+      "id": "dimension:measurement.thermal_resistance"
+    },
+    {
+      "id": "dimension:measurement.color_fastness"
+    },
+    {
+      "id": "dimension:measurement.flammability"
+    },
+    {
+      "id": "dimension:measurement.water_resistance"
+    },
+    {
+      "id": "dimension:measurement.uv_protection"
+    },
+    {
+      "id": "dimension:measurement.snagging_resistance"
+    }
+  ],
+  "dimension_revisions": [
+    {
+      "id": "dimension-revision:structure.family:v0.3",
+      "dimension_id": "dimension:structure.family",
+      "module_revision_id": "module-revision:structure:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "label_pt": "Família estrutural",
+      "cardinality": "one",
+      "value_type": "concept",
+      "status": "active",
+      "required_in_classification": true,
+      "benchmark_scope": "benchmark_1",
+      "immutable": true
+    },
+    {
+      "id": "dimension-revision:yarn.continuity:v0.3",
+      "dimension_id": "dimension:yarn.continuity",
+      "module_revision_id": "module-revision:yarn:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "label_pt": "Continuidade do fio",
+      "cardinality": "one",
+      "value_type": "concept",
+      "status": "active",
+      "required_in_classification": false,
+      "benchmark_scope": null,
+      "immutable": true
+    },
+    {
+      "id": "dimension-revision:yarn.spinning_system:v0.3",
+      "dimension_id": "dimension:yarn.spinning_system",
+      "module_revision_id": "module-revision:yarn:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "label_pt": "Sistema de fiação",
+      "cardinality": "one",
+      "value_type": "concept",
+      "status": "active",
+      "required_in_classification": false,
+      "benchmark_scope": null,
+      "immutable": true
+    },
+    {
+      "id": "dimension-revision:yarn.plies:v0.3",
+      "dimension_id": "dimension:yarn.plies",
+      "module_revision_id": "module-revision:yarn:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "label_pt": "Número de cabos",
+      "cardinality": "one",
+      "value_type": "integer_or_indeterminate",
+      "status": "active",
+      "required_in_classification": false,
+      "benchmark_scope": null,
+      "immutable": true
+    },
+    {
+      "id": "dimension-revision:yarn.twist:v0.3",
+      "dimension_id": "dimension:yarn.twist",
+      "module_revision_id": "module-revision:yarn:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "label_pt": "Torção",
+      "cardinality": "one",
+      "value_type": "concept",
+      "status": "active",
+      "required_in_classification": false,
+      "benchmark_scope": null,
+      "immutable": true
+    },
+    {
+      "id": "dimension-revision:yarn.linear_density_system:v0.3",
+      "dimension_id": "dimension:yarn.linear_density_system",
+      "module_revision_id": "module-revision:yarn:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "label_pt": "Sistema de título/densidade linear",
+      "cardinality": "one",
+      "value_type": "concept",
+      "status": "active",
+      "required_in_classification": false,
+      "benchmark_scope": null,
+      "immutable": true
+    },
+    {
+      "id": "dimension-revision:yarn.texturization:v0.3",
+      "dimension_id": "dimension:yarn.texturization",
+      "module_revision_id": "module-revision:yarn:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "label_pt": "Texturização",
+      "cardinality": "one",
+      "value_type": "concept",
+      "status": "active",
+      "required_in_classification": false,
+      "benchmark_scope": null,
+      "immutable": true
+    },
+    {
+      "id": "dimension-revision:yarn.fancy_type:v0.3",
+      "dimension_id": "dimension:yarn.fancy_type",
+      "module_revision_id": "module-revision:yarn:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "label_pt": "Fio fantasia",
+      "cardinality": "one",
+      "value_type": "concept",
+      "status": "active",
+      "required_in_classification": false,
+      "benchmark_scope": null,
+      "immutable": true
+    },
+    {
+      "id": "dimension-revision:construction.primary:v0.3",
+      "dimension_id": "dimension:construction.primary",
+      "module_revision_id": "module-revision:construction:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "label_pt": "Construção primária",
+      "cardinality": "one",
+      "value_type": "concept",
+      "status": "active",
+      "required_in_classification": false,
+      "benchmark_scope": "benchmark_1",
+      "immutable": true
+    },
+    {
+      "id": "dimension-revision:patterning.weave_derivation:v0.3",
+      "dimension_id": "dimension:patterning.weave_derivation",
+      "module_revision_id": "module-revision:patterning:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "label_pt": "Derivação do ligamento",
+      "cardinality": "one",
+      "value_type": "concept",
+      "status": "active",
+      "required_in_classification": false,
+      "benchmark_scope": null,
+      "immutable": true
+    },
+    {
+      "id": "dimension-revision:patterning.mechanism:v0.3",
+      "dimension_id": "dimension:patterning.mechanism",
+      "module_revision_id": "module-revision:patterning:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "label_pt": "Mecanismo de padronização",
+      "cardinality": "many",
+      "value_type": "concept",
+      "status": "active",
+      "required_in_classification": false,
+      "benchmark_scope": null,
+      "immutable": true
+    },
+    {
+      "id": "dimension-revision:patterning.special_construction:v0.3",
+      "dimension_id": "dimension:patterning.special_construction",
+      "module_revision_id": "module-revision:patterning:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "label_pt": "Construção especial",
+      "cardinality": "many",
+      "value_type": "concept",
+      "status": "active",
+      "required_in_classification": false,
+      "benchmark_scope": null,
+      "immutable": true
+    },
+    {
+      "id": "dimension-revision:patterning.surface_multilayer:v0.3",
+      "dimension_id": "dimension:patterning.surface_multilayer",
+      "module_revision_id": "module-revision:patterning:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "label_pt": "Estrutura superficial ou multicamada",
+      "cardinality": "many",
+      "value_type": "concept",
+      "status": "active",
+      "required_in_classification": false,
+      "benchmark_scope": null,
+      "immutable": true
+    },
+    {
+      "id": "dimension-revision:visual.transparency:v0.3",
+      "dimension_id": "dimension:visual.transparency",
+      "module_revision_id": "module-revision:attributes:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "label_pt": "Transparência aparente",
+      "cardinality": "one",
+      "value_type": "concept",
+      "status": "active",
+      "required_in_classification": false,
+      "benchmark_scope": "benchmark_1",
+      "immutable": true
+    },
+    {
+      "id": "dimension-revision:visual.gloss:v0.3",
+      "dimension_id": "dimension:visual.gloss",
+      "module_revision_id": "module-revision:attributes:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "label_pt": "Brilho aparente",
+      "cardinality": "one",
+      "value_type": "concept",
+      "status": "active",
+      "required_in_classification": false,
+      "benchmark_scope": null,
+      "immutable": true
+    },
+    {
+      "id": "dimension-revision:visual.texture:v0.3",
+      "dimension_id": "dimension:visual.texture",
+      "module_revision_id": "module-revision:attributes:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "label_pt": "Textura visual aparente",
+      "cardinality": "one",
+      "value_type": "concept",
+      "status": "active",
+      "required_in_classification": false,
+      "benchmark_scope": null,
+      "immutable": true
+    },
+    {
+      "id": "dimension-revision:visual.regularity:v0.3",
+      "dimension_id": "dimension:visual.regularity",
+      "module_revision_id": "module-revision:attributes:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "label_pt": "Regularidade aparente",
+      "cardinality": "one",
+      "value_type": "concept",
+      "status": "active",
+      "required_in_classification": false,
+      "benchmark_scope": null,
+      "immutable": true
+    },
+    {
+      "id": "dimension-revision:visual.color_appearance:v0.3",
+      "dimension_id": "dimension:visual.color_appearance",
+      "module_revision_id": "module-revision:attributes:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "label_pt": "Cor aparente",
+      "cardinality": "one",
+      "value_type": "concept",
+      "status": "active",
+      "required_in_classification": false,
+      "benchmark_scope": null,
+      "immutable": true
+    },
+    {
+      "id": "dimension-revision:visual.color_uniformity:v0.3",
+      "dimension_id": "dimension:visual.color_uniformity",
+      "module_revision_id": "module-revision:attributes:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "label_pt": "Uniformidade de cor aparente",
+      "cardinality": "one",
+      "value_type": "concept",
+      "status": "active",
+      "required_in_classification": false,
+      "benchmark_scope": null,
+      "immutable": true
+    },
+    {
+      "id": "dimension-revision:visual.pattern_descriptor:v0.3",
+      "dimension_id": "dimension:visual.pattern_descriptor",
+      "module_revision_id": "module-revision:attributes:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "label_pt": "Padrão, escala e orientação aparentes",
+      "cardinality": "one",
+      "value_type": "structured_text",
+      "status": "active",
+      "required_in_classification": false,
+      "benchmark_scope": null,
+      "immutable": true
+    },
+    {
+      "id": "dimension-revision:visual.warp_weft_contrast:v0.3",
+      "dimension_id": "dimension:visual.warp_weft_contrast",
+      "module_revision_id": "module-revision:attributes:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "label_pt": "Contraste aparente urdume x trama",
+      "cardinality": "one",
+      "value_type": "concept",
+      "status": "active",
+      "required_in_classification": false,
+      "benchmark_scope": null,
+      "immutable": true
+    },
+    {
+      "id": "dimension-revision:visual.coverage:v0.3",
+      "dimension_id": "dimension:visual.coverage",
+      "module_revision_id": "module-revision:attributes:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "label_pt": "Abertura/cobertura aparente",
+      "cardinality": "one",
+      "value_type": "concept",
+      "status": "active",
+      "required_in_classification": false,
+      "benchmark_scope": null,
+      "immutable": true
+    },
+    {
+      "id": "dimension-revision:visual.hairiness:v0.3",
+      "dimension_id": "dimension:visual.hairiness",
+      "module_revision_id": "module-revision:attributes:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "label_pt": "Pilosidade aparente",
+      "cardinality": "one",
+      "value_type": "concept",
+      "status": "active",
+      "required_in_classification": false,
+      "benchmark_scope": null,
+      "immutable": true
+    },
+    {
+      "id": "dimension-revision:visual.relief:v0.3",
+      "dimension_id": "dimension:visual.relief",
+      "module_revision_id": "module-revision:attributes:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "label_pt": "Relevo aparente",
+      "cardinality": "one",
+      "value_type": "concept",
+      "status": "active",
+      "required_in_classification": false,
+      "benchmark_scope": null,
+      "immutable": true
+    },
+    {
+      "id": "dimension-revision:visual.face_reverse:v0.3",
+      "dimension_id": "dimension:visual.face_reverse",
+      "module_revision_id": "module-revision:attributes:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "label_pt": "Face/avesso distinguíveis",
+      "cardinality": "one",
+      "value_type": "concept",
+      "status": "active",
+      "required_in_classification": false,
+      "benchmark_scope": null,
+      "immutable": true
+    },
+    {
+      "id": "dimension-revision:visual.defects:v0.3",
+      "dimension_id": "dimension:visual.defects",
+      "module_revision_id": "module-revision:attributes:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "label_pt": "Defeitos aparentes",
+      "cardinality": "one",
+      "value_type": "structured_text",
+      "status": "active",
+      "required_in_classification": false,
+      "benchmark_scope": null,
+      "immutable": true
+    },
+    {
+      "id": "dimension-revision:tactile.hand:v0.3",
+      "dimension_id": "dimension:tactile.hand",
+      "module_revision_id": "module-revision:attributes:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "label_pt": "Atributo tátil",
+      "cardinality": "many",
+      "value_type": "concept",
+      "status": "active",
+      "required_in_classification": false,
+      "benchmark_scope": null,
+      "immutable": true
+    },
+    {
+      "id": "dimension-revision:capture.quality:v0.3",
+      "dimension_id": "dimension:capture.quality",
+      "module_revision_id": "module-revision:evidence:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "label_pt": "Qualidade da captura",
+      "cardinality": "one",
+      "value_type": "concept",
+      "status": "active",
+      "required_in_classification": true,
+      "benchmark_scope": "benchmark_1",
+      "immutable": true
+    },
+    {
+      "id": "dimension-revision:composite.type:v0.3",
+      "dimension_id": "dimension:composite.type",
+      "module_revision_id": "module-revision:composite:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "label_pt": "Tipo de estrutura composta",
+      "cardinality": "one",
+      "value_type": "concept",
+      "status": "active",
+      "required_in_classification": false,
+      "benchmark_scope": null,
+      "immutable": true
+    },
+    {
+      "id": "dimension-revision:nonwoven.web_formation:v0.3",
+      "dimension_id": "dimension:nonwoven.web_formation",
+      "module_revision_id": "module-revision:nonwoven:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "label_pt": "Formação da manta",
+      "cardinality": "one",
+      "value_type": "concept",
+      "status": "backlog",
+      "required_in_classification": false,
+      "benchmark_scope": null,
+      "immutable": true
+    },
+    {
+      "id": "dimension-revision:nonwoven.extrusion:v0.3",
+      "dimension_id": "dimension:nonwoven.extrusion",
+      "module_revision_id": "module-revision:nonwoven:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "label_pt": "Formação por extrusão",
+      "cardinality": "one",
+      "value_type": "concept",
+      "status": "backlog",
+      "required_in_classification": false,
+      "benchmark_scope": null,
+      "immutable": true
+    },
+    {
+      "id": "dimension-revision:nonwoven.consolidation:v0.3",
+      "dimension_id": "dimension:nonwoven.consolidation",
+      "module_revision_id": "module-revision:nonwoven:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "label_pt": "Consolidação",
+      "cardinality": "many",
+      "value_type": "concept",
+      "status": "backlog",
+      "required_in_classification": false,
+      "benchmark_scope": null,
+      "immutable": true
+    },
+    {
+      "id": "dimension-revision:nonwoven.orientation:v0.3",
+      "dimension_id": "dimension:nonwoven.orientation",
+      "module_revision_id": "module-revision:nonwoven:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "label_pt": "Orientação das fibras",
+      "cardinality": "one",
+      "value_type": "concept",
+      "status": "backlog",
+      "required_in_classification": false,
+      "benchmark_scope": null,
+      "immutable": true
+    },
+    {
+      "id": "dimension-revision:nonwoven.layers:v0.3",
+      "dimension_id": "dimension:nonwoven.layers",
+      "module_revision_id": "module-revision:nonwoven:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "label_pt": "Número de camadas",
+      "cardinality": "one",
+      "value_type": "integer_or_indeterminate",
+      "status": "backlog",
+      "required_in_classification": false,
+      "benchmark_scope": null,
+      "immutable": true
+    },
+    {
+      "id": "dimension-revision:nonwoven.named_combination:v0.3",
+      "dimension_id": "dimension:nonwoven.named_combination",
+      "module_revision_id": "module-revision:nonwoven:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "label_pt": "Combinação nomeada",
+      "cardinality": "one",
+      "value_type": "concept",
+      "status": "backlog",
+      "required_in_classification": false,
+      "benchmark_scope": null,
+      "immutable": true
+    },
+    {
+      "id": "dimension-revision:finishing.process:v0.3",
+      "dimension_id": "dimension:finishing.process",
+      "module_revision_id": "module-revision:finishing:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "label_pt": "Processo de acabamento",
+      "cardinality": "many",
+      "value_type": "concept",
+      "status": "active",
+      "required_in_classification": false,
+      "benchmark_scope": null,
+      "immutable": true
+    },
+    {
+      "id": "dimension-revision:finishing.declared_function:v0.3",
+      "dimension_id": "dimension:finishing.declared_function",
+      "module_revision_id": "module-revision:finishing:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "label_pt": "Função declarada de acabamento",
+      "cardinality": "many",
+      "value_type": "concept",
+      "status": "active",
+      "required_in_classification": false,
+      "benchmark_scope": null,
+      "immutable": true
+    },
+    {
+      "id": "dimension-revision:composition.status:v0.3",
+      "dimension_id": "dimension:composition.status",
+      "module_revision_id": "module-revision:composition:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "label_pt": "Estado da composição",
+      "cardinality": "one",
+      "value_type": "concept",
+      "status": "active",
+      "required_in_classification": false,
+      "benchmark_scope": null,
+      "immutable": true
+    },
+    {
+      "id": "dimension-revision:commercial_name:v0.3",
+      "dimension_id": "dimension:commercial_name",
+      "module_revision_id": "module-revision:commercial_name:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "label_pt": "Nome comercial",
+      "cardinality": "many",
+      "value_type": "commercial_name",
+      "status": "active",
+      "required_in_classification": false,
+      "benchmark_scope": null,
+      "immutable": true
+    },
+    {
+      "id": "dimension-revision:measurement.mass_per_area:v0.3",
+      "dimension_id": "dimension:measurement.mass_per_area",
+      "module_revision_id": "module-revision:measurements:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "label_pt": "Gramatura",
+      "cardinality": "many",
+      "value_type": "measurement",
+      "status": "active",
+      "required_in_classification": false,
+      "benchmark_scope": null,
+      "immutable": true
+    },
+    {
+      "id": "dimension-revision:measurement.thread_density:v0.3",
+      "dimension_id": "dimension:measurement.thread_density",
+      "module_revision_id": "module-revision:measurements:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "label_pt": "Densidade de fios",
+      "cardinality": "many",
+      "value_type": "measurement",
+      "status": "active",
+      "required_in_classification": false,
+      "benchmark_scope": null,
+      "immutable": true
+    },
+    {
+      "id": "dimension-revision:measurement.thickness:v0.3",
+      "dimension_id": "dimension:measurement.thickness",
+      "module_revision_id": "module-revision:measurements:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "label_pt": "Espessura sob pressão especificada",
+      "cardinality": "many",
+      "value_type": "measurement",
+      "status": "active",
+      "required_in_classification": false,
+      "benchmark_scope": null,
+      "immutable": true
+    },
+    {
+      "id": "dimension-revision:measurement.usable_width:v0.3",
+      "dimension_id": "dimension:measurement.usable_width",
+      "module_revision_id": "module-revision:measurements:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "label_pt": "Largura útil",
+      "cardinality": "many",
+      "value_type": "measurement",
+      "status": "active",
+      "required_in_classification": false,
+      "benchmark_scope": null,
+      "immutable": true
+    },
+    {
+      "id": "dimension-revision:measurement.elongation:v0.3",
+      "dimension_id": "dimension:measurement.elongation",
+      "module_revision_id": "module-revision:measurements:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "label_pt": "Alongamento",
+      "cardinality": "many",
+      "value_type": "measurement",
+      "status": "active",
+      "required_in_classification": false,
+      "benchmark_scope": null,
+      "immutable": true
+    },
+    {
+      "id": "dimension-revision:measurement.recovery:v0.3",
+      "dimension_id": "dimension:measurement.recovery",
+      "module_revision_id": "module-revision:measurements:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "label_pt": "Recuperação",
+      "cardinality": "many",
+      "value_type": "measurement",
+      "status": "active",
+      "required_in_classification": false,
+      "benchmark_scope": null,
+      "immutable": true
+    },
+    {
+      "id": "dimension-revision:measurement.drape:v0.3",
+      "dimension_id": "dimension:measurement.drape",
+      "module_revision_id": "module-revision:measurements:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "label_pt": "Caimento",
+      "cardinality": "many",
+      "value_type": "measurement",
+      "status": "active",
+      "required_in_classification": false,
+      "benchmark_scope": null,
+      "immutable": true
+    },
+    {
+      "id": "dimension-revision:measurement.wetting_time:v0.3",
+      "dimension_id": "dimension:measurement.wetting_time",
+      "module_revision_id": "module-revision:measurements:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "label_pt": "Tempo de molhamento",
+      "cardinality": "many",
+      "value_type": "measurement",
+      "status": "active",
+      "required_in_classification": false,
+      "benchmark_scope": null,
+      "immutable": true
+    },
+    {
+      "id": "dimension-revision:measurement.tensile_strength:v0.3",
+      "dimension_id": "dimension:measurement.tensile_strength",
+      "module_revision_id": "module-revision:measurements:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "label_pt": "Resistência à tração",
+      "cardinality": "many",
+      "value_type": "measurement",
+      "status": "active",
+      "required_in_classification": false,
+      "benchmark_scope": null,
+      "immutable": true
+    },
+    {
+      "id": "dimension-revision:measurement.tear_strength:v0.3",
+      "dimension_id": "dimension:measurement.tear_strength",
+      "module_revision_id": "module-revision:measurements:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "label_pt": "Resistência ao rasgo",
+      "cardinality": "many",
+      "value_type": "measurement",
+      "status": "active",
+      "required_in_classification": false,
+      "benchmark_scope": null,
+      "immutable": true
+    },
+    {
+      "id": "dimension-revision:measurement.bursting_strength:v0.3",
+      "dimension_id": "dimension:measurement.bursting_strength",
+      "module_revision_id": "module-revision:measurements:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "label_pt": "Estouro",
+      "cardinality": "many",
+      "value_type": "measurement",
+      "status": "active",
+      "required_in_classification": false,
+      "benchmark_scope": null,
+      "immutable": true
+    },
+    {
+      "id": "dimension-revision:measurement.abrasion:v0.3",
+      "dimension_id": "dimension:measurement.abrasion",
+      "module_revision_id": "module-revision:measurements:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "label_pt": "Abrasão",
+      "cardinality": "many",
+      "value_type": "measurement",
+      "status": "active",
+      "required_in_classification": false,
+      "benchmark_scope": null,
+      "immutable": true
+    },
+    {
+      "id": "dimension-revision:measurement.pilling:v0.3",
+      "dimension_id": "dimension:measurement.pilling",
+      "module_revision_id": "module-revision:measurements:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "label_pt": "Pilling",
+      "cardinality": "many",
+      "value_type": "measurement",
+      "status": "active",
+      "required_in_classification": false,
+      "benchmark_scope": null,
+      "immutable": true
+    },
+    {
+      "id": "dimension-revision:measurement.dimensional_change:v0.3",
+      "dimension_id": "dimension:measurement.dimensional_change",
+      "module_revision_id": "module-revision:measurements:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "label_pt": "Estabilidade dimensional / encolhimento",
+      "cardinality": "many",
+      "value_type": "measurement",
+      "status": "active",
+      "required_in_classification": false,
+      "benchmark_scope": null,
+      "immutable": true
+    },
+    {
+      "id": "dimension-revision:measurement.air_permeability:v0.3",
+      "dimension_id": "dimension:measurement.air_permeability",
+      "module_revision_id": "module-revision:measurements:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "label_pt": "Permeabilidade ao ar",
+      "cardinality": "many",
+      "value_type": "measurement",
+      "status": "active",
+      "required_in_classification": false,
+      "benchmark_scope": null,
+      "immutable": true
+    },
+    {
+      "id": "dimension-revision:measurement.water_vapor_permeability:v0.3",
+      "dimension_id": "dimension:measurement.water_vapor_permeability",
+      "module_revision_id": "module-revision:measurements:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "label_pt": "Permeabilidade ao vapor",
+      "cardinality": "many",
+      "value_type": "measurement",
+      "status": "active",
+      "required_in_classification": false,
+      "benchmark_scope": null,
+      "immutable": true
+    },
+    {
+      "id": "dimension-revision:measurement.thermal_resistance:v0.3",
+      "dimension_id": "dimension:measurement.thermal_resistance",
+      "module_revision_id": "module-revision:measurements:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "label_pt": "Resistência térmica",
+      "cardinality": "many",
+      "value_type": "measurement",
+      "status": "active",
+      "required_in_classification": false,
+      "benchmark_scope": null,
+      "immutable": true
+    },
+    {
+      "id": "dimension-revision:measurement.color_fastness:v0.3",
+      "dimension_id": "dimension:measurement.color_fastness",
+      "module_revision_id": "module-revision:measurements:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "label_pt": "Solidez de cor",
+      "cardinality": "many",
+      "value_type": "measurement",
+      "status": "active",
+      "required_in_classification": false,
+      "benchmark_scope": null,
+      "immutable": true
+    },
+    {
+      "id": "dimension-revision:measurement.flammability:v0.3",
+      "dimension_id": "dimension:measurement.flammability",
+      "module_revision_id": "module-revision:measurements:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "label_pt": "Inflamabilidade",
+      "cardinality": "many",
+      "value_type": "measurement",
+      "status": "active",
+      "required_in_classification": false,
+      "benchmark_scope": null,
+      "immutable": true
+    },
+    {
+      "id": "dimension-revision:measurement.water_resistance:v0.3",
+      "dimension_id": "dimension:measurement.water_resistance",
+      "module_revision_id": "module-revision:measurements:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "label_pt": "Resistência à água",
+      "cardinality": "many",
+      "value_type": "measurement",
+      "status": "active",
+      "required_in_classification": false,
+      "benchmark_scope": null,
+      "immutable": true
+    },
+    {
+      "id": "dimension-revision:measurement.uv_protection:v0.3",
+      "dimension_id": "dimension:measurement.uv_protection",
+      "module_revision_id": "module-revision:measurements:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "label_pt": "Proteção UV",
+      "cardinality": "many",
+      "value_type": "measurement",
+      "status": "active",
+      "required_in_classification": false,
+      "benchmark_scope": null,
+      "immutable": true
+    },
+    {
+      "id": "dimension-revision:measurement.snagging_resistance:v0.3",
+      "dimension_id": "dimension:measurement.snagging_resistance",
+      "module_revision_id": "module-revision:measurements:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "label_pt": "Resistência ao snagging",
+      "cardinality": "many",
+      "value_type": "measurement",
+      "status": "active",
+      "required_in_classification": false,
+      "benchmark_scope": null,
+      "immutable": true
+    }
+  ],
+  "concept_identities": [
+    {
+      "id": "concept:structure.family.woven_fabric"
+    },
+    {
+      "id": "concept:structure.family.weft_knit"
+    },
+    {
+      "id": "concept:structure.family.warp_knit"
+    },
+    {
+      "id": "concept:structure.family.nonwoven"
+    },
+    {
+      "id": "concept:structure.family.interlaced_braided"
+    },
+    {
+      "id": "concept:structure.family.stitch_bonded"
+    },
+    {
+      "id": "concept:structure.family.composite_structure"
+    },
+    {
+      "id": "concept:structure.family.indeterminate"
+    },
+    {
+      "id": "concept:yarn.continuity.continuous_filament"
+    },
+    {
+      "id": "concept:yarn.continuity.staple_fiber"
+    },
+    {
+      "id": "concept:yarn.continuity.mixed"
+    },
+    {
+      "id": "concept:yarn.continuity.indeterminate"
+    },
+    {
+      "id": "concept:yarn.spinning_system.spun"
+    },
+    {
+      "id": "concept:yarn.spinning_system.multifilament"
+    },
+    {
+      "id": "concept:yarn.spinning_system.monofilament"
+    },
+    {
+      "id": "concept:yarn.spinning_system.indeterminate"
+    },
+    {
+      "id": "concept:yarn.twist.s_twist"
+    },
+    {
+      "id": "concept:yarn.twist.z_twist"
+    },
+    {
+      "id": "concept:yarn.twist.no_apparent_twist"
+    },
+    {
+      "id": "concept:yarn.twist.indeterminate"
+    },
+    {
+      "id": "concept:yarn.linear_density_system.tex"
+    },
+    {
+      "id": "concept:yarn.linear_density_system.dtex"
+    },
+    {
+      "id": "concept:yarn.linear_density_system.nm"
+    },
+    {
+      "id": "concept:yarn.linear_density_system.ne"
+    },
+    {
+      "id": "concept:yarn.linear_density_system.indeterminate"
+    },
+    {
+      "id": "concept:yarn.texturization.textured"
+    },
+    {
+      "id": "concept:yarn.texturization.not_textured"
+    },
+    {
+      "id": "concept:yarn.texturization.indeterminate"
+    },
+    {
+      "id": "concept:yarn.fancy_type.boucle"
+    },
+    {
+      "id": "concept:yarn.fancy_type.chenille"
+    },
+    {
+      "id": "concept:yarn.fancy_type.slub"
+    },
+    {
+      "id": "concept:yarn.fancy_type.core_spun"
+    },
+    {
+      "id": "concept:yarn.fancy_type.not_applicable"
+    },
+    {
+      "id": "concept:yarn.fancy_type.indeterminate"
+    },
+    {
+      "id": "concept:construction.primary.plain_weave"
+    },
+    {
+      "id": "concept:construction.primary.twill"
+    },
+    {
+      "id": "concept:construction.primary.satin"
+    },
+    {
+      "id": "concept:construction.primary.leno_gauze"
+    },
+    {
+      "id": "concept:construction.primary.jersey"
+    },
+    {
+      "id": "concept:construction.primary.rib"
+    },
+    {
+      "id": "concept:construction.primary.interlock"
+    },
+    {
+      "id": "concept:construction.primary.purl"
+    },
+    {
+      "id": "concept:construction.primary.knit_pique"
+    },
+    {
+      "id": "concept:construction.primary.tricot"
+    },
+    {
+      "id": "concept:construction.primary.raschel"
+    },
+    {
+      "id": "concept:construction.primary.milanese"
+    },
+    {
+      "id": "concept:construction.primary.indeterminate"
+    },
+    {
+      "id": "concept:patterning.weave_derivation.basket"
+    },
+    {
+      "id": "concept:patterning.weave_derivation.herringbone"
+    },
+    {
+      "id": "concept:patterning.weave_derivation.broken_twill"
+    },
+    {
+      "id": "concept:patterning.weave_derivation.cross_twill"
+    },
+    {
+      "id": "concept:patterning.weave_derivation.compound_twill"
+    },
+    {
+      "id": "concept:patterning.weave_derivation.derived_satin"
+    },
+    {
+      "id": "concept:patterning.weave_derivation.indeterminate"
+    },
+    {
+      "id": "concept:patterning.mechanism.dobby"
+    },
+    {
+      "id": "concept:patterning.mechanism.jacquard"
+    },
+    {
+      "id": "concept:patterning.mechanism.print"
+    },
+    {
+      "id": "concept:patterning.mechanism.embroidery"
+    },
+    {
+      "id": "concept:patterning.mechanism.indeterminate"
+    },
+    {
+      "id": "concept:patterning.special_construction.ripstop"
+    },
+    {
+      "id": "concept:patterning.special_construction.leno_technique"
+    },
+    {
+      "id": "concept:patterning.special_construction.pique"
+    },
+    {
+      "id": "concept:patterning.special_construction.structural_crepe"
+    },
+    {
+      "id": "concept:patterning.special_construction.indeterminate"
+    },
+    {
+      "id": "concept:patterning.surface_multilayer.cut_pile"
+    },
+    {
+      "id": "concept:patterning.surface_multilayer.loop_pile"
+    },
+    {
+      "id": "concept:patterning.surface_multilayer.fleece"
+    },
+    {
+      "id": "concept:patterning.surface_multilayer.double_face"
+    },
+    {
+      "id": "concept:patterning.surface_multilayer.double_layer"
+    },
+    {
+      "id": "concept:patterning.surface_multilayer.spacer_fabric"
+    },
+    {
+      "id": "concept:patterning.surface_multilayer.indeterminate"
+    },
+    {
+      "id": "concept:visual.transparency.opaque"
+    },
+    {
+      "id": "concept:visual.transparency.semi_opaque"
+    },
+    {
+      "id": "concept:visual.transparency.semi_transparent"
+    },
+    {
+      "id": "concept:visual.transparency.transparent"
+    },
+    {
+      "id": "concept:visual.transparency.indeterminate"
+    },
+    {
+      "id": "concept:visual.gloss.matte"
+    },
+    {
+      "id": "concept:visual.gloss.semi_matte"
+    },
+    {
+      "id": "concept:visual.gloss.satin_like"
+    },
+    {
+      "id": "concept:visual.gloss.shiny"
+    },
+    {
+      "id": "concept:visual.gloss.indeterminate"
+    },
+    {
+      "id": "concept:visual.texture.smooth"
+    },
+    {
+      "id": "concept:visual.texture.granular"
+    },
+    {
+      "id": "concept:visual.texture.ribbed"
+    },
+    {
+      "id": "concept:visual.texture.hairy"
+    },
+    {
+      "id": "concept:visual.texture.velvety"
+    },
+    {
+      "id": "concept:visual.texture.apparent_slub"
+    },
+    {
+      "id": "concept:visual.texture.indeterminate"
+    },
+    {
+      "id": "concept:visual.regularity.regular"
+    },
+    {
+      "id": "concept:visual.regularity.irregular"
+    },
+    {
+      "id": "concept:visual.regularity.indeterminate"
+    },
+    {
+      "id": "concept:visual.color_appearance.apparently_solid"
+    },
+    {
+      "id": "concept:visual.color_appearance.apparently_printed"
+    },
+    {
+      "id": "concept:visual.color_appearance.apparently_multicolor_jacquard"
+    },
+    {
+      "id": "concept:visual.color_appearance.indeterminate"
+    },
+    {
+      "id": "concept:visual.color_uniformity.uniform"
+    },
+    {
+      "id": "concept:visual.color_uniformity.apparent_variation"
+    },
+    {
+      "id": "concept:visual.color_uniformity.indeterminate"
+    },
+    {
+      "id": "concept:visual.warp_weft_contrast.high"
+    },
+    {
+      "id": "concept:visual.warp_weft_contrast.low"
+    },
+    {
+      "id": "concept:visual.warp_weft_contrast.indeterminate"
+    },
+    {
+      "id": "concept:visual.coverage.closed"
+    },
+    {
+      "id": "concept:visual.coverage.open"
+    },
+    {
+      "id": "concept:visual.coverage.indeterminate"
+    },
+    {
+      "id": "concept:visual.hairiness.present"
+    },
+    {
+      "id": "concept:visual.hairiness.absent"
+    },
+    {
+      "id": "concept:visual.hairiness.indeterminate"
+    },
+    {
+      "id": "concept:visual.relief.flat"
+    },
+    {
+      "id": "concept:visual.relief.raised"
+    },
+    {
+      "id": "concept:visual.relief.indeterminate"
+    },
+    {
+      "id": "concept:visual.face_reverse.yes"
+    },
+    {
+      "id": "concept:visual.face_reverse.no"
+    },
+    {
+      "id": "concept:visual.face_reverse.indeterminate"
+    },
+    {
+      "id": "concept:tactile.hand.smooth_touch"
+    },
+    {
+      "id": "concept:tactile.hand.rough"
+    },
+    {
+      "id": "concept:tactile.hand.dry_hand"
+    },
+    {
+      "id": "concept:tactile.hand.cool_touch"
+    },
+    {
+      "id": "concept:tactile.hand.soft"
+    },
+    {
+      "id": "concept:tactile.hand.indeterminate"
+    },
+    {
+      "id": "concept:capture.quality.adequate"
+    },
+    {
+      "id": "concept:capture.quality.limited"
+    },
+    {
+      "id": "concept:capture.quality.insufficient"
+    },
+    {
+      "id": "concept:composite.type.laminated"
+    },
+    {
+      "id": "concept:composite.type.coated_structural"
+    },
+    {
+      "id": "concept:composite.type.bonded"
+    },
+    {
+      "id": "concept:composite.type.quilted"
+    },
+    {
+      "id": "concept:composite.type.with_membrane"
+    },
+    {
+      "id": "concept:composite.type.textile_sandwich"
+    },
+    {
+      "id": "concept:composite.type.reinforced"
+    },
+    {
+      "id": "concept:composite.type.with_film"
+    },
+    {
+      "id": "concept:composite.type.with_foam"
+    },
+    {
+      "id": "concept:composite.type.fiber_matrix_composite"
+    },
+    {
+      "id": "concept:composite.type.indeterminate"
+    },
+    {
+      "id": "concept:nonwoven.web_formation.carded"
+    },
+    {
+      "id": "concept:nonwoven.web_formation.airlaid"
+    },
+    {
+      "id": "concept:nonwoven.web_formation.wetlaid"
+    },
+    {
+      "id": "concept:nonwoven.web_formation.spunlaid"
+    },
+    {
+      "id": "concept:nonwoven.extrusion.spunbond"
+    },
+    {
+      "id": "concept:nonwoven.extrusion.meltblown"
+    },
+    {
+      "id": "concept:nonwoven.consolidation.needle_punched"
+    },
+    {
+      "id": "concept:nonwoven.consolidation.hydroentangled"
+    },
+    {
+      "id": "concept:nonwoven.consolidation.thermal"
+    },
+    {
+      "id": "concept:nonwoven.consolidation.chemical"
+    },
+    {
+      "id": "concept:nonwoven.orientation.oriented"
+    },
+    {
+      "id": "concept:nonwoven.orientation.random"
+    },
+    {
+      "id": "concept:nonwoven.orientation.indeterminate"
+    },
+    {
+      "id": "concept:nonwoven.named_combination.sms"
+    },
+    {
+      "id": "concept:nonwoven.named_combination.nonwoven_laminate"
+    },
+    {
+      "id": "concept:nonwoven.named_combination.other"
+    },
+    {
+      "id": "concept:finishing.process.mercerized"
+    },
+    {
+      "id": "concept:finishing.process.calendered"
+    },
+    {
+      "id": "concept:finishing.process.sanforized"
+    },
+    {
+      "id": "concept:finishing.process.brushed"
+    },
+    {
+      "id": "concept:finishing.process.sanded"
+    },
+    {
+      "id": "concept:finishing.process.peached"
+    },
+    {
+      "id": "concept:finishing.process.resin_finished"
+    },
+    {
+      "id": "concept:finishing.process.coated"
+    },
+    {
+      "id": "concept:finishing.process.heat_set"
+    },
+    {
+      "id": "concept:finishing.process.enzymatic_biopolishing"
+    },
+    {
+      "id": "concept:finishing.process.other"
+    },
+    {
+      "id": "concept:finishing.process.not_informed"
+    },
+    {
+      "id": "concept:finishing.declared_function.waterproof"
+    },
+    {
+      "id": "concept:finishing.declared_function.repellent"
+    },
+    {
+      "id": "concept:finishing.declared_function.antimicrobial"
+    },
+    {
+      "id": "concept:finishing.declared_function.flame_retardant"
+    },
+    {
+      "id": "concept:finishing.declared_function.anti_pilling"
+    },
+    {
+      "id": "concept:finishing.declared_function.antistatic"
+    },
+    {
+      "id": "concept:finishing.declared_function.hydrophilic"
+    },
+    {
+      "id": "concept:finishing.declared_function.uv_protection"
+    },
+    {
+      "id": "concept:finishing.declared_function.other"
+    },
+    {
+      "id": "concept:finishing.declared_function.not_informed"
+    },
+    {
+      "id": "concept:composition.status.absent"
+    },
+    {
+      "id": "concept:composition.status.partial_non_publishable"
+    },
+    {
+      "id": "concept:composition.status.complete"
+    }
+  ],
+  "concept_revisions": [
+    {
+      "id": "concept-revision:structure.family.woven_fabric:v0.3",
+      "concept_id": "concept:structure.family.woven_fabric",
+      "dimension_revision_id": "dimension-revision:structure.family:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "woven_fabric",
+      "label_pt": "tecido_plano",
+      "status": "active",
+      "source_token_v0_3": "tecido_plano",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:structure.family.weft_knit:v0.3",
+      "concept_id": "concept:structure.family.weft_knit",
+      "dimension_revision_id": "dimension-revision:structure.family:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "weft_knit",
+      "label_pt": "malha_trama",
+      "status": "active",
+      "source_token_v0_3": "malha_trama",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:structure.family.warp_knit:v0.3",
+      "concept_id": "concept:structure.family.warp_knit",
+      "dimension_revision_id": "dimension-revision:structure.family:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "warp_knit",
+      "label_pt": "malha_urdume",
+      "status": "active",
+      "source_token_v0_3": "malha_urdume",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:structure.family.nonwoven:v0.3",
+      "concept_id": "concept:structure.family.nonwoven",
+      "dimension_revision_id": "dimension-revision:structure.family:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "nonwoven",
+      "label_pt": "nao_tecido",
+      "status": "active",
+      "source_token_v0_3": "nao_tecido",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:structure.family.interlaced_braided:v0.3",
+      "concept_id": "concept:structure.family.interlaced_braided",
+      "dimension_revision_id": "dimension-revision:structure.family:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "interlaced_braided",
+      "label_pt": "entrelacado_trancado",
+      "status": "active",
+      "source_token_v0_3": "entrelacado_trancado",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:structure.family.stitch_bonded:v0.3",
+      "concept_id": "concept:structure.family.stitch_bonded",
+      "dimension_revision_id": "dimension-revision:structure.family:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "stitch_bonded",
+      "label_pt": "costurado_stitch_bonded",
+      "status": "active",
+      "source_token_v0_3": "costurado_stitch_bonded",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:structure.family.composite_structure:v0.3",
+      "concept_id": "concept:structure.family.composite_structure",
+      "dimension_revision_id": "dimension-revision:structure.family:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "composite_structure",
+      "label_pt": "estrutura_composta",
+      "status": "active",
+      "source_token_v0_3": "estrutura_composta",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:structure.family.indeterminate:v0.3",
+      "concept_id": "concept:structure.family.indeterminate",
+      "dimension_revision_id": "dimension-revision:structure.family:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "indeterminate",
+      "label_pt": "indeterminado",
+      "status": "active",
+      "source_token_v0_3": "indeterminado",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:yarn.continuity.continuous_filament:v0.3",
+      "concept_id": "concept:yarn.continuity.continuous_filament",
+      "dimension_revision_id": "dimension-revision:yarn.continuity:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "continuous_filament",
+      "label_pt": "filamento_continuo",
+      "status": "active",
+      "source_token_v0_3": "filamento_continuo",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:yarn.continuity.staple_fiber:v0.3",
+      "concept_id": "concept:yarn.continuity.staple_fiber",
+      "dimension_revision_id": "dimension-revision:yarn.continuity:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "staple_fiber",
+      "label_pt": "fibra_descontinua",
+      "status": "active",
+      "source_token_v0_3": "fibra_descontinua",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:yarn.continuity.mixed:v0.3",
+      "concept_id": "concept:yarn.continuity.mixed",
+      "dimension_revision_id": "dimension-revision:yarn.continuity:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "mixed",
+      "label_pt": "misto",
+      "status": "active",
+      "source_token_v0_3": "misto",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:yarn.continuity.indeterminate:v0.3",
+      "concept_id": "concept:yarn.continuity.indeterminate",
+      "dimension_revision_id": "dimension-revision:yarn.continuity:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "indeterminate",
+      "label_pt": "indeterminado",
+      "status": "active",
+      "source_token_v0_3": "indeterminado",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:yarn.spinning_system.spun:v0.3",
+      "concept_id": "concept:yarn.spinning_system.spun",
+      "dimension_revision_id": "dimension-revision:yarn.spinning_system:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "spun",
+      "label_pt": "fiado",
+      "status": "active",
+      "source_token_v0_3": "fiado",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:yarn.spinning_system.multifilament:v0.3",
+      "concept_id": "concept:yarn.spinning_system.multifilament",
+      "dimension_revision_id": "dimension-revision:yarn.spinning_system:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "multifilament",
+      "label_pt": "multifilamento",
+      "status": "active",
+      "source_token_v0_3": "multifilamento",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:yarn.spinning_system.monofilament:v0.3",
+      "concept_id": "concept:yarn.spinning_system.monofilament",
+      "dimension_revision_id": "dimension-revision:yarn.spinning_system:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "monofilament",
+      "label_pt": "monofilamento",
+      "status": "active",
+      "source_token_v0_3": "monofilamento",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:yarn.spinning_system.indeterminate:v0.3",
+      "concept_id": "concept:yarn.spinning_system.indeterminate",
+      "dimension_revision_id": "dimension-revision:yarn.spinning_system:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "indeterminate",
+      "label_pt": "indeterminado",
+      "status": "active",
+      "source_token_v0_3": "indeterminado",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:yarn.twist.s_twist:v0.3",
+      "concept_id": "concept:yarn.twist.s_twist",
+      "dimension_revision_id": "dimension-revision:yarn.twist:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "s_twist",
+      "label_pt": "torcido_S",
+      "status": "active",
+      "source_token_v0_3": "torcido_S",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:yarn.twist.z_twist:v0.3",
+      "concept_id": "concept:yarn.twist.z_twist",
+      "dimension_revision_id": "dimension-revision:yarn.twist:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "z_twist",
+      "label_pt": "torcido_Z",
+      "status": "active",
+      "source_token_v0_3": "torcido_Z",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:yarn.twist.no_apparent_twist:v0.3",
+      "concept_id": "concept:yarn.twist.no_apparent_twist",
+      "dimension_revision_id": "dimension-revision:yarn.twist:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "no_apparent_twist",
+      "label_pt": "sem_torção_aparente",
+      "status": "active",
+      "source_token_v0_3": "sem_torção_aparente",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:yarn.twist.indeterminate:v0.3",
+      "concept_id": "concept:yarn.twist.indeterminate",
+      "dimension_revision_id": "dimension-revision:yarn.twist:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "indeterminate",
+      "label_pt": "indeterminado",
+      "status": "active",
+      "source_token_v0_3": "indeterminado",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:yarn.linear_density_system.tex:v0.3",
+      "concept_id": "concept:yarn.linear_density_system.tex",
+      "dimension_revision_id": "dimension-revision:yarn.linear_density_system:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "tex",
+      "label_pt": "tex",
+      "status": "active",
+      "source_token_v0_3": null,
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:yarn.linear_density_system.dtex:v0.3",
+      "concept_id": "concept:yarn.linear_density_system.dtex",
+      "dimension_revision_id": "dimension-revision:yarn.linear_density_system:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "dtex",
+      "label_pt": "dtex",
+      "status": "active",
+      "source_token_v0_3": null,
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:yarn.linear_density_system.nm:v0.3",
+      "concept_id": "concept:yarn.linear_density_system.nm",
+      "dimension_revision_id": "dimension-revision:yarn.linear_density_system:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "nm",
+      "label_pt": "Nm",
+      "status": "active",
+      "source_token_v0_3": "Nm",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:yarn.linear_density_system.ne:v0.3",
+      "concept_id": "concept:yarn.linear_density_system.ne",
+      "dimension_revision_id": "dimension-revision:yarn.linear_density_system:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "ne",
+      "label_pt": "Ne",
+      "status": "active",
+      "source_token_v0_3": "Ne",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:yarn.linear_density_system.indeterminate:v0.3",
+      "concept_id": "concept:yarn.linear_density_system.indeterminate",
+      "dimension_revision_id": "dimension-revision:yarn.linear_density_system:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "indeterminate",
+      "label_pt": "indeterminado",
+      "status": "active",
+      "source_token_v0_3": "indeterminado",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:yarn.texturization.textured:v0.3",
+      "concept_id": "concept:yarn.texturization.textured",
+      "dimension_revision_id": "dimension-revision:yarn.texturization:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "textured",
+      "label_pt": "texturizado",
+      "status": "active",
+      "source_token_v0_3": "texturizado",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:yarn.texturization.not_textured:v0.3",
+      "concept_id": "concept:yarn.texturization.not_textured",
+      "dimension_revision_id": "dimension-revision:yarn.texturization:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "not_textured",
+      "label_pt": "nao_texturizado",
+      "status": "active",
+      "source_token_v0_3": "nao_texturizado",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:yarn.texturization.indeterminate:v0.3",
+      "concept_id": "concept:yarn.texturization.indeterminate",
+      "dimension_revision_id": "dimension-revision:yarn.texturization:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "indeterminate",
+      "label_pt": "indeterminado",
+      "status": "active",
+      "source_token_v0_3": "indeterminado",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:yarn.fancy_type.boucle:v0.3",
+      "concept_id": "concept:yarn.fancy_type.boucle",
+      "dimension_revision_id": "dimension-revision:yarn.fancy_type:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "boucle",
+      "label_pt": "bouclé",
+      "status": "active",
+      "source_token_v0_3": "bouclé",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:yarn.fancy_type.chenille:v0.3",
+      "concept_id": "concept:yarn.fancy_type.chenille",
+      "dimension_revision_id": "dimension-revision:yarn.fancy_type:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "chenille",
+      "label_pt": "chenille",
+      "status": "active",
+      "source_token_v0_3": null,
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:yarn.fancy_type.slub:v0.3",
+      "concept_id": "concept:yarn.fancy_type.slub",
+      "dimension_revision_id": "dimension-revision:yarn.fancy_type:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "slub",
+      "label_pt": "flamê",
+      "status": "active",
+      "source_token_v0_3": "flamê",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:yarn.fancy_type.core_spun:v0.3",
+      "concept_id": "concept:yarn.fancy_type.core_spun",
+      "dimension_revision_id": "dimension-revision:yarn.fancy_type:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "core_spun",
+      "label_pt": "core_spun",
+      "status": "active",
+      "source_token_v0_3": null,
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:yarn.fancy_type.not_applicable:v0.3",
+      "concept_id": "concept:yarn.fancy_type.not_applicable",
+      "dimension_revision_id": "dimension-revision:yarn.fancy_type:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "not_applicable",
+      "label_pt": "nao_aplicavel",
+      "status": "active",
+      "source_token_v0_3": "nao_aplicavel",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:yarn.fancy_type.indeterminate:v0.3",
+      "concept_id": "concept:yarn.fancy_type.indeterminate",
+      "dimension_revision_id": "dimension-revision:yarn.fancy_type:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "indeterminate",
+      "label_pt": "indeterminado",
+      "status": "active",
+      "source_token_v0_3": "indeterminado",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:construction.primary.plain_weave:v0.3",
+      "concept_id": "concept:construction.primary.plain_weave",
+      "dimension_revision_id": "dimension-revision:construction.primary:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "plain_weave",
+      "label_pt": "tafeta",
+      "status": "active",
+      "source_token_v0_3": "tafeta",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:construction.primary.twill:v0.3",
+      "concept_id": "concept:construction.primary.twill",
+      "dimension_revision_id": "dimension-revision:construction.primary:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "twill",
+      "label_pt": "sarja",
+      "status": "active",
+      "source_token_v0_3": "sarja",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:construction.primary.satin:v0.3",
+      "concept_id": "concept:construction.primary.satin",
+      "dimension_revision_id": "dimension-revision:construction.primary:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "satin",
+      "label_pt": "cetim",
+      "status": "active",
+      "source_token_v0_3": "cetim",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:construction.primary.leno_gauze:v0.3",
+      "concept_id": "concept:construction.primary.leno_gauze",
+      "dimension_revision_id": "dimension-revision:construction.primary:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "leno_gauze",
+      "label_pt": "leno_gaze",
+      "status": "active",
+      "source_token_v0_3": "leno_gaze",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:construction.primary.jersey:v0.3",
+      "concept_id": "concept:construction.primary.jersey",
+      "dimension_revision_id": "dimension-revision:construction.primary:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "jersey",
+      "label_pt": "jersey",
+      "status": "active",
+      "source_token_v0_3": null,
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:construction.primary.rib:v0.3",
+      "concept_id": "concept:construction.primary.rib",
+      "dimension_revision_id": "dimension-revision:construction.primary:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "rib",
+      "label_pt": "ribana_canelada",
+      "status": "active",
+      "source_token_v0_3": "ribana_canelada",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:construction.primary.interlock:v0.3",
+      "concept_id": "concept:construction.primary.interlock",
+      "dimension_revision_id": "dimension-revision:construction.primary:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "interlock",
+      "label_pt": "interlock",
+      "status": "active",
+      "source_token_v0_3": null,
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:construction.primary.purl:v0.3",
+      "concept_id": "concept:construction.primary.purl",
+      "dimension_revision_id": "dimension-revision:construction.primary:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "purl",
+      "label_pt": "purl_links_links",
+      "status": "active",
+      "source_token_v0_3": "purl_links_links",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:construction.primary.knit_pique:v0.3",
+      "concept_id": "concept:construction.primary.knit_pique",
+      "dimension_revision_id": "dimension-revision:construction.primary:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "knit_pique",
+      "label_pt": "pique_malha",
+      "status": "active",
+      "source_token_v0_3": "pique_malha",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:construction.primary.tricot:v0.3",
+      "concept_id": "concept:construction.primary.tricot",
+      "dimension_revision_id": "dimension-revision:construction.primary:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "tricot",
+      "label_pt": "tricot",
+      "status": "active",
+      "source_token_v0_3": null,
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:construction.primary.raschel:v0.3",
+      "concept_id": "concept:construction.primary.raschel",
+      "dimension_revision_id": "dimension-revision:construction.primary:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "raschel",
+      "label_pt": "raschel",
+      "status": "active",
+      "source_token_v0_3": null,
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:construction.primary.milanese:v0.3",
+      "concept_id": "concept:construction.primary.milanese",
+      "dimension_revision_id": "dimension-revision:construction.primary:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "milanese",
+      "label_pt": "milanese",
+      "status": "active",
+      "source_token_v0_3": null,
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:construction.primary.indeterminate:v0.3",
+      "concept_id": "concept:construction.primary.indeterminate",
+      "dimension_revision_id": "dimension-revision:construction.primary:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "indeterminate",
+      "label_pt": "indeterminado",
+      "status": "active",
+      "source_token_v0_3": "indeterminado",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:patterning.weave_derivation.basket:v0.3",
+      "concept_id": "concept:patterning.weave_derivation.basket",
+      "dimension_revision_id": "dimension-revision:patterning.weave_derivation:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "basket",
+      "label_pt": "cestaria_panama_basket",
+      "status": "active",
+      "source_token_v0_3": "cestaria_panama_basket",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:patterning.weave_derivation.herringbone:v0.3",
+      "concept_id": "concept:patterning.weave_derivation.herringbone",
+      "dimension_revision_id": "dimension-revision:patterning.weave_derivation:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "herringbone",
+      "label_pt": "espinha_de_peixe",
+      "status": "active",
+      "source_token_v0_3": "espinha_de_peixe",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:patterning.weave_derivation.broken_twill:v0.3",
+      "concept_id": "concept:patterning.weave_derivation.broken_twill",
+      "dimension_revision_id": "dimension-revision:patterning.weave_derivation:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "broken_twill",
+      "label_pt": "broken_twill",
+      "status": "active",
+      "source_token_v0_3": null,
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:patterning.weave_derivation.cross_twill:v0.3",
+      "concept_id": "concept:patterning.weave_derivation.cross_twill",
+      "dimension_revision_id": "dimension-revision:patterning.weave_derivation:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "cross_twill",
+      "label_pt": "sarja_cruzada",
+      "status": "active",
+      "source_token_v0_3": "sarja_cruzada",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:patterning.weave_derivation.compound_twill:v0.3",
+      "concept_id": "concept:patterning.weave_derivation.compound_twill",
+      "dimension_revision_id": "dimension-revision:patterning.weave_derivation:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "compound_twill",
+      "label_pt": "sarja_composta",
+      "status": "active",
+      "source_token_v0_3": "sarja_composta",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:patterning.weave_derivation.derived_satin:v0.3",
+      "concept_id": "concept:patterning.weave_derivation.derived_satin",
+      "dimension_revision_id": "dimension-revision:patterning.weave_derivation:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "derived_satin",
+      "label_pt": "cetim_derivado",
+      "status": "active",
+      "source_token_v0_3": "cetim_derivado",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:patterning.weave_derivation.indeterminate:v0.3",
+      "concept_id": "concept:patterning.weave_derivation.indeterminate",
+      "dimension_revision_id": "dimension-revision:patterning.weave_derivation:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "indeterminate",
+      "label_pt": "indeterminado",
+      "status": "active",
+      "source_token_v0_3": "indeterminado",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:patterning.mechanism.dobby:v0.3",
+      "concept_id": "concept:patterning.mechanism.dobby",
+      "dimension_revision_id": "dimension-revision:patterning.mechanism:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "dobby",
+      "label_pt": "dobby",
+      "status": "active",
+      "source_token_v0_3": null,
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:patterning.mechanism.jacquard:v0.3",
+      "concept_id": "concept:patterning.mechanism.jacquard",
+      "dimension_revision_id": "dimension-revision:patterning.mechanism:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "jacquard",
+      "label_pt": "jacquard",
+      "status": "active",
+      "source_token_v0_3": null,
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:patterning.mechanism.print:v0.3",
+      "concept_id": "concept:patterning.mechanism.print",
+      "dimension_revision_id": "dimension-revision:patterning.mechanism:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "print",
+      "label_pt": "estampa",
+      "status": "active",
+      "source_token_v0_3": "estampa",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:patterning.mechanism.embroidery:v0.3",
+      "concept_id": "concept:patterning.mechanism.embroidery",
+      "dimension_revision_id": "dimension-revision:patterning.mechanism:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "embroidery",
+      "label_pt": "bordado",
+      "status": "active",
+      "source_token_v0_3": "bordado",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:patterning.mechanism.indeterminate:v0.3",
+      "concept_id": "concept:patterning.mechanism.indeterminate",
+      "dimension_revision_id": "dimension-revision:patterning.mechanism:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "indeterminate",
+      "label_pt": "indeterminado",
+      "status": "active",
+      "source_token_v0_3": "indeterminado",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:patterning.special_construction.ripstop:v0.3",
+      "concept_id": "concept:patterning.special_construction.ripstop",
+      "dimension_revision_id": "dimension-revision:patterning.special_construction:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "ripstop",
+      "label_pt": "ripstop",
+      "status": "active",
+      "source_token_v0_3": null,
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:patterning.special_construction.leno_technique:v0.3",
+      "concept_id": "concept:patterning.special_construction.leno_technique",
+      "dimension_revision_id": "dimension-revision:patterning.special_construction:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "leno_technique",
+      "label_pt": "gaze_leno",
+      "status": "active",
+      "source_token_v0_3": "gaze_leno",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:patterning.special_construction.pique:v0.3",
+      "concept_id": "concept:patterning.special_construction.pique",
+      "dimension_revision_id": "dimension-revision:patterning.special_construction:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "pique",
+      "label_pt": "pique",
+      "status": "active",
+      "source_token_v0_3": null,
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:patterning.special_construction.structural_crepe:v0.3",
+      "concept_id": "concept:patterning.special_construction.structural_crepe",
+      "dimension_revision_id": "dimension-revision:patterning.special_construction:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "structural_crepe",
+      "label_pt": "crepe_estrutural",
+      "status": "active",
+      "source_token_v0_3": "crepe_estrutural",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:patterning.special_construction.indeterminate:v0.3",
+      "concept_id": "concept:patterning.special_construction.indeterminate",
+      "dimension_revision_id": "dimension-revision:patterning.special_construction:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "indeterminate",
+      "label_pt": "indeterminado",
+      "status": "active",
+      "source_token_v0_3": "indeterminado",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:patterning.surface_multilayer.cut_pile:v0.3",
+      "concept_id": "concept:patterning.surface_multilayer.cut_pile",
+      "dimension_revision_id": "dimension-revision:patterning.surface_multilayer:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "cut_pile",
+      "label_pt": "pelo_cortado",
+      "status": "active",
+      "source_token_v0_3": "pelo_cortado",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:patterning.surface_multilayer.loop_pile:v0.3",
+      "concept_id": "concept:patterning.surface_multilayer.loop_pile",
+      "dimension_revision_id": "dimension-revision:patterning.surface_multilayer:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "loop_pile",
+      "label_pt": "pelo_em_laco",
+      "status": "active",
+      "source_token_v0_3": "pelo_em_laco",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:patterning.surface_multilayer.fleece:v0.3",
+      "concept_id": "concept:patterning.surface_multilayer.fleece",
+      "dimension_revision_id": "dimension-revision:patterning.surface_multilayer:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "fleece",
+      "label_pt": "felpa",
+      "status": "active",
+      "source_token_v0_3": "felpa",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:patterning.surface_multilayer.double_face:v0.3",
+      "concept_id": "concept:patterning.surface_multilayer.double_face",
+      "dimension_revision_id": "dimension-revision:patterning.surface_multilayer:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "double_face",
+      "label_pt": "dupla_face",
+      "status": "active",
+      "source_token_v0_3": "dupla_face",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:patterning.surface_multilayer.double_layer:v0.3",
+      "concept_id": "concept:patterning.surface_multilayer.double_layer",
+      "dimension_revision_id": "dimension-revision:patterning.surface_multilayer:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "double_layer",
+      "label_pt": "dupla_camada",
+      "status": "active",
+      "source_token_v0_3": "dupla_camada",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:patterning.surface_multilayer.spacer_fabric:v0.3",
+      "concept_id": "concept:patterning.surface_multilayer.spacer_fabric",
+      "dimension_revision_id": "dimension-revision:patterning.surface_multilayer:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "spacer_fabric",
+      "label_pt": "tecido_espacador",
+      "status": "active",
+      "source_token_v0_3": "tecido_espacador",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:patterning.surface_multilayer.indeterminate:v0.3",
+      "concept_id": "concept:patterning.surface_multilayer.indeterminate",
+      "dimension_revision_id": "dimension-revision:patterning.surface_multilayer:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "indeterminate",
+      "label_pt": "indeterminado",
+      "status": "active",
+      "source_token_v0_3": "indeterminado",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:visual.transparency.opaque:v0.3",
+      "concept_id": "concept:visual.transparency.opaque",
+      "dimension_revision_id": "dimension-revision:visual.transparency:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "opaque",
+      "label_pt": "opaco",
+      "status": "active",
+      "source_token_v0_3": "opaco",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:visual.transparency.semi_opaque:v0.3",
+      "concept_id": "concept:visual.transparency.semi_opaque",
+      "dimension_revision_id": "dimension-revision:visual.transparency:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "semi_opaque",
+      "label_pt": "semiopaco",
+      "status": "active",
+      "source_token_v0_3": "semiopaco",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:visual.transparency.semi_transparent:v0.3",
+      "concept_id": "concept:visual.transparency.semi_transparent",
+      "dimension_revision_id": "dimension-revision:visual.transparency:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "semi_transparent",
+      "label_pt": "semitransparente",
+      "status": "active",
+      "source_token_v0_3": "semitransparente",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:visual.transparency.transparent:v0.3",
+      "concept_id": "concept:visual.transparency.transparent",
+      "dimension_revision_id": "dimension-revision:visual.transparency:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "transparent",
+      "label_pt": "transparente",
+      "status": "active",
+      "source_token_v0_3": "transparente",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:visual.transparency.indeterminate:v0.3",
+      "concept_id": "concept:visual.transparency.indeterminate",
+      "dimension_revision_id": "dimension-revision:visual.transparency:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "indeterminate",
+      "label_pt": "indeterminado",
+      "status": "active",
+      "source_token_v0_3": "indeterminado",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:visual.gloss.matte:v0.3",
+      "concept_id": "concept:visual.gloss.matte",
+      "dimension_revision_id": "dimension-revision:visual.gloss:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "matte",
+      "label_pt": "fosco",
+      "status": "active",
+      "source_token_v0_3": "fosco",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:visual.gloss.semi_matte:v0.3",
+      "concept_id": "concept:visual.gloss.semi_matte",
+      "dimension_revision_id": "dimension-revision:visual.gloss:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "semi_matte",
+      "label_pt": "semifosco",
+      "status": "active",
+      "source_token_v0_3": "semifosco",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:visual.gloss.satin_like:v0.3",
+      "concept_id": "concept:visual.gloss.satin_like",
+      "dimension_revision_id": "dimension-revision:visual.gloss:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "satin_like",
+      "label_pt": "acetinado",
+      "status": "active",
+      "source_token_v0_3": "acetinado",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:visual.gloss.shiny:v0.3",
+      "concept_id": "concept:visual.gloss.shiny",
+      "dimension_revision_id": "dimension-revision:visual.gloss:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "shiny",
+      "label_pt": "brilhante",
+      "status": "active",
+      "source_token_v0_3": "brilhante",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:visual.gloss.indeterminate:v0.3",
+      "concept_id": "concept:visual.gloss.indeterminate",
+      "dimension_revision_id": "dimension-revision:visual.gloss:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "indeterminate",
+      "label_pt": "indeterminado",
+      "status": "active",
+      "source_token_v0_3": "indeterminado",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:visual.texture.smooth:v0.3",
+      "concept_id": "concept:visual.texture.smooth",
+      "dimension_revision_id": "dimension-revision:visual.texture:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "smooth",
+      "label_pt": "lisa",
+      "status": "active",
+      "source_token_v0_3": "lisa",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:visual.texture.granular:v0.3",
+      "concept_id": "concept:visual.texture.granular",
+      "dimension_revision_id": "dimension-revision:visual.texture:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "granular",
+      "label_pt": "granulada",
+      "status": "active",
+      "source_token_v0_3": "granulada",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:visual.texture.ribbed:v0.3",
+      "concept_id": "concept:visual.texture.ribbed",
+      "dimension_revision_id": "dimension-revision:visual.texture:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "ribbed",
+      "label_pt": "canelada",
+      "status": "active",
+      "source_token_v0_3": "canelada",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:visual.texture.hairy:v0.3",
+      "concept_id": "concept:visual.texture.hairy",
+      "dimension_revision_id": "dimension-revision:visual.texture:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "hairy",
+      "label_pt": "felpuda",
+      "status": "active",
+      "source_token_v0_3": "felpuda",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:visual.texture.velvety:v0.3",
+      "concept_id": "concept:visual.texture.velvety",
+      "dimension_revision_id": "dimension-revision:visual.texture:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "velvety",
+      "label_pt": "aveludada",
+      "status": "active",
+      "source_token_v0_3": "aveludada",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:visual.texture.apparent_slub:v0.3",
+      "concept_id": "concept:visual.texture.apparent_slub",
+      "dimension_revision_id": "dimension-revision:visual.texture:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "apparent_slub",
+      "label_pt": "slub_aparente",
+      "status": "active",
+      "source_token_v0_3": "slub_aparente",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:visual.texture.indeterminate:v0.3",
+      "concept_id": "concept:visual.texture.indeterminate",
+      "dimension_revision_id": "dimension-revision:visual.texture:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "indeterminate",
+      "label_pt": "indeterminado",
+      "status": "active",
+      "source_token_v0_3": "indeterminado",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:visual.regularity.regular:v0.3",
+      "concept_id": "concept:visual.regularity.regular",
+      "dimension_revision_id": "dimension-revision:visual.regularity:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "regular",
+      "label_pt": "regular",
+      "status": "active",
+      "source_token_v0_3": null,
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:visual.regularity.irregular:v0.3",
+      "concept_id": "concept:visual.regularity.irregular",
+      "dimension_revision_id": "dimension-revision:visual.regularity:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "irregular",
+      "label_pt": "irregular",
+      "status": "active",
+      "source_token_v0_3": null,
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:visual.regularity.indeterminate:v0.3",
+      "concept_id": "concept:visual.regularity.indeterminate",
+      "dimension_revision_id": "dimension-revision:visual.regularity:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "indeterminate",
+      "label_pt": "indeterminado",
+      "status": "active",
+      "source_token_v0_3": "indeterminado",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:visual.color_appearance.apparently_solid:v0.3",
+      "concept_id": "concept:visual.color_appearance.apparently_solid",
+      "dimension_revision_id": "dimension-revision:visual.color_appearance:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "apparently_solid",
+      "label_pt": "lisa_aparente",
+      "status": "active",
+      "source_token_v0_3": "lisa_aparente",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:visual.color_appearance.apparently_printed:v0.3",
+      "concept_id": "concept:visual.color_appearance.apparently_printed",
+      "dimension_revision_id": "dimension-revision:visual.color_appearance:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "apparently_printed",
+      "label_pt": "estampada_aparente",
+      "status": "active",
+      "source_token_v0_3": "estampada_aparente",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:visual.color_appearance.apparently_multicolor_jacquard:v0.3",
+      "concept_id": "concept:visual.color_appearance.apparently_multicolor_jacquard",
+      "dimension_revision_id": "dimension-revision:visual.color_appearance:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "apparently_multicolor_jacquard",
+      "label_pt": "jacquard_multicor_aparente",
+      "status": "active",
+      "source_token_v0_3": "jacquard_multicor_aparente",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:visual.color_appearance.indeterminate:v0.3",
+      "concept_id": "concept:visual.color_appearance.indeterminate",
+      "dimension_revision_id": "dimension-revision:visual.color_appearance:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "indeterminate",
+      "label_pt": "indeterminado",
+      "status": "active",
+      "source_token_v0_3": "indeterminado",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:visual.color_uniformity.uniform:v0.3",
+      "concept_id": "concept:visual.color_uniformity.uniform",
+      "dimension_revision_id": "dimension-revision:visual.color_uniformity:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "uniform",
+      "label_pt": "uniforme",
+      "status": "active",
+      "source_token_v0_3": "uniforme",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:visual.color_uniformity.apparent_variation:v0.3",
+      "concept_id": "concept:visual.color_uniformity.apparent_variation",
+      "dimension_revision_id": "dimension-revision:visual.color_uniformity:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "apparent_variation",
+      "label_pt": "com_variacao_aparente",
+      "status": "active",
+      "source_token_v0_3": "com_variacao_aparente",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:visual.color_uniformity.indeterminate:v0.3",
+      "concept_id": "concept:visual.color_uniformity.indeterminate",
+      "dimension_revision_id": "dimension-revision:visual.color_uniformity:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "indeterminate",
+      "label_pt": "indeterminado",
+      "status": "active",
+      "source_token_v0_3": "indeterminado",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:visual.warp_weft_contrast.high:v0.3",
+      "concept_id": "concept:visual.warp_weft_contrast.high",
+      "dimension_revision_id": "dimension-revision:visual.warp_weft_contrast:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "high",
+      "label_pt": "alto",
+      "status": "active",
+      "source_token_v0_3": "alto",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:visual.warp_weft_contrast.low:v0.3",
+      "concept_id": "concept:visual.warp_weft_contrast.low",
+      "dimension_revision_id": "dimension-revision:visual.warp_weft_contrast:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "low",
+      "label_pt": "baixo",
+      "status": "active",
+      "source_token_v0_3": "baixo",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:visual.warp_weft_contrast.indeterminate:v0.3",
+      "concept_id": "concept:visual.warp_weft_contrast.indeterminate",
+      "dimension_revision_id": "dimension-revision:visual.warp_weft_contrast:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "indeterminate",
+      "label_pt": "indeterminado",
+      "status": "active",
+      "source_token_v0_3": "indeterminado",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:visual.coverage.closed:v0.3",
+      "concept_id": "concept:visual.coverage.closed",
+      "dimension_revision_id": "dimension-revision:visual.coverage:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "closed",
+      "label_pt": "fechada",
+      "status": "active",
+      "source_token_v0_3": "fechada",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:visual.coverage.open:v0.3",
+      "concept_id": "concept:visual.coverage.open",
+      "dimension_revision_id": "dimension-revision:visual.coverage:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "open",
+      "label_pt": "aberta",
+      "status": "active",
+      "source_token_v0_3": "aberta",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:visual.coverage.indeterminate:v0.3",
+      "concept_id": "concept:visual.coverage.indeterminate",
+      "dimension_revision_id": "dimension-revision:visual.coverage:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "indeterminate",
+      "label_pt": "indeterminado",
+      "status": "active",
+      "source_token_v0_3": "indeterminado",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:visual.hairiness.present:v0.3",
+      "concept_id": "concept:visual.hairiness.present",
+      "dimension_revision_id": "dimension-revision:visual.hairiness:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "present",
+      "label_pt": "presente",
+      "status": "active",
+      "source_token_v0_3": "presente",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:visual.hairiness.absent:v0.3",
+      "concept_id": "concept:visual.hairiness.absent",
+      "dimension_revision_id": "dimension-revision:visual.hairiness:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "absent",
+      "label_pt": "ausente",
+      "status": "active",
+      "source_token_v0_3": "ausente",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:visual.hairiness.indeterminate:v0.3",
+      "concept_id": "concept:visual.hairiness.indeterminate",
+      "dimension_revision_id": "dimension-revision:visual.hairiness:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "indeterminate",
+      "label_pt": "indeterminado",
+      "status": "active",
+      "source_token_v0_3": "indeterminado",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:visual.relief.flat:v0.3",
+      "concept_id": "concept:visual.relief.flat",
+      "dimension_revision_id": "dimension-revision:visual.relief:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "flat",
+      "label_pt": "plano",
+      "status": "active",
+      "source_token_v0_3": "plano",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:visual.relief.raised:v0.3",
+      "concept_id": "concept:visual.relief.raised",
+      "dimension_revision_id": "dimension-revision:visual.relief:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "raised",
+      "label_pt": "em_relevo",
+      "status": "active",
+      "source_token_v0_3": "em_relevo",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:visual.relief.indeterminate:v0.3",
+      "concept_id": "concept:visual.relief.indeterminate",
+      "dimension_revision_id": "dimension-revision:visual.relief:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "indeterminate",
+      "label_pt": "indeterminado",
+      "status": "active",
+      "source_token_v0_3": "indeterminado",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:visual.face_reverse.yes:v0.3",
+      "concept_id": "concept:visual.face_reverse.yes",
+      "dimension_revision_id": "dimension-revision:visual.face_reverse:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "yes",
+      "label_pt": "sim",
+      "status": "active",
+      "source_token_v0_3": "sim",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:visual.face_reverse.no:v0.3",
+      "concept_id": "concept:visual.face_reverse.no",
+      "dimension_revision_id": "dimension-revision:visual.face_reverse:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "no",
+      "label_pt": "nao",
+      "status": "active",
+      "source_token_v0_3": "nao",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:visual.face_reverse.indeterminate:v0.3",
+      "concept_id": "concept:visual.face_reverse.indeterminate",
+      "dimension_revision_id": "dimension-revision:visual.face_reverse:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "indeterminate",
+      "label_pt": "indeterminado",
+      "status": "active",
+      "source_token_v0_3": "indeterminado",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:tactile.hand.smooth_touch:v0.3",
+      "concept_id": "concept:tactile.hand.smooth_touch",
+      "dimension_revision_id": "dimension-revision:tactile.hand:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "smooth_touch",
+      "label_pt": "suave",
+      "status": "active",
+      "source_token_v0_3": "suave",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:tactile.hand.rough:v0.3",
+      "concept_id": "concept:tactile.hand.rough",
+      "dimension_revision_id": "dimension-revision:tactile.hand:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "rough",
+      "label_pt": "aspero",
+      "status": "active",
+      "source_token_v0_3": "aspero",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:tactile.hand.dry_hand:v0.3",
+      "concept_id": "concept:tactile.hand.dry_hand",
+      "dimension_revision_id": "dimension-revision:tactile.hand:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "dry_hand",
+      "label_pt": "seco",
+      "status": "active",
+      "source_token_v0_3": "seco",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:tactile.hand.cool_touch:v0.3",
+      "concept_id": "concept:tactile.hand.cool_touch",
+      "dimension_revision_id": "dimension-revision:tactile.hand:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "cool_touch",
+      "label_pt": "frio_ao_toque",
+      "status": "active",
+      "source_token_v0_3": "frio_ao_toque",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:tactile.hand.soft:v0.3",
+      "concept_id": "concept:tactile.hand.soft",
+      "dimension_revision_id": "dimension-revision:tactile.hand:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "soft",
+      "label_pt": "macio",
+      "status": "active",
+      "source_token_v0_3": "macio",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:tactile.hand.indeterminate:v0.3",
+      "concept_id": "concept:tactile.hand.indeterminate",
+      "dimension_revision_id": "dimension-revision:tactile.hand:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "indeterminate",
+      "label_pt": "indeterminado",
+      "status": "active",
+      "source_token_v0_3": "indeterminado",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:capture.quality.adequate:v0.3",
+      "concept_id": "concept:capture.quality.adequate",
+      "dimension_revision_id": "dimension-revision:capture.quality:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "adequate",
+      "label_pt": "adequada",
+      "status": "active",
+      "source_token_v0_3": "adequada",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:capture.quality.limited:v0.3",
+      "concept_id": "concept:capture.quality.limited",
+      "dimension_revision_id": "dimension-revision:capture.quality:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "limited",
+      "label_pt": "limitada",
+      "status": "active",
+      "source_token_v0_3": "limitada",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:capture.quality.insufficient:v0.3",
+      "concept_id": "concept:capture.quality.insufficient",
+      "dimension_revision_id": "dimension-revision:capture.quality:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "insufficient",
+      "label_pt": "insuficiente",
+      "status": "active",
+      "source_token_v0_3": "insuficiente",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:composite.type.laminated:v0.3",
+      "concept_id": "concept:composite.type.laminated",
+      "dimension_revision_id": "dimension-revision:composite.type:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "laminated",
+      "label_pt": "laminado",
+      "status": "active",
+      "source_token_v0_3": "laminado",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:composite.type.coated_structural:v0.3",
+      "concept_id": "concept:composite.type.coated_structural",
+      "dimension_revision_id": "dimension-revision:composite.type:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "coated_structural",
+      "label_pt": "revestido",
+      "status": "active",
+      "source_token_v0_3": "revestido",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:composite.type.bonded:v0.3",
+      "concept_id": "concept:composite.type.bonded",
+      "dimension_revision_id": "dimension-revision:composite.type:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "bonded",
+      "label_pt": "dublado",
+      "status": "active",
+      "source_token_v0_3": "dublado",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:composite.type.quilted:v0.3",
+      "concept_id": "concept:composite.type.quilted",
+      "dimension_revision_id": "dimension-revision:composite.type:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "quilted",
+      "label_pt": "acolchoado",
+      "status": "active",
+      "source_token_v0_3": "acolchoado",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:composite.type.with_membrane:v0.3",
+      "concept_id": "concept:composite.type.with_membrane",
+      "dimension_revision_id": "dimension-revision:composite.type:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "with_membrane",
+      "label_pt": "com_membrana",
+      "status": "active",
+      "source_token_v0_3": "com_membrana",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:composite.type.textile_sandwich:v0.3",
+      "concept_id": "concept:composite.type.textile_sandwich",
+      "dimension_revision_id": "dimension-revision:composite.type:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "textile_sandwich",
+      "label_pt": "sanduiche_textil",
+      "status": "active",
+      "source_token_v0_3": "sanduiche_textil",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:composite.type.reinforced:v0.3",
+      "concept_id": "concept:composite.type.reinforced",
+      "dimension_revision_id": "dimension-revision:composite.type:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "reinforced",
+      "label_pt": "reforcado",
+      "status": "active",
+      "source_token_v0_3": "reforcado",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:composite.type.with_film:v0.3",
+      "concept_id": "concept:composite.type.with_film",
+      "dimension_revision_id": "dimension-revision:composite.type:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "with_film",
+      "label_pt": "com_filme",
+      "status": "active",
+      "source_token_v0_3": "com_filme",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:composite.type.with_foam:v0.3",
+      "concept_id": "concept:composite.type.with_foam",
+      "dimension_revision_id": "dimension-revision:composite.type:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "with_foam",
+      "label_pt": "com_espuma",
+      "status": "active",
+      "source_token_v0_3": "com_espuma",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:composite.type.fiber_matrix_composite:v0.3",
+      "concept_id": "concept:composite.type.fiber_matrix_composite",
+      "dimension_revision_id": "dimension-revision:composite.type:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "fiber_matrix_composite",
+      "label_pt": "compósito_fibra_matriz",
+      "status": "active",
+      "source_token_v0_3": "compósito_fibra_matriz",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:composite.type.indeterminate:v0.3",
+      "concept_id": "concept:composite.type.indeterminate",
+      "dimension_revision_id": "dimension-revision:composite.type:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "indeterminate",
+      "label_pt": "indeterminado",
+      "status": "active",
+      "source_token_v0_3": "indeterminado",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:nonwoven.web_formation.carded:v0.3",
+      "concept_id": "concept:nonwoven.web_formation.carded",
+      "dimension_revision_id": "dimension-revision:nonwoven.web_formation:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "carded",
+      "label_pt": "cardada",
+      "status": "backlog",
+      "source_token_v0_3": "cardada",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:nonwoven.web_formation.airlaid:v0.3",
+      "concept_id": "concept:nonwoven.web_formation.airlaid",
+      "dimension_revision_id": "dimension-revision:nonwoven.web_formation:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "airlaid",
+      "label_pt": "airlaid",
+      "status": "backlog",
+      "source_token_v0_3": null,
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:nonwoven.web_formation.wetlaid:v0.3",
+      "concept_id": "concept:nonwoven.web_formation.wetlaid",
+      "dimension_revision_id": "dimension-revision:nonwoven.web_formation:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "wetlaid",
+      "label_pt": "wetlaid",
+      "status": "backlog",
+      "source_token_v0_3": null,
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:nonwoven.web_formation.spunlaid:v0.3",
+      "concept_id": "concept:nonwoven.web_formation.spunlaid",
+      "dimension_revision_id": "dimension-revision:nonwoven.web_formation:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "spunlaid",
+      "label_pt": "spunlaid",
+      "status": "backlog",
+      "source_token_v0_3": null,
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:nonwoven.extrusion.spunbond:v0.3",
+      "concept_id": "concept:nonwoven.extrusion.spunbond",
+      "dimension_revision_id": "dimension-revision:nonwoven.extrusion:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "spunbond",
+      "label_pt": "spunbond",
+      "status": "backlog",
+      "source_token_v0_3": null,
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:nonwoven.extrusion.meltblown:v0.3",
+      "concept_id": "concept:nonwoven.extrusion.meltblown",
+      "dimension_revision_id": "dimension-revision:nonwoven.extrusion:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "meltblown",
+      "label_pt": "meltblown",
+      "status": "backlog",
+      "source_token_v0_3": null,
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:nonwoven.consolidation.needle_punched:v0.3",
+      "concept_id": "concept:nonwoven.consolidation.needle_punched",
+      "dimension_revision_id": "dimension-revision:nonwoven.consolidation:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "needle_punched",
+      "label_pt": "agulhado",
+      "status": "backlog",
+      "source_token_v0_3": "agulhado",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:nonwoven.consolidation.hydroentangled:v0.3",
+      "concept_id": "concept:nonwoven.consolidation.hydroentangled",
+      "dimension_revision_id": "dimension-revision:nonwoven.consolidation:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "hydroentangled",
+      "label_pt": "hidroentrelacado",
+      "status": "backlog",
+      "source_token_v0_3": "hidroentrelacado",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:nonwoven.consolidation.thermal:v0.3",
+      "concept_id": "concept:nonwoven.consolidation.thermal",
+      "dimension_revision_id": "dimension-revision:nonwoven.consolidation:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "thermal",
+      "label_pt": "termico",
+      "status": "backlog",
+      "source_token_v0_3": "termico",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:nonwoven.consolidation.chemical:v0.3",
+      "concept_id": "concept:nonwoven.consolidation.chemical",
+      "dimension_revision_id": "dimension-revision:nonwoven.consolidation:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "chemical",
+      "label_pt": "quimico",
+      "status": "backlog",
+      "source_token_v0_3": "quimico",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:nonwoven.orientation.oriented:v0.3",
+      "concept_id": "concept:nonwoven.orientation.oriented",
+      "dimension_revision_id": "dimension-revision:nonwoven.orientation:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "oriented",
+      "label_pt": "orientada",
+      "status": "backlog",
+      "source_token_v0_3": "orientada",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:nonwoven.orientation.random:v0.3",
+      "concept_id": "concept:nonwoven.orientation.random",
+      "dimension_revision_id": "dimension-revision:nonwoven.orientation:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "random",
+      "label_pt": "aleatoria",
+      "status": "backlog",
+      "source_token_v0_3": "aleatoria",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:nonwoven.orientation.indeterminate:v0.3",
+      "concept_id": "concept:nonwoven.orientation.indeterminate",
+      "dimension_revision_id": "dimension-revision:nonwoven.orientation:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "indeterminate",
+      "label_pt": "indeterminado",
+      "status": "backlog",
+      "source_token_v0_3": "indeterminado",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:nonwoven.named_combination.sms:v0.3",
+      "concept_id": "concept:nonwoven.named_combination.sms",
+      "dimension_revision_id": "dimension-revision:nonwoven.named_combination:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "sms",
+      "label_pt": "SMS",
+      "status": "backlog",
+      "source_token_v0_3": "SMS",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:nonwoven.named_combination.nonwoven_laminate:v0.3",
+      "concept_id": "concept:nonwoven.named_combination.nonwoven_laminate",
+      "dimension_revision_id": "dimension-revision:nonwoven.named_combination:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "nonwoven_laminate",
+      "label_pt": "laminado_nao_tecido",
+      "status": "backlog",
+      "source_token_v0_3": "laminado_nao_tecido",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:nonwoven.named_combination.other:v0.3",
+      "concept_id": "concept:nonwoven.named_combination.other",
+      "dimension_revision_id": "dimension-revision:nonwoven.named_combination:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "other",
+      "label_pt": "outro",
+      "status": "backlog",
+      "source_token_v0_3": "outro",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:finishing.process.mercerized:v0.3",
+      "concept_id": "concept:finishing.process.mercerized",
+      "dimension_revision_id": "dimension-revision:finishing.process:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "mercerized",
+      "label_pt": "mercerizado",
+      "status": "active",
+      "source_token_v0_3": "mercerizado",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:finishing.process.calendered:v0.3",
+      "concept_id": "concept:finishing.process.calendered",
+      "dimension_revision_id": "dimension-revision:finishing.process:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "calendered",
+      "label_pt": "calandrado",
+      "status": "active",
+      "source_token_v0_3": "calandrado",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:finishing.process.sanforized:v0.3",
+      "concept_id": "concept:finishing.process.sanforized",
+      "dimension_revision_id": "dimension-revision:finishing.process:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "sanforized",
+      "label_pt": "sanforizado",
+      "status": "active",
+      "source_token_v0_3": "sanforizado",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:finishing.process.brushed:v0.3",
+      "concept_id": "concept:finishing.process.brushed",
+      "dimension_revision_id": "dimension-revision:finishing.process:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "brushed",
+      "label_pt": "escovado",
+      "status": "active",
+      "source_token_v0_3": "escovado",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:finishing.process.sanded:v0.3",
+      "concept_id": "concept:finishing.process.sanded",
+      "dimension_revision_id": "dimension-revision:finishing.process:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "sanded",
+      "label_pt": "lixado",
+      "status": "active",
+      "source_token_v0_3": "lixado",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:finishing.process.peached:v0.3",
+      "concept_id": "concept:finishing.process.peached",
+      "dimension_revision_id": "dimension-revision:finishing.process:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "peached",
+      "label_pt": "peletizado",
+      "status": "active",
+      "source_token_v0_3": "peletizado",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:finishing.process.resin_finished:v0.3",
+      "concept_id": "concept:finishing.process.resin_finished",
+      "dimension_revision_id": "dimension-revision:finishing.process:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "resin_finished",
+      "label_pt": "resinado",
+      "status": "active",
+      "source_token_v0_3": "resinado",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:finishing.process.coated:v0.3",
+      "concept_id": "concept:finishing.process.coated",
+      "dimension_revision_id": "dimension-revision:finishing.process:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "coated",
+      "label_pt": "revestido",
+      "status": "active",
+      "source_token_v0_3": "revestido",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:finishing.process.heat_set:v0.3",
+      "concept_id": "concept:finishing.process.heat_set",
+      "dimension_revision_id": "dimension-revision:finishing.process:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "heat_set",
+      "label_pt": "termofixado",
+      "status": "active",
+      "source_token_v0_3": "termofixado",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:finishing.process.enzymatic_biopolishing:v0.3",
+      "concept_id": "concept:finishing.process.enzymatic_biopolishing",
+      "dimension_revision_id": "dimension-revision:finishing.process:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "enzymatic_biopolishing",
+      "label_pt": "enzimatico_bio_polimento",
+      "status": "active",
+      "source_token_v0_3": "enzimatico_bio_polimento",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:finishing.process.other:v0.3",
+      "concept_id": "concept:finishing.process.other",
+      "dimension_revision_id": "dimension-revision:finishing.process:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "other",
+      "label_pt": "outro",
+      "status": "active",
+      "source_token_v0_3": "outro",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:finishing.process.not_informed:v0.3",
+      "concept_id": "concept:finishing.process.not_informed",
+      "dimension_revision_id": "dimension-revision:finishing.process:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "not_informed",
+      "label_pt": "nao_informado",
+      "status": "active",
+      "source_token_v0_3": "nao_informado",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:finishing.declared_function.waterproof:v0.3",
+      "concept_id": "concept:finishing.declared_function.waterproof",
+      "dimension_revision_id": "dimension-revision:finishing.declared_function:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "waterproof",
+      "label_pt": "impermeabilizado",
+      "status": "active",
+      "source_token_v0_3": "impermeabilizado",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:finishing.declared_function.repellent:v0.3",
+      "concept_id": "concept:finishing.declared_function.repellent",
+      "dimension_revision_id": "dimension-revision:finishing.declared_function:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "repellent",
+      "label_pt": "repelente",
+      "status": "active",
+      "source_token_v0_3": "repelente",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:finishing.declared_function.antimicrobial:v0.3",
+      "concept_id": "concept:finishing.declared_function.antimicrobial",
+      "dimension_revision_id": "dimension-revision:finishing.declared_function:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "antimicrobial",
+      "label_pt": "antimicrobiano",
+      "status": "active",
+      "source_token_v0_3": "antimicrobiano",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:finishing.declared_function.flame_retardant:v0.3",
+      "concept_id": "concept:finishing.declared_function.flame_retardant",
+      "dimension_revision_id": "dimension-revision:finishing.declared_function:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "flame_retardant",
+      "label_pt": "anti_chama",
+      "status": "active",
+      "source_token_v0_3": "anti_chama",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:finishing.declared_function.anti_pilling:v0.3",
+      "concept_id": "concept:finishing.declared_function.anti_pilling",
+      "dimension_revision_id": "dimension-revision:finishing.declared_function:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "anti_pilling",
+      "label_pt": "anti_pilling",
+      "status": "active",
+      "source_token_v0_3": null,
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:finishing.declared_function.antistatic:v0.3",
+      "concept_id": "concept:finishing.declared_function.antistatic",
+      "dimension_revision_id": "dimension-revision:finishing.declared_function:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "antistatic",
+      "label_pt": "antiestatico",
+      "status": "active",
+      "source_token_v0_3": "antiestatico",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:finishing.declared_function.hydrophilic:v0.3",
+      "concept_id": "concept:finishing.declared_function.hydrophilic",
+      "dimension_revision_id": "dimension-revision:finishing.declared_function:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "hydrophilic",
+      "label_pt": "hidrofilico",
+      "status": "active",
+      "source_token_v0_3": "hidrofilico",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:finishing.declared_function.uv_protection:v0.3",
+      "concept_id": "concept:finishing.declared_function.uv_protection",
+      "dimension_revision_id": "dimension-revision:finishing.declared_function:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "uv_protection",
+      "label_pt": "protecao_uv",
+      "status": "active",
+      "source_token_v0_3": "protecao_uv",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:finishing.declared_function.other:v0.3",
+      "concept_id": "concept:finishing.declared_function.other",
+      "dimension_revision_id": "dimension-revision:finishing.declared_function:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "other",
+      "label_pt": "outro",
+      "status": "active",
+      "source_token_v0_3": "outro",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:finishing.declared_function.not_informed:v0.3",
+      "concept_id": "concept:finishing.declared_function.not_informed",
+      "dimension_revision_id": "dimension-revision:finishing.declared_function:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "not_informed",
+      "label_pt": "nao_informado",
+      "status": "active",
+      "source_token_v0_3": "nao_informado",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:composition.status.absent:v0.3",
+      "concept_id": "concept:composition.status.absent",
+      "dimension_revision_id": "dimension-revision:composition.status:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "absent",
+      "label_pt": "composicao_ausente",
+      "status": "active",
+      "source_token_v0_3": "composicao_ausente",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:composition.status.partial_non_publishable:v0.3",
+      "concept_id": "concept:composition.status.partial_non_publishable",
+      "dimension_revision_id": "dimension-revision:composition.status:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "partial_non_publishable",
+      "label_pt": "composicao_parcial_nao_publicavel",
+      "status": "active",
+      "source_token_v0_3": "composicao_parcial_nao_publicavel",
+      "immutable": true
+    },
+    {
+      "id": "concept-revision:composition.status.complete:v0.3",
+      "concept_id": "concept:composition.status.complete",
+      "dimension_revision_id": "dimension-revision:composition.status:v0.3",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "code": "complete",
+      "label_pt": "composicao_completa",
+      "status": "active",
+      "source_token_v0_3": "composicao_completa",
+      "immutable": true
+    }
+  ],
+  "fiber_concept_identities": [
+    {
+      "id": "fiber-concept:cotton"
+    },
+    {
+      "id": "fiber-concept:polyester"
+    },
+    {
+      "id": "fiber-concept:viscose"
+    },
+    {
+      "id": "fiber-concept:silk"
+    },
+    {
+      "id": "fiber-concept:wool"
+    },
+    {
+      "id": "fiber-concept:elastane"
+    },
+    {
+      "id": "fiber-concept:flax"
+    },
+    {
+      "id": "fiber-concept:hemp"
+    },
+    {
+      "id": "fiber-concept:polyamide"
+    },
+    {
+      "id": "fiber-concept:other"
+    }
+  ],
+  "fiber_concept_revisions": [
+    {
+      "id": "fiber-concept-revision:cotton:v0.3",
+      "fiber_concept_id": "fiber-concept:cotton",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "canonical_name": "algodao",
+      "immutable": true
+    },
+    {
+      "id": "fiber-concept-revision:polyester:v0.3",
+      "fiber_concept_id": "fiber-concept:polyester",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "canonical_name": "poliester",
+      "immutable": true
+    },
+    {
+      "id": "fiber-concept-revision:viscose:v0.3",
+      "fiber_concept_id": "fiber-concept:viscose",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "canonical_name": "viscose",
+      "immutable": true
+    },
+    {
+      "id": "fiber-concept-revision:silk:v0.3",
+      "fiber_concept_id": "fiber-concept:silk",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "canonical_name": "seda",
+      "immutable": true
+    },
+    {
+      "id": "fiber-concept-revision:wool:v0.3",
+      "fiber_concept_id": "fiber-concept:wool",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "canonical_name": "la",
+      "immutable": true
+    },
+    {
+      "id": "fiber-concept-revision:elastane:v0.3",
+      "fiber_concept_id": "fiber-concept:elastane",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "canonical_name": "elastano",
+      "immutable": true
+    },
+    {
+      "id": "fiber-concept-revision:flax:v0.3",
+      "fiber_concept_id": "fiber-concept:flax",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "canonical_name": "linho",
+      "immutable": true
+    },
+    {
+      "id": "fiber-concept-revision:hemp:v0.3",
+      "fiber_concept_id": "fiber-concept:hemp",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "canonical_name": "canhamo",
+      "immutable": true
+    },
+    {
+      "id": "fiber-concept-revision:polyamide:v0.3",
+      "fiber_concept_id": "fiber-concept:polyamide",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "canonical_name": "poliamida",
+      "immutable": true
+    },
+    {
+      "id": "fiber-concept-revision:other:v0.3",
+      "fiber_concept_id": "fiber-concept:other",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "canonical_name": "outra",
+      "immutable": true
+    }
+  ],
+  "commercial_name_identities": [
+    {
+      "id": "commercial-name:chambray"
+    },
+    {
+      "id": "commercial-name:denim"
+    },
+    {
+      "id": "commercial-name:cambraia"
+    },
+    {
+      "id": "commercial-name:voil"
+    },
+    {
+      "id": "commercial-name:organza"
+    },
+    {
+      "id": "commercial-name:popeline"
+    },
+    {
+      "id": "commercial-name:gabardine"
+    },
+    {
+      "id": "commercial-name:oxford"
+    },
+    {
+      "id": "commercial-name:moletom"
+    },
+    {
+      "id": "commercial-name:veludo"
+    },
+    {
+      "id": "commercial-name:crepe"
+    }
+  ],
+  "commercial_name_revisions": [
+    {
+      "id": "commercial-name-revision:chambray:v0.3",
+      "commercial_name_id": "commercial-name:chambray",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "canonical_name": "chambray",
+      "synonyms": [],
+      "language_regions": [
+        "pt-BR",
+        "en"
+      ],
+      "ambiguity_level": "low",
+      "compatible_concept_revision_ids": [
+        "concept-revision:construction.primary.plain_weave:v0.3"
+      ],
+      "frequent_fiber_revision_ids": [
+        "fiber-concept-revision:cotton:v0.3",
+        "fiber-concept-revision:elastane:v0.3"
+      ],
+      "immutable": true
+    },
+    {
+      "id": "commercial-name-revision:denim:v0.3",
+      "commercial_name_id": "commercial-name:denim",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "canonical_name": "denim",
+      "synonyms": [],
+      "language_regions": [
+        "pt-BR",
+        "en"
+      ],
+      "ambiguity_level": "low",
+      "compatible_concept_revision_ids": [
+        "concept-revision:construction.primary.twill:v0.3"
+      ],
+      "frequent_fiber_revision_ids": [
+        "fiber-concept-revision:cotton:v0.3",
+        "fiber-concept-revision:elastane:v0.3"
+      ],
+      "immutable": true
+    },
+    {
+      "id": "commercial-name-revision:cambraia:v0.3",
+      "commercial_name_id": "commercial-name:cambraia",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "canonical_name": "cambraia",
+      "synonyms": [],
+      "language_regions": [
+        "pt-BR"
+      ],
+      "ambiguity_level": "low",
+      "compatible_concept_revision_ids": [
+        "concept-revision:construction.primary.plain_weave:v0.3"
+      ],
+      "frequent_fiber_revision_ids": [
+        "fiber-concept-revision:cotton:v0.3",
+        "fiber-concept-revision:viscose:v0.3"
+      ],
+      "immutable": true
+    },
+    {
+      "id": "commercial-name-revision:voil:v0.3",
+      "commercial_name_id": "commercial-name:voil",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "canonical_name": "voil",
+      "synonyms": [
+        "voile"
+      ],
+      "language_regions": [
+        "pt-BR",
+        "fr",
+        "en"
+      ],
+      "ambiguity_level": "medium",
+      "compatible_concept_revision_ids": [
+        "concept-revision:construction.primary.plain_weave:v0.3",
+        "concept-revision:construction.primary.leno_gauze:v0.3"
+      ],
+      "frequent_fiber_revision_ids": [
+        "fiber-concept-revision:cotton:v0.3",
+        "fiber-concept-revision:polyester:v0.3"
+      ],
+      "immutable": true
+    },
+    {
+      "id": "commercial-name-revision:organza:v0.3",
+      "commercial_name_id": "commercial-name:organza",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "canonical_name": "organza",
+      "synonyms": [],
+      "language_regions": [
+        "pt-BR",
+        "en"
+      ],
+      "ambiguity_level": "low",
+      "compatible_concept_revision_ids": [
+        "concept-revision:construction.primary.plain_weave:v0.3"
+      ],
+      "frequent_fiber_revision_ids": [
+        "fiber-concept-revision:silk:v0.3",
+        "fiber-concept-revision:polyester:v0.3"
+      ],
+      "immutable": true
+    },
+    {
+      "id": "commercial-name-revision:popeline:v0.3",
+      "commercial_name_id": "commercial-name:popeline",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "canonical_name": "popeline",
+      "synonyms": [
+        "poplin"
+      ],
+      "language_regions": [
+        "pt-BR",
+        "en"
+      ],
+      "ambiguity_level": "low",
+      "compatible_concept_revision_ids": [
+        "concept-revision:construction.primary.plain_weave:v0.3"
+      ],
+      "frequent_fiber_revision_ids": [
+        "fiber-concept-revision:cotton:v0.3",
+        "fiber-concept-revision:polyester:v0.3"
+      ],
+      "immutable": true
+    },
+    {
+      "id": "commercial-name-revision:gabardine:v0.3",
+      "commercial_name_id": "commercial-name:gabardine",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "canonical_name": "gabardine",
+      "synonyms": [],
+      "language_regions": [
+        "pt-BR",
+        "en"
+      ],
+      "ambiguity_level": "low",
+      "compatible_concept_revision_ids": [
+        "concept-revision:construction.primary.twill:v0.3"
+      ],
+      "frequent_fiber_revision_ids": [
+        "fiber-concept-revision:cotton:v0.3",
+        "fiber-concept-revision:polyester:v0.3",
+        "fiber-concept-revision:wool:v0.3"
+      ],
+      "immutable": true
+    },
+    {
+      "id": "commercial-name-revision:oxford:v0.3",
+      "commercial_name_id": "commercial-name:oxford",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "canonical_name": "oxford",
+      "synonyms": [],
+      "language_regions": [
+        "pt-BR",
+        "en"
+      ],
+      "ambiguity_level": "high",
+      "compatible_concept_revision_ids": [
+        "concept-revision:patterning.weave_derivation.basket:v0.3",
+        "concept-revision:patterning.mechanism.dobby:v0.3"
+      ],
+      "frequent_fiber_revision_ids": [
+        "fiber-concept-revision:cotton:v0.3",
+        "fiber-concept-revision:polyester:v0.3"
+      ],
+      "immutable": true
+    },
+    {
+      "id": "commercial-name-revision:moletom:v0.3",
+      "commercial_name_id": "commercial-name:moletom",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "canonical_name": "moletom",
+      "synonyms": [],
+      "language_regions": [
+        "pt-BR"
+      ],
+      "ambiguity_level": "low",
+      "compatible_concept_revision_ids": [
+        "concept-revision:construction.primary.jersey:v0.3",
+        "concept-revision:patterning.surface_multilayer.fleece:v0.3"
+      ],
+      "frequent_fiber_revision_ids": [
+        "fiber-concept-revision:cotton:v0.3",
+        "fiber-concept-revision:polyester:v0.3"
+      ],
+      "immutable": true
+    },
+    {
+      "id": "commercial-name-revision:veludo:v0.3",
+      "commercial_name_id": "commercial-name:veludo",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "canonical_name": "veludo",
+      "synonyms": [
+        "velvet"
+      ],
+      "language_regions": [
+        "pt-BR",
+        "en"
+      ],
+      "ambiguity_level": "medium",
+      "compatible_concept_revision_ids": [
+        "concept-revision:patterning.surface_multilayer.cut_pile:v0.3"
+      ],
+      "frequent_fiber_revision_ids": [
+        "fiber-concept-revision:cotton:v0.3",
+        "fiber-concept-revision:viscose:v0.3",
+        "fiber-concept-revision:polyester:v0.3"
+      ],
+      "immutable": true
+    },
+    {
+      "id": "commercial-name-revision:crepe:v0.3",
+      "commercial_name_id": "commercial-name:crepe",
+      "part_of_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "canonical_name": "crepe",
+      "synonyms": [
+        "crêpe"
+      ],
+      "language_regions": [
+        "pt-BR",
+        "fr",
+        "en"
+      ],
+      "ambiguity_level": "medium",
+      "compatible_concept_revision_ids": [
+        "concept-revision:patterning.special_construction.structural_crepe:v0.3"
+      ],
+      "frequent_fiber_revision_ids": [
+        "fiber-concept-revision:polyester:v0.3",
+        "fiber-concept-revision:silk:v0.3",
+        "fiber-concept-revision:viscose:v0.3"
+      ],
+      "immutable": true
+    }
+  ],
+  "measurement_types": [
+    {
+      "id": "measurement.mass_per_area",
+      "code": "mass_per_area",
+      "label_pt": "Gramatura",
+      "allowed_unit_ids": [
+        "unit.g_per_m2"
+      ]
+    },
+    {
+      "id": "measurement.thread_density",
+      "code": "thread_density",
+      "label_pt": "Densidade de fios",
+      "allowed_unit_ids": [
+        "unit.threads_per_cm",
+        "unit.courses_per_cm",
+        "unit.wales_per_cm"
+      ]
+    },
+    {
+      "id": "measurement.thickness",
+      "code": "thickness",
+      "label_pt": "Espessura sob pressão especificada",
+      "allowed_unit_ids": [
+        "unit.mm"
+      ]
+    },
+    {
+      "id": "measurement.usable_width",
+      "code": "usable_width",
+      "label_pt": "Largura útil",
+      "allowed_unit_ids": [
+        "unit.cm"
+      ]
+    },
+    {
+      "id": "measurement.elongation",
+      "code": "elongation",
+      "label_pt": "Alongamento",
+      "allowed_unit_ids": [
+        "unit.percent"
+      ]
+    },
+    {
+      "id": "measurement.recovery",
+      "code": "recovery",
+      "label_pt": "Recuperação",
+      "allowed_unit_ids": [
+        "unit.percent"
+      ]
+    },
+    {
+      "id": "measurement.drape",
+      "code": "drape",
+      "label_pt": "Caimento",
+      "allowed_unit_ids": [
+        "unit.dimensionless",
+        "unit.percent"
+      ]
+    },
+    {
+      "id": "measurement.wetting_time",
+      "code": "wetting_time",
+      "label_pt": "Tempo de molhamento",
+      "allowed_unit_ids": [
+        "unit.second"
+      ]
+    },
+    {
+      "id": "measurement.tensile_strength",
+      "code": "tensile_strength",
+      "label_pt": "Resistência à tração",
+      "allowed_unit_ids": [
+        "unit.newton",
+        "unit.kgf"
+      ]
+    },
+    {
+      "id": "measurement.tear_strength",
+      "code": "tear_strength",
+      "label_pt": "Resistência ao rasgo",
+      "allowed_unit_ids": [
+        "unit.newton"
+      ]
+    },
+    {
+      "id": "measurement.bursting_strength",
+      "code": "bursting_strength",
+      "label_pt": "Estouro",
+      "allowed_unit_ids": [
+        "unit.kpa"
+      ]
+    },
+    {
+      "id": "measurement.abrasion",
+      "code": "abrasion",
+      "label_pt": "Abrasão",
+      "allowed_unit_ids": [
+        "unit.cycles"
+      ]
+    },
+    {
+      "id": "measurement.pilling",
+      "code": "pilling",
+      "label_pt": "Pilling",
+      "allowed_unit_ids": [
+        "unit.reference_scale"
+      ]
+    },
+    {
+      "id": "measurement.dimensional_change",
+      "code": "dimensional_change",
+      "label_pt": "Estabilidade dimensional / encolhimento",
+      "allowed_unit_ids": [
+        "unit.percent"
+      ]
+    },
+    {
+      "id": "measurement.air_permeability",
+      "code": "air_permeability",
+      "label_pt": "Permeabilidade ao ar",
+      "allowed_unit_ids": [
+        "unit.mm_per_second"
+      ]
+    },
+    {
+      "id": "measurement.water_vapor_permeability",
+      "code": "water_vapor_permeability",
+      "label_pt": "Permeabilidade ao vapor",
+      "allowed_unit_ids": [
+        "unit.g_per_m2_day"
+      ]
+    },
+    {
+      "id": "measurement.thermal_resistance",
+      "code": "thermal_resistance",
+      "label_pt": "Resistência térmica",
+      "allowed_unit_ids": [
+        "unit.m2_k_per_w"
+      ]
+    },
+    {
+      "id": "measurement.color_fastness",
+      "code": "color_fastness",
+      "label_pt": "Solidez de cor",
+      "allowed_unit_ids": [
+        "unit.reference_scale"
+      ]
+    },
+    {
+      "id": "measurement.flammability",
+      "code": "flammability",
+      "label_pt": "Inflamabilidade",
+      "allowed_unit_ids": [
+        "unit.method_result"
+      ]
+    },
+    {
+      "id": "measurement.water_resistance",
+      "code": "water_resistance",
+      "label_pt": "Resistência à água",
+      "allowed_unit_ids": [
+        "unit.method_result"
+      ]
+    },
+    {
+      "id": "measurement.uv_protection",
+      "code": "uv_protection",
+      "label_pt": "Proteção UV",
+      "allowed_unit_ids": [
+        "unit.upf"
+      ]
+    },
+    {
+      "id": "measurement.snagging_resistance",
+      "code": "snagging_resistance",
+      "label_pt": "Resistência ao snagging",
+      "allowed_unit_ids": [
+        "unit.reference_scale"
+      ]
+    }
+  ],
+  "units": [
+    {
+      "id": "unit.g_per_m2",
+      "symbol": "g/m²"
+    },
+    {
+      "id": "unit.threads_per_cm",
+      "symbol": "fios/cm"
+    },
+    {
+      "id": "unit.courses_per_cm",
+      "symbol": "carreiras/cm"
+    },
+    {
+      "id": "unit.wales_per_cm",
+      "symbol": "colunas/cm"
+    },
+    {
+      "id": "unit.mm",
+      "symbol": "mm"
+    },
+    {
+      "id": "unit.cm",
+      "symbol": "cm"
+    },
+    {
+      "id": "unit.percent",
+      "symbol": "%"
+    },
+    {
+      "id": "unit.dimensionless",
+      "symbol": "adimensional"
+    },
+    {
+      "id": "unit.second",
+      "symbol": "s"
+    },
+    {
+      "id": "unit.newton",
+      "symbol": "N"
+    },
+    {
+      "id": "unit.kgf",
+      "symbol": "kgf"
+    },
+    {
+      "id": "unit.kpa",
+      "symbol": "kPa"
+    },
+    {
+      "id": "unit.cycles",
+      "symbol": "ciclos"
+    },
+    {
+      "id": "unit.reference_scale",
+      "symbol": "escala de referência"
+    },
+    {
+      "id": "unit.mm_per_second",
+      "symbol": "mm/s"
+    },
+    {
+      "id": "unit.g_per_m2_day",
+      "symbol": "g/m²/dia"
+    },
+    {
+      "id": "unit.m2_k_per_w",
+      "symbol": "m²·K/W"
+    },
+    {
+      "id": "unit.method_result",
+      "symbol": "resultado conforme método"
+    },
+    {
+      "id": "unit.upf",
+      "symbol": "UPF"
+    }
+  ],
+  "controlled_values": {
+    "assertion_kind": [
+      "observed",
+      "measured",
+      "inferred",
+      "declared",
+      "derived"
+    ],
+    "evidence_status": [
+      "absent",
+      "declared",
+      "calculated",
+      "documented",
+      "verified"
+    ],
+    "confidence_level": [
+      "high",
+      "medium",
+      "low",
+      "indeterminate"
+    ],
+    "capture_quality": [
+      "adequate",
+      "limited",
+      "insufficient",
+      "not_applicable"
+    ],
+    "review_state": [
+      "unreviewed",
+      "accepted",
+      "corrected",
+      "disputed",
+      "rejected"
+    ],
+    "assertion_status": [
+      "active",
+      "superseded",
+      "rejected",
+      "under_review"
+    ],
+    "evidence_type": [
+      "image",
+      "document",
+      "supplier_declaration",
+      "lab_report",
+      "certificate",
+      "physical_observation"
+    ],
+    "artifact_integrity": [
+      "verified",
+      "invalid",
+      "unknown"
+    ],
+    "source_authenticity": [
+      "verified",
+      "unverified",
+      "unknown"
+    ],
+    "evidentiary_relevance": [
+      "sufficient",
+      "limited",
+      "insufficient",
+      "unknown"
+    ],
+    "evidence_acceptance": [
+      "accepted",
+      "rejected",
+      "pending"
+    ],
+    "publication_outcome": [
+      "publish",
+      "publish_with_status",
+      "withhold",
+      "request_more_evidence"
+    ],
+    "review_outcome": [
+      "accepted",
+      "corrected",
+      "disputed",
+      "rejected"
+    ],
+    "conflict_type": [
+      "contradictory_value",
+      "source_disagreement",
+      "method_disagreement",
+      "temporal_change"
+    ],
+    "conflict_status": [
+      "open",
+      "resolved",
+      "accepted_coexistence"
+    ],
+    "benchmark_decision": [
+      "classify",
+      "abstain",
+      "request_new_evidence"
+    ],
+    "actor_type": [
+      "human",
+      "model",
+      "system",
+      "organization"
+    ]
+  },
+  "relation_types": [
+    {
+      "id": "HAS_REVISION",
+      "source_types": [
+        "TaxonomyConcept",
+        "TaxonomyDimension",
+        "TaxonomyModule"
+      ],
+      "target_types": [
+        "TaxonomyConceptRevision",
+        "TaxonomyDimensionRevision",
+        "TaxonomyModuleRevision"
+      ],
+      "cardinality": "one_to_many"
+    },
+    {
+      "id": "PART_OF_VERSION",
+      "source_types": [
+        "TaxonomyConceptRevision",
+        "TaxonomyDimensionRevision",
+        "TaxonomyModuleRevision"
+      ],
+      "target_types": [
+        "TaxonomyVersion"
+      ],
+      "cardinality": "many_to_one"
+    },
+    {
+      "id": "HAS_ASSERTION",
+      "source_types": [
+        "TextileSample"
+      ],
+      "target_types": [
+        "Assertion"
+      ],
+      "cardinality": "one_to_many"
+    },
+    {
+      "id": "ABOUT_DIMENSION",
+      "source_types": [
+        "Assertion"
+      ],
+      "target_types": [
+        "TaxonomyDimensionRevision"
+      ],
+      "cardinality": "many_to_one"
+    },
+    {
+      "id": "ASSERTS_CONCEPT",
+      "source_types": [
+        "Assertion"
+      ],
+      "target_types": [
+        "TaxonomyConceptRevision"
+      ],
+      "cardinality": "many_to_one"
+    },
+    {
+      "id": "ASSERTS_MEASUREMENT",
+      "source_types": [
+        "Assertion"
+      ],
+      "target_types": [
+        "Measurement"
+      ],
+      "cardinality": "one_to_one"
+    },
+    {
+      "id": "ASSERTS_COMPOSITION_COMPONENT",
+      "source_types": [
+        "Assertion"
+      ],
+      "target_types": [
+        "CompositionComponent"
+      ],
+      "cardinality": "one_to_one"
+    },
+    {
+      "id": "ASSERTS_FINISH_APPLICATION",
+      "source_types": [
+        "Assertion"
+      ],
+      "target_types": [
+        "FinishApplication"
+      ],
+      "cardinality": "one_to_one"
+    },
+    {
+      "id": "ASSERTS_DECLARED_FUNCTION",
+      "source_types": [
+        "Assertion"
+      ],
+      "target_types": [
+        "TaxonomyConceptRevision"
+      ],
+      "cardinality": "many_to_one"
+    },
+    {
+      "id": "ASSERTS_COMMERCIAL_NAME",
+      "source_types": [
+        "Assertion"
+      ],
+      "target_types": [
+        "CommercialNameRevision"
+      ],
+      "cardinality": "many_to_one"
+    },
+    {
+      "id": "SUPPORTED_BY",
+      "source_types": [
+        "Assertion"
+      ],
+      "target_types": [
+        "Evidence"
+      ],
+      "cardinality": "many_to_many"
+    },
+    {
+      "id": "USES_METHOD",
+      "source_types": [
+        "Assertion",
+        "Measurement"
+      ],
+      "target_types": [
+        "MethodVersion"
+      ],
+      "cardinality": "many_to_one"
+    },
+    {
+      "id": "GENERATED_BY",
+      "source_types": [
+        "Assertion"
+      ],
+      "target_types": [
+        "Execution"
+      ],
+      "cardinality": "many_to_one"
+    },
+    {
+      "id": "HAS_REVIEW",
+      "source_types": [
+        "Assertion"
+      ],
+      "target_types": [
+        "Review"
+      ],
+      "cardinality": "one_to_many"
+    },
+    {
+      "id": "HAS_PUBLICATION_DECISION",
+      "source_types": [
+        "Assertion"
+      ],
+      "target_types": [
+        "PublicationDecision"
+      ],
+      "cardinality": "one_to_one"
+    },
+    {
+      "id": "APPLIES_POLICY",
+      "source_types": [
+        "PublicationDecision",
+        "Review"
+      ],
+      "target_types": [
+        "PublicationPolicyVersion",
+        "ReviewPolicyVersion"
+      ],
+      "cardinality": "many_to_one"
+    },
+    {
+      "id": "SUPERSEDES",
+      "source_types": [
+        "Assertion"
+      ],
+      "target_types": [
+        "Assertion"
+      ],
+      "cardinality": "many_to_one"
+    },
+    {
+      "id": "PARTICIPATES_IN",
+      "source_types": [
+        "Assertion"
+      ],
+      "target_types": [
+        "AssertionConflict"
+      ],
+      "cardinality": "many_to_many"
+    },
+    {
+      "id": "RESOLVED_BY",
+      "source_types": [
+        "AssertionConflict"
+      ],
+      "target_types": [
+        "Review"
+      ],
+      "cardinality": "many_to_one"
+    },
+    {
+      "id": "CONSUMED",
+      "source_types": [
+        "Execution"
+      ],
+      "target_types": [
+        "Evidence"
+      ],
+      "cardinality": "many_to_many"
+    },
+    {
+      "id": "PRODUCED",
+      "source_types": [
+        "Execution"
+      ],
+      "target_types": [
+        "Assertion"
+      ],
+      "cardinality": "one_to_many"
+    }
+  ],
+  "publication_policy_versions": [
+    {
+      "id": "publication-policy:phyllos-evidence:v1.0.0",
+      "version": "1.0.0",
+      "effective_from": "2026-07-15",
+      "immutable_hash": "ac65bc451228bb5a404bd017645d9e0b702da72c0217e7b15b1544af934711a7",
+      "rules": [
+        {
+          "rule_id": "policy.composition.inferred_withhold",
+          "condition": "composition assertion_kind=inferred",
+          "outcome": "withhold"
+        },
+        {
+          "rule_id": "policy.function.missing_source_or_method_withhold",
+          "condition": "declared function without evidence or method",
+          "outcome": "withhold"
+        },
+        {
+          "rule_id": "policy.capture.insufficient_request",
+          "condition": "capture_quality=insufficient",
+          "outcome": "request_more_evidence"
+        },
+        {
+          "rule_id": "policy.commercial.high_ambiguity_request",
+          "condition": "commercial name ambiguity=high",
+          "outcome": "request_more_evidence"
+        },
+        {
+          "rule_id": "policy.conflict.open_block",
+          "condition": "assertion in open conflict",
+          "outcomes": [
+            "withhold",
+            "request_more_evidence"
+          ]
+        }
+      ],
+      "immutable": true
+    }
+  ],
+  "review_policy_versions": [
+    {
+      "id": "review-policy:phyllos-assertion:v1.0.0",
+      "version": "1.0.0",
+      "effective_from": "2026-07-15",
+      "immutable_hash": "311c76d26dcca94482fe78c382e65dc9a204f8663f94c5d5f53b86021fe8f579",
+      "immutable": true
+    }
+  ],
+  "capability_policy_versions": [
+    {
+      "id": "capability-policy:benchmark-1:v1.0.0",
+      "version": "1.0.0",
+      "benchmark_version_id": "benchmark-version:benchmark-1:v1.0.0",
+      "automation_blocked_outside_benchmark": true,
+      "immutable_hash": "e3cf6995d1be7074474da66d3733dc3338c915ec34f39884ffa9d9dd5f990f9b",
+      "immutable": true
+    }
+  ],
+  "benchmark_versions": [
+    {
+      "id": "benchmark-version:benchmark-1:v1.0.0",
+      "benchmark_id": "benchmark:benchmark-1",
+      "version": "1.0.0",
+      "status": "frozen",
+      "preserved_from": "0.1",
+      "taxonomy_version_id": "taxonomy-version:phyllos.textile:v0.3",
+      "allowed_dimension_revision_ids": [
+        "dimension-revision:structure.family:v0.3",
+        "dimension-revision:construction.primary:v0.3",
+        "dimension-revision:visual.transparency:v0.3",
+        "dimension-revision:capture.quality:v0.3"
+      ],
+      "allowed_concept_revision_ids": [
+        "concept-revision:structure.family.woven_fabric:v0.3",
+        "concept-revision:structure.family.weft_knit:v0.3",
+        "concept-revision:structure.family.warp_knit:v0.3",
+        "concept-revision:structure.family.nonwoven:v0.3",
+        "concept-revision:structure.family.interlaced_braided:v0.3",
+        "concept-revision:structure.family.stitch_bonded:v0.3",
+        "concept-revision:structure.family.composite_structure:v0.3",
+        "concept-revision:structure.family.indeterminate:v0.3",
+        "concept-revision:construction.primary.plain_weave:v0.3",
+        "concept-revision:construction.primary.twill:v0.3",
+        "concept-revision:construction.primary.satin:v0.3",
+        "concept-revision:construction.primary.indeterminate:v0.3",
+        "concept-revision:visual.transparency.opaque:v0.3",
+        "concept-revision:visual.transparency.semi_opaque:v0.3",
+        "concept-revision:visual.transparency.semi_transparent:v0.3",
+        "concept-revision:visual.transparency.transparent:v0.3",
+        "concept-revision:visual.transparency.indeterminate:v0.3",
+        "concept-revision:capture.quality.adequate:v0.3",
+        "concept-revision:capture.quality.limited:v0.3",
+        "concept-revision:capture.quality.insufficient:v0.3"
+      ],
+      "allowed_decisions": [
+        "classify",
+        "abstain",
+        "request_new_evidence"
+      ],
+      "capability_policy_version_id": "capability-policy:benchmark-1:v1.0.0",
+      "immutable": true
+    }
+  ],
+  "rules": [
+    {
+      "id": "rule.assertion.inferred_no_evidence_elevation",
+      "severity": "error",
+      "description": "Inferred assertions must use evidence_status=absent. Model inference is not a calculated result."
+    },
+    {
+      "id": "rule.assertion.calculated_requires_derivation_context",
+      "severity": "error",
+      "description": "Calculated is reserved for assertion_kind=derived and requires a versioned deterministic method/formula plus explicit source assertions."
+    },
+    {
+      "id": "rule.assertion.verified_requirements",
+      "severity": "error",
+      "description": "Verified requires accepted sufficient evidence, applicable method, accepted human review."
+    },
+    {
+      "id": "rule.assertion.probability_requires_calibration",
+      "severity": "error",
+      "description": "Numeric probability requires calibration version and calibrated flag."
+    },
+    {
+      "id": "rule.assertion.inferred_requires_execution",
+      "severity": "error",
+      "description": "Every inferred assertion points to execution, model, prompt and consumed evidence."
+    },
+    {
+      "id": "rule.publication.composition_inferred_withhold",
+      "severity": "error",
+      "description": "Inferred composition must be withheld."
+    },
+    {
+      "id": "rule.publication.function_missing_context_withhold",
+      "severity": "error",
+      "description": "Declared function without source or method must be withheld."
+    },
+    {
+      "id": "rule.publication.capture_insufficient_request",
+      "severity": "error",
+      "description": "Insufficient capture requests more evidence."
+    },
+    {
+      "id": "rule.publication.commercial_high_ambiguity_request",
+      "severity": "error",
+      "description": "High ambiguity commercial name requests more evidence."
+    },
+    {
+      "id": "rule.publication.open_conflict_block",
+      "severity": "error",
+      "description": "Open conflicts block publication."
+    },
+    {
+      "id": "rule.history.supersedes_preserves_old",
+      "severity": "error",
+      "description": "Corrections create new assertions and preserve superseded assertion."
+    },
+    {
+      "id": "rule.benchmark.versioned_capability",
+      "severity": "error",
+      "description": "Only benchmark revisions may support classify."
+    },
+    {
+      "id": "rule.tactile.no_image_only",
+      "severity": "error",
+      "description": "Tactile value cannot rely only on image evidence."
+    },
+    {
+      "id": "rule.specialized_value.through_assertion",
+      "severity": "error",
+      "description": "Every specialized value is referenced by an assertion."
+    }
+  ],
+  "normative_references": [
+    {
+      "id": "norm.iso.9092.2026",
+      "code": "ISO 9092:2026",
+      "title": "Nonwovens — Vocabulary",
+      "status": "verified_official",
+      "publication_date": "2026-04",
+      "source_url": "https://www.iso.org/standard/90537.html",
+      "usage": "vocabulário de não tecidos"
+    },
+    {
+      "id": "norm.iso.7211-2.2024",
+      "code": "ISO 7211-2:2024",
+      "title": "Textiles — Methods for analysis of woven fabrics construction — Part 2: Determination of number of threads per unit length",
+      "status": "verified_official",
+      "source_url": "https://www.iso.org/standard/86700.html",
+      "usage": "densidade de fios em tecidos planos"
+    },
+    {
+      "id": "norm.iso.7211-5.2020",
+      "code": "ISO 7211-5:2020",
+      "title": "Textiles — Methods for analysis of woven fabrics construction — Part 5: Determination of linear density of yarn removed from fabric",
+      "status": "verified_official",
+      "source_url": "https://www.iso.org/standard/74893.html",
+      "usage": "densidade linear de fio removido do tecido"
+    },
+    {
+      "id": "norm.iso.2060.1994",
+      "code": "ISO 2060:1994",
+      "title": "Textiles — Yarn from packages — Determination of linear density (mass per unit length) by the skein method",
+      "status": "verified_official",
+      "source_url": "https://www.iso.org/standard/6837.html",
+      "usage": "densidade linear de fios em pacotes"
+    },
+    {
+      "id": "norm.abnt.mapping",
+      "code": "ABNT aplicável",
+      "title": "Mapeamento de equivalências ABNT",
+      "status": "pending_human_verification",
+      "usage": "uso regulatório e contratual no Brasil"
+    }
+  ],
+  "evidence_status_semantics": {
+    "absent": "No evidence status is conferred to the assertion. For model-produced visual classifications, the image is consumed by an Execution, but the inferred assertion remains evidence_status=absent.",
+    "declared": "A source has declared the value, without a preserved artifact sufficient to document the declaration.",
+    "calculated": "A deterministic and reproducible result derived from prior assertions, with a versioned method or formula and explicit input assertion identifiers. Reserved for assertion_kind=derived.",
+    "documented": "A preserved artifact supports that an observation or declaration occurred. The artifact documents the observation; it does not by itself verify the textile property.",
+    "verified": "The assertion passed applicable method, accepted sufficient evidence and accepted human review. File hash integrity alone never implies verification of content."
+  }
+}

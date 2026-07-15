@@ -1,0 +1,242 @@
+[
+  {
+    "fixture_id": "valid.001",
+    "expected_result": "valid",
+    "expected_rule": null,
+    "description": "Tecido plano tafetá opaco com inferência rastreada e derivação determinística calculada."
+  },
+  {
+    "fixture_id": "valid.002",
+    "expected_result": "valid",
+    "expected_rule": null,
+    "description": "Sarja opaca no benchmark 1."
+  },
+  {
+    "fixture_id": "valid.003",
+    "expected_result": "valid",
+    "expected_rule": null,
+    "description": "Cetim semiopaco no benchmark 1."
+  },
+  {
+    "fixture_id": "valid.004",
+    "expected_result": "valid",
+    "expected_rule": null,
+    "description": "Tafetá semitransparente no benchmark 1."
+  },
+  {
+    "fixture_id": "valid.005",
+    "expected_result": "valid",
+    "expected_rule": null,
+    "description": "Abstenção legítima com captura limitada."
+  },
+  {
+    "fixture_id": "valid.006",
+    "expected_result": "valid",
+    "expected_rule": null,
+    "description": "Captura insuficiente solicita nova evidência."
+  },
+  {
+    "fixture_id": "valid.007",
+    "expected_result": "valid",
+    "expected_rule": null,
+    "description": "Composição documentada e verificada com revisão humana."
+  },
+  {
+    "fixture_id": "valid.008",
+    "expected_result": "valid",
+    "expected_rule": null,
+    "description": "Hipótese visual de composição corretamente retida."
+  },
+  {
+    "fixture_id": "valid.009",
+    "expected_result": "valid",
+    "expected_rule": null,
+    "description": "Função declarada sem método permanece retida."
+  },
+  {
+    "fixture_id": "valid.010",
+    "expected_result": "valid",
+    "expected_rule": null,
+    "description": "Função declarada com laudo, método e revisão humana."
+  },
+  {
+    "fixture_id": "valid.011",
+    "expected_result": "valid",
+    "expected_rule": null,
+    "description": "Oxford com alta ambiguidade solicita evidência adicional."
+  },
+  {
+    "fixture_id": "valid.012",
+    "expected_result": "valid",
+    "expected_rule": null,
+    "description": "Denim declarado com status e sem propagação automática."
+  },
+  {
+    "fixture_id": "valid.013",
+    "expected_result": "valid",
+    "expected_rule": null,
+    "description": "Conflito aberto preservado e publicação bloqueada."
+  },
+  {
+    "fixture_id": "valid.014",
+    "expected_result": "valid",
+    "expected_rule": null,
+    "description": "Medição de gramatura por asserção, método e unidade."
+  },
+  {
+    "fixture_id": "valid.015",
+    "expected_result": "valid",
+    "expected_rule": null,
+    "description": "Atributo tátil baseado em observação física."
+  },
+  {
+    "fixture_id": "valid.016",
+    "expected_result": "valid",
+    "expected_rule": null,
+    "description": "Correção cria nova asserção e preserva histórico."
+  },
+  {
+    "fixture_id": "valid.017",
+    "expected_result": "valid",
+    "expected_rule": null,
+    "description": "Inferência probabilística com calibração versionada."
+  },
+  {
+    "fixture_id": "valid.018",
+    "expected_result": "valid",
+    "expected_rule": null,
+    "description": "Conceito fora do benchmark existe, mas não fundamenta classificação."
+  },
+  {
+    "fixture_id": "valid.019",
+    "expected_result": "valid",
+    "expected_rule": null,
+    "description": "Aplicação de acabamento passa por asserção."
+  },
+  {
+    "fixture_id": "valid.020",
+    "expected_result": "valid",
+    "expected_rule": null,
+    "description": "Campo obrigatório ausente sem valor inventado."
+  },
+  {
+    "fixture_id": "invalid.001",
+    "expected_result": "invalid",
+    "expected_rule": "rule.assertion.inferred_no_evidence_elevation",
+    "description": "Inferência visual marcada indevidamente como resultado calculado."
+  },
+  {
+    "fixture_id": "invalid.002",
+    "expected_result": "invalid",
+    "expected_rule": "rule.assertion.verified_requirements",
+    "description": "Asserção verificada sem revisão humana aceita."
+  },
+  {
+    "fixture_id": "invalid.003",
+    "expected_result": "invalid",
+    "expected_rule": "rule.assertion.probability_requires_calibration",
+    "description": "Probabilidade numérica sem calibração."
+  },
+  {
+    "fixture_id": "invalid.004",
+    "expected_result": "invalid",
+    "expected_rule": "rule.publication.composition_inferred_withhold",
+    "description": "Composição inferida publicada."
+  },
+  {
+    "fixture_id": "invalid.005",
+    "expected_result": "invalid",
+    "expected_rule": "rule.publication.function_missing_context_withhold",
+    "description": "Função sem método publicada."
+  },
+  {
+    "fixture_id": "invalid.006",
+    "expected_result": "invalid",
+    "expected_rule": "rule.publication.function_missing_context_withhold",
+    "description": "Função sem fonte publicada."
+  },
+  {
+    "fixture_id": "invalid.007",
+    "expected_result": "invalid",
+    "expected_rule": "rule.publication.capture_insufficient_request",
+    "description": "Captura insuficiente classificada."
+  },
+  {
+    "fixture_id": "invalid.008",
+    "expected_result": "invalid",
+    "expected_rule": "rule.publication.commercial_high_ambiguity_request",
+    "description": "Nome comercial de alta ambiguidade publicado sem nova evidência."
+  },
+  {
+    "fixture_id": "invalid.009",
+    "expected_result": "invalid",
+    "expected_rule": "rule.publication.open_conflict_block",
+    "description": "Conflito aberto com publicação."
+  },
+  {
+    "fixture_id": "invalid.010",
+    "expected_result": "invalid",
+    "expected_rule": "rule.tactile.no_image_only",
+    "description": "Atributo tátil baseado somente em imagem."
+  },
+  {
+    "fixture_id": "invalid.011",
+    "expected_result": "invalid",
+    "expected_rule": "schema.required_field",
+    "description": "Medição sem unidade."
+  },
+  {
+    "fixture_id": "invalid.012",
+    "expected_result": "invalid",
+    "expected_rule": "rule.assertion.inferred_requires_execution",
+    "description": "Inferência sem execução rastreável."
+  },
+  {
+    "fixture_id": "invalid.013",
+    "expected_result": "invalid",
+    "expected_rule": "semantic.execution_unknown_model",
+    "description": "Execução aponta para modelo inexistente."
+  },
+  {
+    "fixture_id": "invalid.014",
+    "expected_result": "invalid",
+    "expected_rule": "schema.publication_policy",
+    "description": "Decisão pública sem política válida."
+  },
+  {
+    "fixture_id": "invalid.015",
+    "expected_result": "invalid",
+    "expected_rule": "semantic.publication_assertion_mismatch",
+    "description": "Decisão de publicação aponta para outra asserção."
+  },
+  {
+    "fixture_id": "invalid.016",
+    "expected_result": "invalid",
+    "expected_rule": "rule.history.supersedes_preserves_old",
+    "description": "Nova asserção substitui registro que não está superseded."
+  },
+  {
+    "fixture_id": "invalid.017",
+    "expected_result": "invalid",
+    "expected_rule": "rule.history.correction_requires_replacement",
+    "description": "Revisão corrected sem nova asserção substituta."
+  },
+  {
+    "fixture_id": "invalid.018",
+    "expected_result": "invalid",
+    "expected_rule": "rule.benchmark.versioned_capability",
+    "description": "Leno fora do benchmark fundamenta classify."
+  },
+  {
+    "fixture_id": "invalid.019",
+    "expected_result": "invalid",
+    "expected_rule": "rule.cardinality.dimension",
+    "description": "Duas famílias estruturais ativas."
+  },
+  {
+    "fixture_id": "invalid.020",
+    "expected_result": "invalid",
+    "expected_rule": "schema.additional_property",
+    "description": "Campo publicability antigo permanece em Assertion."
+  }
+]

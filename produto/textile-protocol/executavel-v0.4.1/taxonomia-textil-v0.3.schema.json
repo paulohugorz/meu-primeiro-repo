@@ -1,0 +1,1831 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:phyllos:schema:textile-classification:taxonomy-v0.3:graph-v0.4.1",
+  "title": "PHYLLOS Textile Classification Record — Taxonomy v0.3 / Graph Model v0.4.1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "classification_id",
+    "taxonomy",
+    "sample",
+    "actors",
+    "evidence",
+    "methods",
+    "model_versions",
+    "prompt_versions",
+    "calibration_versions",
+    "executions",
+    "assertions",
+    "measurements",
+    "composition_components",
+    "finish_applications",
+    "reviews",
+    "publication_decisions",
+    "conflicts",
+    "benchmark_decision"
+  ],
+  "properties": {
+    "_test": {
+      "$ref": "#/$defs/test"
+    },
+    "classification_id": {
+      "type": "string",
+      "pattern": "^classification:[A-Za-z0-9._:-]+$"
+    },
+    "taxonomy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "taxonomy_id",
+        "taxonomy_version_id",
+        "graph_model_version"
+      ],
+      "properties": {
+        "taxonomy_id": {
+          "const": "taxonomy:phyllos.textile"
+        },
+        "taxonomy_version_id": {
+          "const": "taxonomy-version:phyllos.textile:v0.3"
+        },
+        "graph_model_version": {
+          "const": "0.4.1"
+        }
+      }
+    },
+    "sample": {
+      "$ref": "#/$defs/sample"
+    },
+    "actors": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/actor"
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/evidence"
+      }
+    },
+    "methods": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/method"
+      }
+    },
+    "model_versions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/modelVersion"
+      }
+    },
+    "prompt_versions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/promptVersion"
+      }
+    },
+    "calibration_versions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/calibrationVersion"
+      }
+    },
+    "executions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/execution"
+      }
+    },
+    "assertions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/assertion"
+      }
+    },
+    "measurements": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/measurement"
+      }
+    },
+    "composition_components": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/compositionComponent"
+      }
+    },
+    "finish_applications": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/finishApplication"
+      }
+    },
+    "reviews": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/review"
+      }
+    },
+    "publication_decisions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/publicationDecision"
+      }
+    },
+    "conflicts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/conflict"
+      }
+    },
+    "benchmark_decision": {
+      "$ref": "#/$defs/benchmarkDecision"
+    }
+  },
+  "$defs": {
+    "nullableString": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "test": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "fixture_id",
+        "expected_result",
+        "expected_rule",
+        "description"
+      ],
+      "properties": {
+        "fixture_id": {
+          "type": "string"
+        },
+        "expected_result": {
+          "enum": [
+            "valid",
+            "invalid"
+          ]
+        },
+        "expected_rule": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    },
+    "sample": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "item_type",
+        "captured_at"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^sample:[A-Za-z0-9._:-]+$"
+        },
+        "item_type": {
+          "enum": [
+            "sample",
+            "roll",
+            "material",
+            "component",
+            "finished_product"
+          ]
+        },
+        "batch_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "supplier_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "captured_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "actor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "actor_type"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^actor:[A-Za-z0-9._:-]+$"
+        },
+        "actor_type": {
+          "enum": [
+            "human",
+            "model",
+            "system",
+            "organization"
+          ]
+        },
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "evidence_type",
+        "artifact_uri",
+        "artifact_hash",
+        "artifact_integrity",
+        "source_authenticity",
+        "evidentiary_relevance",
+        "acceptance_status",
+        "issued_at",
+        "issuer_actor_id"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^evidence:[A-Za-z0-9._:-]+$"
+        },
+        "evidence_type": {
+          "enum": [
+            "image",
+            "document",
+            "supplier_declaration",
+            "lab_report",
+            "certificate",
+            "physical_observation"
+          ]
+        },
+        "artifact_uri": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "artifact_hash": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "artifact_integrity": {
+          "enum": [
+            "verified",
+            "invalid",
+            "unknown"
+          ]
+        },
+        "source_authenticity": {
+          "enum": [
+            "verified",
+            "unverified",
+            "unknown"
+          ]
+        },
+        "evidentiary_relevance": {
+          "enum": [
+            "sufficient",
+            "limited",
+            "insufficient",
+            "unknown"
+          ]
+        },
+        "acceptance_status": {
+          "enum": [
+            "accepted",
+            "rejected",
+            "pending"
+          ]
+        },
+        "issued_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "issuer_actor_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "artifact_integrity": {
+                "const": "verified"
+              }
+            },
+            "required": [
+              "artifact_integrity"
+            ]
+          },
+          "then": {
+            "properties": {
+              "artifact_hash": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "method": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "method_id",
+        "version",
+        "verification_status",
+        "applicable_dimension_revision_ids"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^method-version:[A-Za-z0-9._:-]+$"
+        },
+        "method_id": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
+        "verification_status": {
+          "enum": [
+            "verified",
+            "pending",
+            "not_applicable"
+          ]
+        },
+        "applicable_dimension_revision_ids": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "dimension-revision:structure.family:v0.3",
+              "dimension-revision:yarn.continuity:v0.3",
+              "dimension-revision:yarn.spinning_system:v0.3",
+              "dimension-revision:yarn.plies:v0.3",
+              "dimension-revision:yarn.twist:v0.3",
+              "dimension-revision:yarn.linear_density_system:v0.3",
+              "dimension-revision:yarn.texturization:v0.3",
+              "dimension-revision:yarn.fancy_type:v0.3",
+              "dimension-revision:construction.primary:v0.3",
+              "dimension-revision:patterning.weave_derivation:v0.3",
+              "dimension-revision:patterning.mechanism:v0.3",
+              "dimension-revision:patterning.special_construction:v0.3",
+              "dimension-revision:patterning.surface_multilayer:v0.3",
+              "dimension-revision:visual.transparency:v0.3",
+              "dimension-revision:visual.gloss:v0.3",
+              "dimension-revision:visual.texture:v0.3",
+              "dimension-revision:visual.regularity:v0.3",
+              "dimension-revision:visual.color_appearance:v0.3",
+              "dimension-revision:visual.color_uniformity:v0.3",
+              "dimension-revision:visual.pattern_descriptor:v0.3",
+              "dimension-revision:visual.warp_weft_contrast:v0.3",
+              "dimension-revision:visual.coverage:v0.3",
+              "dimension-revision:visual.hairiness:v0.3",
+              "dimension-revision:visual.relief:v0.3",
+              "dimension-revision:visual.face_reverse:v0.3",
+              "dimension-revision:visual.defects:v0.3",
+              "dimension-revision:tactile.hand:v0.3",
+              "dimension-revision:capture.quality:v0.3",
+              "dimension-revision:composite.type:v0.3",
+              "dimension-revision:nonwoven.web_formation:v0.3",
+              "dimension-revision:nonwoven.extrusion:v0.3",
+              "dimension-revision:nonwoven.consolidation:v0.3",
+              "dimension-revision:nonwoven.orientation:v0.3",
+              "dimension-revision:nonwoven.layers:v0.3",
+              "dimension-revision:nonwoven.named_combination:v0.3",
+              "dimension-revision:finishing.process:v0.3",
+              "dimension-revision:finishing.declared_function:v0.3",
+              "dimension-revision:composition.status:v0.3",
+              "dimension-revision:commercial_name:v0.3",
+              "dimension-revision:measurement.mass_per_area:v0.3",
+              "dimension-revision:measurement.thread_density:v0.3",
+              "dimension-revision:measurement.thickness:v0.3",
+              "dimension-revision:measurement.usable_width:v0.3",
+              "dimension-revision:measurement.elongation:v0.3",
+              "dimension-revision:measurement.recovery:v0.3",
+              "dimension-revision:measurement.drape:v0.3",
+              "dimension-revision:measurement.wetting_time:v0.3",
+              "dimension-revision:measurement.tensile_strength:v0.3",
+              "dimension-revision:measurement.tear_strength:v0.3",
+              "dimension-revision:measurement.bursting_strength:v0.3",
+              "dimension-revision:measurement.abrasion:v0.3",
+              "dimension-revision:measurement.pilling:v0.3",
+              "dimension-revision:measurement.dimensional_change:v0.3",
+              "dimension-revision:measurement.air_permeability:v0.3",
+              "dimension-revision:measurement.water_vapor_permeability:v0.3",
+              "dimension-revision:measurement.thermal_resistance:v0.3",
+              "dimension-revision:measurement.color_fastness:v0.3",
+              "dimension-revision:measurement.flammability:v0.3",
+              "dimension-revision:measurement.water_resistance:v0.3",
+              "dimension-revision:measurement.uv_protection:v0.3",
+              "dimension-revision:measurement.snagging_resistance:v0.3"
+            ]
+          }
+        }
+      }
+    },
+    "modelVersion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "model_id",
+        "version"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^model-version:[A-Za-z0-9._:-]+$"
+        },
+        "model_id": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "promptVersion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "prompt_id",
+        "version",
+        "immutable_hash"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^prompt-version:[A-Za-z0-9._:-]+$"
+        },
+        "prompt_id": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
+        "immutable_hash": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      }
+    },
+    "calibrationVersion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "calibration_id",
+        "version",
+        "immutable_hash"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^calibration-version:[A-Za-z0-9._:-]+$"
+        },
+        "calibration_id": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
+        "immutable_hash": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      }
+    },
+    "execution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "executed_by_actor_id",
+        "consumed_evidence_ids",
+        "produced_assertion_ids",
+        "model_version_id",
+        "prompt_version_id",
+        "calibration_version_id",
+        "executed_at"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^execution:[A-Za-z0-9._:-]+$"
+        },
+        "executed_by_actor_id": {
+          "type": "string"
+        },
+        "consumed_evidence_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        },
+        "produced_assertion_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        },
+        "model_version_id": {
+          "type": "string"
+        },
+        "prompt_version_id": {
+          "type": "string"
+        },
+        "calibration_version_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "executed_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "assertionValue": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "concept_revision_id"
+          ],
+          "properties": {
+            "concept_revision_id": {
+              "enum": [
+                "concept-revision:structure.family.woven_fabric:v0.3",
+                "concept-revision:structure.family.weft_knit:v0.3",
+                "concept-revision:structure.family.warp_knit:v0.3",
+                "concept-revision:structure.family.nonwoven:v0.3",
+                "concept-revision:structure.family.interlaced_braided:v0.3",
+                "concept-revision:structure.family.stitch_bonded:v0.3",
+                "concept-revision:structure.family.composite_structure:v0.3",
+                "concept-revision:structure.family.indeterminate:v0.3",
+                "concept-revision:yarn.continuity.continuous_filament:v0.3",
+                "concept-revision:yarn.continuity.staple_fiber:v0.3",
+                "concept-revision:yarn.continuity.mixed:v0.3",
+                "concept-revision:yarn.continuity.indeterminate:v0.3",
+                "concept-revision:yarn.spinning_system.spun:v0.3",
+                "concept-revision:yarn.spinning_system.multifilament:v0.3",
+                "concept-revision:yarn.spinning_system.monofilament:v0.3",
+                "concept-revision:yarn.spinning_system.indeterminate:v0.3",
+                "concept-revision:yarn.twist.s_twist:v0.3",
+                "concept-revision:yarn.twist.z_twist:v0.3",
+                "concept-revision:yarn.twist.no_apparent_twist:v0.3",
+                "concept-revision:yarn.twist.indeterminate:v0.3",
+                "concept-revision:yarn.linear_density_system.tex:v0.3",
+                "concept-revision:yarn.linear_density_system.dtex:v0.3",
+                "concept-revision:yarn.linear_density_system.nm:v0.3",
+                "concept-revision:yarn.linear_density_system.ne:v0.3",
+                "concept-revision:yarn.linear_density_system.indeterminate:v0.3",
+                "concept-revision:yarn.texturization.textured:v0.3",
+                "concept-revision:yarn.texturization.not_textured:v0.3",
+                "concept-revision:yarn.texturization.indeterminate:v0.3",
+                "concept-revision:yarn.fancy_type.boucle:v0.3",
+                "concept-revision:yarn.fancy_type.chenille:v0.3",
+                "concept-revision:yarn.fancy_type.slub:v0.3",
+                "concept-revision:yarn.fancy_type.core_spun:v0.3",
+                "concept-revision:yarn.fancy_type.not_applicable:v0.3",
+                "concept-revision:yarn.fancy_type.indeterminate:v0.3",
+                "concept-revision:construction.primary.plain_weave:v0.3",
+                "concept-revision:construction.primary.twill:v0.3",
+                "concept-revision:construction.primary.satin:v0.3",
+                "concept-revision:construction.primary.leno_gauze:v0.3",
+                "concept-revision:construction.primary.jersey:v0.3",
+                "concept-revision:construction.primary.rib:v0.3",
+                "concept-revision:construction.primary.interlock:v0.3",
+                "concept-revision:construction.primary.purl:v0.3",
+                "concept-revision:construction.primary.knit_pique:v0.3",
+                "concept-revision:construction.primary.tricot:v0.3",
+                "concept-revision:construction.primary.raschel:v0.3",
+                "concept-revision:construction.primary.milanese:v0.3",
+                "concept-revision:construction.primary.indeterminate:v0.3",
+                "concept-revision:patterning.weave_derivation.basket:v0.3",
+                "concept-revision:patterning.weave_derivation.herringbone:v0.3",
+                "concept-revision:patterning.weave_derivation.broken_twill:v0.3",
+                "concept-revision:patterning.weave_derivation.cross_twill:v0.3",
+                "concept-revision:patterning.weave_derivation.compound_twill:v0.3",
+                "concept-revision:patterning.weave_derivation.derived_satin:v0.3",
+                "concept-revision:patterning.weave_derivation.indeterminate:v0.3",
+                "concept-revision:patterning.mechanism.dobby:v0.3",
+                "concept-revision:patterning.mechanism.jacquard:v0.3",
+                "concept-revision:patterning.mechanism.print:v0.3",
+                "concept-revision:patterning.mechanism.embroidery:v0.3",
+                "concept-revision:patterning.mechanism.indeterminate:v0.3",
+                "concept-revision:patterning.special_construction.ripstop:v0.3",
+                "concept-revision:patterning.special_construction.leno_technique:v0.3",
+                "concept-revision:patterning.special_construction.pique:v0.3",
+                "concept-revision:patterning.special_construction.structural_crepe:v0.3",
+                "concept-revision:patterning.special_construction.indeterminate:v0.3",
+                "concept-revision:patterning.surface_multilayer.cut_pile:v0.3",
+                "concept-revision:patterning.surface_multilayer.loop_pile:v0.3",
+                "concept-revision:patterning.surface_multilayer.fleece:v0.3",
+                "concept-revision:patterning.surface_multilayer.double_face:v0.3",
+                "concept-revision:patterning.surface_multilayer.double_layer:v0.3",
+                "concept-revision:patterning.surface_multilayer.spacer_fabric:v0.3",
+                "concept-revision:patterning.surface_multilayer.indeterminate:v0.3",
+                "concept-revision:visual.transparency.opaque:v0.3",
+                "concept-revision:visual.transparency.semi_opaque:v0.3",
+                "concept-revision:visual.transparency.semi_transparent:v0.3",
+                "concept-revision:visual.transparency.transparent:v0.3",
+                "concept-revision:visual.transparency.indeterminate:v0.3",
+                "concept-revision:visual.gloss.matte:v0.3",
+                "concept-revision:visual.gloss.semi_matte:v0.3",
+                "concept-revision:visual.gloss.satin_like:v0.3",
+                "concept-revision:visual.gloss.shiny:v0.3",
+                "concept-revision:visual.gloss.indeterminate:v0.3",
+                "concept-revision:visual.texture.smooth:v0.3",
+                "concept-revision:visual.texture.granular:v0.3",
+                "concept-revision:visual.texture.ribbed:v0.3",
+                "concept-revision:visual.texture.hairy:v0.3",
+                "concept-revision:visual.texture.velvety:v0.3",
+                "concept-revision:visual.texture.apparent_slub:v0.3",
+                "concept-revision:visual.texture.indeterminate:v0.3",
+                "concept-revision:visual.regularity.regular:v0.3",
+                "concept-revision:visual.regularity.irregular:v0.3",
+                "concept-revision:visual.regularity.indeterminate:v0.3",
+                "concept-revision:visual.color_appearance.apparently_solid:v0.3",
+                "concept-revision:visual.color_appearance.apparently_printed:v0.3",
+                "concept-revision:visual.color_appearance.apparently_multicolor_jacquard:v0.3",
+                "concept-revision:visual.color_appearance.indeterminate:v0.3",
+                "concept-revision:visual.color_uniformity.uniform:v0.3",
+                "concept-revision:visual.color_uniformity.apparent_variation:v0.3",
+                "concept-revision:visual.color_uniformity.indeterminate:v0.3",
+                "concept-revision:visual.warp_weft_contrast.high:v0.3",
+                "concept-revision:visual.warp_weft_contrast.low:v0.3",
+                "concept-revision:visual.warp_weft_contrast.indeterminate:v0.3",
+                "concept-revision:visual.coverage.closed:v0.3",
+                "concept-revision:visual.coverage.open:v0.3",
+                "concept-revision:visual.coverage.indeterminate:v0.3",
+                "concept-revision:visual.hairiness.present:v0.3",
+                "concept-revision:visual.hairiness.absent:v0.3",
+                "concept-revision:visual.hairiness.indeterminate:v0.3",
+                "concept-revision:visual.relief.flat:v0.3",
+                "concept-revision:visual.relief.raised:v0.3",
+                "concept-revision:visual.relief.indeterminate:v0.3",
+                "concept-revision:visual.face_reverse.yes:v0.3",
+                "concept-revision:visual.face_reverse.no:v0.3",
+                "concept-revision:visual.face_reverse.indeterminate:v0.3",
+                "concept-revision:tactile.hand.smooth_touch:v0.3",
+                "concept-revision:tactile.hand.rough:v0.3",
+                "concept-revision:tactile.hand.dry_hand:v0.3",
+                "concept-revision:tactile.hand.cool_touch:v0.3",
+                "concept-revision:tactile.hand.soft:v0.3",
+                "concept-revision:tactile.hand.indeterminate:v0.3",
+                "concept-revision:capture.quality.adequate:v0.3",
+                "concept-revision:capture.quality.limited:v0.3",
+                "concept-revision:capture.quality.insufficient:v0.3",
+                "concept-revision:composite.type.laminated:v0.3",
+                "concept-revision:composite.type.coated_structural:v0.3",
+                "concept-revision:composite.type.bonded:v0.3",
+                "concept-revision:composite.type.quilted:v0.3",
+                "concept-revision:composite.type.with_membrane:v0.3",
+                "concept-revision:composite.type.textile_sandwich:v0.3",
+                "concept-revision:composite.type.reinforced:v0.3",
+                "concept-revision:composite.type.with_film:v0.3",
+                "concept-revision:composite.type.with_foam:v0.3",
+                "concept-revision:composite.type.fiber_matrix_composite:v0.3",
+                "concept-revision:composite.type.indeterminate:v0.3",
+                "concept-revision:nonwoven.web_formation.carded:v0.3",
+                "concept-revision:nonwoven.web_formation.airlaid:v0.3",
+                "concept-revision:nonwoven.web_formation.wetlaid:v0.3",
+                "concept-revision:nonwoven.web_formation.spunlaid:v0.3",
+                "concept-revision:nonwoven.extrusion.spunbond:v0.3",
+                "concept-revision:nonwoven.extrusion.meltblown:v0.3",
+                "concept-revision:nonwoven.consolidation.needle_punched:v0.3",
+                "concept-revision:nonwoven.consolidation.hydroentangled:v0.3",
+                "concept-revision:nonwoven.consolidation.thermal:v0.3",
+                "concept-revision:nonwoven.consolidation.chemical:v0.3",
+                "concept-revision:nonwoven.orientation.oriented:v0.3",
+                "concept-revision:nonwoven.orientation.random:v0.3",
+                "concept-revision:nonwoven.orientation.indeterminate:v0.3",
+                "concept-revision:nonwoven.named_combination.sms:v0.3",
+                "concept-revision:nonwoven.named_combination.nonwoven_laminate:v0.3",
+                "concept-revision:nonwoven.named_combination.other:v0.3",
+                "concept-revision:finishing.process.mercerized:v0.3",
+                "concept-revision:finishing.process.calendered:v0.3",
+                "concept-revision:finishing.process.sanforized:v0.3",
+                "concept-revision:finishing.process.brushed:v0.3",
+                "concept-revision:finishing.process.sanded:v0.3",
+                "concept-revision:finishing.process.peached:v0.3",
+                "concept-revision:finishing.process.resin_finished:v0.3",
+                "concept-revision:finishing.process.coated:v0.3",
+                "concept-revision:finishing.process.heat_set:v0.3",
+                "concept-revision:finishing.process.enzymatic_biopolishing:v0.3",
+                "concept-revision:finishing.process.other:v0.3",
+                "concept-revision:finishing.process.not_informed:v0.3",
+                "concept-revision:finishing.declared_function.waterproof:v0.3",
+                "concept-revision:finishing.declared_function.repellent:v0.3",
+                "concept-revision:finishing.declared_function.antimicrobial:v0.3",
+                "concept-revision:finishing.declared_function.flame_retardant:v0.3",
+                "concept-revision:finishing.declared_function.anti_pilling:v0.3",
+                "concept-revision:finishing.declared_function.antistatic:v0.3",
+                "concept-revision:finishing.declared_function.hydrophilic:v0.3",
+                "concept-revision:finishing.declared_function.uv_protection:v0.3",
+                "concept-revision:finishing.declared_function.other:v0.3",
+                "concept-revision:finishing.declared_function.not_informed:v0.3",
+                "concept-revision:composition.status.absent:v0.3",
+                "concept-revision:composition.status.partial_non_publishable:v0.3",
+                "concept-revision:composition.status.complete:v0.3"
+              ]
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "commercial_name_revision_id"
+          ],
+          "properties": {
+            "commercial_name_revision_id": {
+              "enum": [
+                "commercial-name-revision:chambray:v0.3",
+                "commercial-name-revision:denim:v0.3",
+                "commercial-name-revision:cambraia:v0.3",
+                "commercial-name-revision:voil:v0.3",
+                "commercial-name-revision:organza:v0.3",
+                "commercial-name-revision:popeline:v0.3",
+                "commercial-name-revision:gabardine:v0.3",
+                "commercial-name-revision:oxford:v0.3",
+                "commercial-name-revision:moletom:v0.3",
+                "commercial-name-revision:veludo:v0.3",
+                "commercial-name-revision:crepe:v0.3"
+              ]
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "measurement_id"
+          ],
+          "properties": {
+            "measurement_id": {
+              "type": "string"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "composition_component_id"
+          ],
+          "properties": {
+            "composition_component_id": {
+              "type": "string"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "finish_application_id"
+          ],
+          "properties": {
+            "finish_application_id": {
+              "type": "string"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "declared_function_revision_id"
+          ],
+          "properties": {
+            "declared_function_revision_id": {
+              "enum": [
+                "concept-revision:structure.family.woven_fabric:v0.3",
+                "concept-revision:structure.family.weft_knit:v0.3",
+                "concept-revision:structure.family.warp_knit:v0.3",
+                "concept-revision:structure.family.nonwoven:v0.3",
+                "concept-revision:structure.family.interlaced_braided:v0.3",
+                "concept-revision:structure.family.stitch_bonded:v0.3",
+                "concept-revision:structure.family.composite_structure:v0.3",
+                "concept-revision:structure.family.indeterminate:v0.3",
+                "concept-revision:yarn.continuity.continuous_filament:v0.3",
+                "concept-revision:yarn.continuity.staple_fiber:v0.3",
+                "concept-revision:yarn.continuity.mixed:v0.3",
+                "concept-revision:yarn.continuity.indeterminate:v0.3",
+                "concept-revision:yarn.spinning_system.spun:v0.3",
+                "concept-revision:yarn.spinning_system.multifilament:v0.3",
+                "concept-revision:yarn.spinning_system.monofilament:v0.3",
+                "concept-revision:yarn.spinning_system.indeterminate:v0.3",
+                "concept-revision:yarn.twist.s_twist:v0.3",
+                "concept-revision:yarn.twist.z_twist:v0.3",
+                "concept-revision:yarn.twist.no_apparent_twist:v0.3",
+                "concept-revision:yarn.twist.indeterminate:v0.3",
+                "concept-revision:yarn.linear_density_system.tex:v0.3",
+                "concept-revision:yarn.linear_density_system.dtex:v0.3",
+                "concept-revision:yarn.linear_density_system.nm:v0.3",
+                "concept-revision:yarn.linear_density_system.ne:v0.3",
+                "concept-revision:yarn.linear_density_system.indeterminate:v0.3",
+                "concept-revision:yarn.texturization.textured:v0.3",
+                "concept-revision:yarn.texturization.not_textured:v0.3",
+                "concept-revision:yarn.texturization.indeterminate:v0.3",
+                "concept-revision:yarn.fancy_type.boucle:v0.3",
+                "concept-revision:yarn.fancy_type.chenille:v0.3",
+                "concept-revision:yarn.fancy_type.slub:v0.3",
+                "concept-revision:yarn.fancy_type.core_spun:v0.3",
+                "concept-revision:yarn.fancy_type.not_applicable:v0.3",
+                "concept-revision:yarn.fancy_type.indeterminate:v0.3",
+                "concept-revision:construction.primary.plain_weave:v0.3",
+                "concept-revision:construction.primary.twill:v0.3",
+                "concept-revision:construction.primary.satin:v0.3",
+                "concept-revision:construction.primary.leno_gauze:v0.3",
+                "concept-revision:construction.primary.jersey:v0.3",
+                "concept-revision:construction.primary.rib:v0.3",
+                "concept-revision:construction.primary.interlock:v0.3",
+                "concept-revision:construction.primary.purl:v0.3",
+                "concept-revision:construction.primary.knit_pique:v0.3",
+                "concept-revision:construction.primary.tricot:v0.3",
+                "concept-revision:construction.primary.raschel:v0.3",
+                "concept-revision:construction.primary.milanese:v0.3",
+                "concept-revision:construction.primary.indeterminate:v0.3",
+                "concept-revision:patterning.weave_derivation.basket:v0.3",
+                "concept-revision:patterning.weave_derivation.herringbone:v0.3",
+                "concept-revision:patterning.weave_derivation.broken_twill:v0.3",
+                "concept-revision:patterning.weave_derivation.cross_twill:v0.3",
+                "concept-revision:patterning.weave_derivation.compound_twill:v0.3",
+                "concept-revision:patterning.weave_derivation.derived_satin:v0.3",
+                "concept-revision:patterning.weave_derivation.indeterminate:v0.3",
+                "concept-revision:patterning.mechanism.dobby:v0.3",
+                "concept-revision:patterning.mechanism.jacquard:v0.3",
+                "concept-revision:patterning.mechanism.print:v0.3",
+                "concept-revision:patterning.mechanism.embroidery:v0.3",
+                "concept-revision:patterning.mechanism.indeterminate:v0.3",
+                "concept-revision:patterning.special_construction.ripstop:v0.3",
+                "concept-revision:patterning.special_construction.leno_technique:v0.3",
+                "concept-revision:patterning.special_construction.pique:v0.3",
+                "concept-revision:patterning.special_construction.structural_crepe:v0.3",
+                "concept-revision:patterning.special_construction.indeterminate:v0.3",
+                "concept-revision:patterning.surface_multilayer.cut_pile:v0.3",
+                "concept-revision:patterning.surface_multilayer.loop_pile:v0.3",
+                "concept-revision:patterning.surface_multilayer.fleece:v0.3",
+                "concept-revision:patterning.surface_multilayer.double_face:v0.3",
+                "concept-revision:patterning.surface_multilayer.double_layer:v0.3",
+                "concept-revision:patterning.surface_multilayer.spacer_fabric:v0.3",
+                "concept-revision:patterning.surface_multilayer.indeterminate:v0.3",
+                "concept-revision:visual.transparency.opaque:v0.3",
+                "concept-revision:visual.transparency.semi_opaque:v0.3",
+                "concept-revision:visual.transparency.semi_transparent:v0.3",
+                "concept-revision:visual.transparency.transparent:v0.3",
+                "concept-revision:visual.transparency.indeterminate:v0.3",
+                "concept-revision:visual.gloss.matte:v0.3",
+                "concept-revision:visual.gloss.semi_matte:v0.3",
+                "concept-revision:visual.gloss.satin_like:v0.3",
+                "concept-revision:visual.gloss.shiny:v0.3",
+                "concept-revision:visual.gloss.indeterminate:v0.3",
+                "concept-revision:visual.texture.smooth:v0.3",
+                "concept-revision:visual.texture.granular:v0.3",
+                "concept-revision:visual.texture.ribbed:v0.3",
+                "concept-revision:visual.texture.hairy:v0.3",
+                "concept-revision:visual.texture.velvety:v0.3",
+                "concept-revision:visual.texture.apparent_slub:v0.3",
+                "concept-revision:visual.texture.indeterminate:v0.3",
+                "concept-revision:visual.regularity.regular:v0.3",
+                "concept-revision:visual.regularity.irregular:v0.3",
+                "concept-revision:visual.regularity.indeterminate:v0.3",
+                "concept-revision:visual.color_appearance.apparently_solid:v0.3",
+                "concept-revision:visual.color_appearance.apparently_printed:v0.3",
+                "concept-revision:visual.color_appearance.apparently_multicolor_jacquard:v0.3",
+                "concept-revision:visual.color_appearance.indeterminate:v0.3",
+                "concept-revision:visual.color_uniformity.uniform:v0.3",
+                "concept-revision:visual.color_uniformity.apparent_variation:v0.3",
+                "concept-revision:visual.color_uniformity.indeterminate:v0.3",
+                "concept-revision:visual.warp_weft_contrast.high:v0.3",
+                "concept-revision:visual.warp_weft_contrast.low:v0.3",
+                "concept-revision:visual.warp_weft_contrast.indeterminate:v0.3",
+                "concept-revision:visual.coverage.closed:v0.3",
+                "concept-revision:visual.coverage.open:v0.3",
+                "concept-revision:visual.coverage.indeterminate:v0.3",
+                "concept-revision:visual.hairiness.present:v0.3",
+                "concept-revision:visual.hairiness.absent:v0.3",
+                "concept-revision:visual.hairiness.indeterminate:v0.3",
+                "concept-revision:visual.relief.flat:v0.3",
+                "concept-revision:visual.relief.raised:v0.3",
+                "concept-revision:visual.relief.indeterminate:v0.3",
+                "concept-revision:visual.face_reverse.yes:v0.3",
+                "concept-revision:visual.face_reverse.no:v0.3",
+                "concept-revision:visual.face_reverse.indeterminate:v0.3",
+                "concept-revision:tactile.hand.smooth_touch:v0.3",
+                "concept-revision:tactile.hand.rough:v0.3",
+                "concept-revision:tactile.hand.dry_hand:v0.3",
+                "concept-revision:tactile.hand.cool_touch:v0.3",
+                "concept-revision:tactile.hand.soft:v0.3",
+                "concept-revision:tactile.hand.indeterminate:v0.3",
+                "concept-revision:capture.quality.adequate:v0.3",
+                "concept-revision:capture.quality.limited:v0.3",
+                "concept-revision:capture.quality.insufficient:v0.3",
+                "concept-revision:composite.type.laminated:v0.3",
+                "concept-revision:composite.type.coated_structural:v0.3",
+                "concept-revision:composite.type.bonded:v0.3",
+                "concept-revision:composite.type.quilted:v0.3",
+                "concept-revision:composite.type.with_membrane:v0.3",
+                "concept-revision:composite.type.textile_sandwich:v0.3",
+                "concept-revision:composite.type.reinforced:v0.3",
+                "concept-revision:composite.type.with_film:v0.3",
+                "concept-revision:composite.type.with_foam:v0.3",
+                "concept-revision:composite.type.fiber_matrix_composite:v0.3",
+                "concept-revision:composite.type.indeterminate:v0.3",
+                "concept-revision:nonwoven.web_formation.carded:v0.3",
+                "concept-revision:nonwoven.web_formation.airlaid:v0.3",
+                "concept-revision:nonwoven.web_formation.wetlaid:v0.3",
+                "concept-revision:nonwoven.web_formation.spunlaid:v0.3",
+                "concept-revision:nonwoven.extrusion.spunbond:v0.3",
+                "concept-revision:nonwoven.extrusion.meltblown:v0.3",
+                "concept-revision:nonwoven.consolidation.needle_punched:v0.3",
+                "concept-revision:nonwoven.consolidation.hydroentangled:v0.3",
+                "concept-revision:nonwoven.consolidation.thermal:v0.3",
+                "concept-revision:nonwoven.consolidation.chemical:v0.3",
+                "concept-revision:nonwoven.orientation.oriented:v0.3",
+                "concept-revision:nonwoven.orientation.random:v0.3",
+                "concept-revision:nonwoven.orientation.indeterminate:v0.3",
+                "concept-revision:nonwoven.named_combination.sms:v0.3",
+                "concept-revision:nonwoven.named_combination.nonwoven_laminate:v0.3",
+                "concept-revision:nonwoven.named_combination.other:v0.3",
+                "concept-revision:finishing.process.mercerized:v0.3",
+                "concept-revision:finishing.process.calendered:v0.3",
+                "concept-revision:finishing.process.sanforized:v0.3",
+                "concept-revision:finishing.process.brushed:v0.3",
+                "concept-revision:finishing.process.sanded:v0.3",
+                "concept-revision:finishing.process.peached:v0.3",
+                "concept-revision:finishing.process.resin_finished:v0.3",
+                "concept-revision:finishing.process.coated:v0.3",
+                "concept-revision:finishing.process.heat_set:v0.3",
+                "concept-revision:finishing.process.enzymatic_biopolishing:v0.3",
+                "concept-revision:finishing.process.other:v0.3",
+                "concept-revision:finishing.process.not_informed:v0.3",
+                "concept-revision:finishing.declared_function.waterproof:v0.3",
+                "concept-revision:finishing.declared_function.repellent:v0.3",
+                "concept-revision:finishing.declared_function.antimicrobial:v0.3",
+                "concept-revision:finishing.declared_function.flame_retardant:v0.3",
+                "concept-revision:finishing.declared_function.anti_pilling:v0.3",
+                "concept-revision:finishing.declared_function.antistatic:v0.3",
+                "concept-revision:finishing.declared_function.hydrophilic:v0.3",
+                "concept-revision:finishing.declared_function.uv_protection:v0.3",
+                "concept-revision:finishing.declared_function.other:v0.3",
+                "concept-revision:finishing.declared_function.not_informed:v0.3",
+                "concept-revision:composition.status.absent:v0.3",
+                "concept-revision:composition.status.partial_non_publishable:v0.3",
+                "concept-revision:composition.status.complete:v0.3"
+              ]
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "literal_value"
+          ],
+          "properties": {
+            "literal_value": {}
+          }
+        }
+      ]
+    },
+    "assertion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "dimension_revision_id",
+        "assertion_kind",
+        "evidence_status",
+        "confidence_level",
+        "confidence_is_calibrated",
+        "calibration_version_id",
+        "probability",
+        "capture_quality",
+        "review_state",
+        "status",
+        "asserted_at",
+        "value",
+        "evidence_ids",
+        "method_version_id",
+        "execution_id",
+        "review_ids",
+        "publication_decision_id",
+        "supersedes_assertion_id",
+        "derived_from_assertion_ids"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^assertion:[A-Za-z0-9._:-]+$"
+        },
+        "dimension_revision_id": {
+          "enum": [
+            "dimension-revision:structure.family:v0.3",
+            "dimension-revision:yarn.continuity:v0.3",
+            "dimension-revision:yarn.spinning_system:v0.3",
+            "dimension-revision:yarn.plies:v0.3",
+            "dimension-revision:yarn.twist:v0.3",
+            "dimension-revision:yarn.linear_density_system:v0.3",
+            "dimension-revision:yarn.texturization:v0.3",
+            "dimension-revision:yarn.fancy_type:v0.3",
+            "dimension-revision:construction.primary:v0.3",
+            "dimension-revision:patterning.weave_derivation:v0.3",
+            "dimension-revision:patterning.mechanism:v0.3",
+            "dimension-revision:patterning.special_construction:v0.3",
+            "dimension-revision:patterning.surface_multilayer:v0.3",
+            "dimension-revision:visual.transparency:v0.3",
+            "dimension-revision:visual.gloss:v0.3",
+            "dimension-revision:visual.texture:v0.3",
+            "dimension-revision:visual.regularity:v0.3",
+            "dimension-revision:visual.color_appearance:v0.3",
+            "dimension-revision:visual.color_uniformity:v0.3",
+            "dimension-revision:visual.pattern_descriptor:v0.3",
+            "dimension-revision:visual.warp_weft_contrast:v0.3",
+            "dimension-revision:visual.coverage:v0.3",
+            "dimension-revision:visual.hairiness:v0.3",
+            "dimension-revision:visual.relief:v0.3",
+            "dimension-revision:visual.face_reverse:v0.3",
+            "dimension-revision:visual.defects:v0.3",
+            "dimension-revision:tactile.hand:v0.3",
+            "dimension-revision:capture.quality:v0.3",
+            "dimension-revision:composite.type:v0.3",
+            "dimension-revision:nonwoven.web_formation:v0.3",
+            "dimension-revision:nonwoven.extrusion:v0.3",
+            "dimension-revision:nonwoven.consolidation:v0.3",
+            "dimension-revision:nonwoven.orientation:v0.3",
+            "dimension-revision:nonwoven.layers:v0.3",
+            "dimension-revision:nonwoven.named_combination:v0.3",
+            "dimension-revision:finishing.process:v0.3",
+            "dimension-revision:finishing.declared_function:v0.3",
+            "dimension-revision:composition.status:v0.3",
+            "dimension-revision:commercial_name:v0.3",
+            "dimension-revision:measurement.mass_per_area:v0.3",
+            "dimension-revision:measurement.thread_density:v0.3",
+            "dimension-revision:measurement.thickness:v0.3",
+            "dimension-revision:measurement.usable_width:v0.3",
+            "dimension-revision:measurement.elongation:v0.3",
+            "dimension-revision:measurement.recovery:v0.3",
+            "dimension-revision:measurement.drape:v0.3",
+            "dimension-revision:measurement.wetting_time:v0.3",
+            "dimension-revision:measurement.tensile_strength:v0.3",
+            "dimension-revision:measurement.tear_strength:v0.3",
+            "dimension-revision:measurement.bursting_strength:v0.3",
+            "dimension-revision:measurement.abrasion:v0.3",
+            "dimension-revision:measurement.pilling:v0.3",
+            "dimension-revision:measurement.dimensional_change:v0.3",
+            "dimension-revision:measurement.air_permeability:v0.3",
+            "dimension-revision:measurement.water_vapor_permeability:v0.3",
+            "dimension-revision:measurement.thermal_resistance:v0.3",
+            "dimension-revision:measurement.color_fastness:v0.3",
+            "dimension-revision:measurement.flammability:v0.3",
+            "dimension-revision:measurement.water_resistance:v0.3",
+            "dimension-revision:measurement.uv_protection:v0.3",
+            "dimension-revision:measurement.snagging_resistance:v0.3"
+          ]
+        },
+        "assertion_kind": {
+          "enum": [
+            "observed",
+            "measured",
+            "inferred",
+            "declared",
+            "derived"
+          ]
+        },
+        "evidence_status": {
+          "enum": [
+            "absent",
+            "declared",
+            "calculated",
+            "documented",
+            "verified"
+          ]
+        },
+        "confidence_level": {
+          "enum": [
+            "high",
+            "medium",
+            "low",
+            "indeterminate"
+          ]
+        },
+        "confidence_is_calibrated": {
+          "type": "boolean"
+        },
+        "calibration_version_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "probability": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "capture_quality": {
+          "enum": [
+            "adequate",
+            "limited",
+            "insufficient",
+            "not_applicable"
+          ]
+        },
+        "review_state": {
+          "enum": [
+            "unreviewed",
+            "accepted",
+            "corrected",
+            "disputed",
+            "rejected"
+          ]
+        },
+        "status": {
+          "enum": [
+            "active",
+            "superseded",
+            "rejected",
+            "under_review"
+          ]
+        },
+        "asserted_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "value": {
+          "$ref": "#/$defs/assertionValue"
+        },
+        "evidence_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        },
+        "method_version_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "execution_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "review_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        },
+        "publication_decision_id": {
+          "type": "string"
+        },
+        "supersedes_assertion_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "derived_from_assertion_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "assertion_kind": {
+                "const": "inferred"
+              }
+            },
+            "required": [
+              "assertion_kind"
+            ]
+          },
+          "then": {
+            "properties": {
+              "evidence_status": {
+                "const": "absent"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "allOf": [
+              {
+                "properties": {
+                  "evidence_status": {
+                    "const": "calculated"
+                  }
+                },
+                "required": [
+                  "evidence_status"
+                ]
+              },
+              {
+                "not": {
+                  "properties": {
+                    "assertion_kind": {
+                      "const": "inferred"
+                    }
+                  },
+                  "required": [
+                    "assertion_kind"
+                  ]
+                }
+              }
+            ]
+          },
+          "then": {
+            "properties": {
+              "assertion_kind": {
+                "const": "derived"
+              },
+              "method_version_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "derived_from_assertion_ids": {
+                "type": "array",
+                "minItems": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+    "measurement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "measurement_type_id",
+        "numeric_value",
+        "unit_id",
+        "direction",
+        "test_condition",
+        "method_version_id",
+        "measured_on_sample_id"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^measurement:[A-Za-z0-9._:-]+$"
+        },
+        "measurement_type_id": {
+          "enum": [
+            "measurement.mass_per_area",
+            "measurement.thread_density",
+            "measurement.thickness",
+            "measurement.usable_width",
+            "measurement.elongation",
+            "measurement.recovery",
+            "measurement.drape",
+            "measurement.wetting_time",
+            "measurement.tensile_strength",
+            "measurement.tear_strength",
+            "measurement.bursting_strength",
+            "measurement.abrasion",
+            "measurement.pilling",
+            "measurement.dimensional_change",
+            "measurement.air_permeability",
+            "measurement.water_vapor_permeability",
+            "measurement.thermal_resistance",
+            "measurement.color_fastness",
+            "measurement.flammability",
+            "measurement.water_resistance",
+            "measurement.uv_protection",
+            "measurement.snagging_resistance"
+          ]
+        },
+        "numeric_value": {
+          "type": "number"
+        },
+        "unit_id": {
+          "enum": [
+            "unit.g_per_m2",
+            "unit.threads_per_cm",
+            "unit.courses_per_cm",
+            "unit.wales_per_cm",
+            "unit.mm",
+            "unit.cm",
+            "unit.percent",
+            "unit.dimensionless",
+            "unit.second",
+            "unit.newton",
+            "unit.kgf",
+            "unit.kpa",
+            "unit.cycles",
+            "unit.reference_scale",
+            "unit.mm_per_second",
+            "unit.g_per_m2_day",
+            "unit.m2_k_per_w",
+            "unit.method_result",
+            "unit.upf"
+          ]
+        },
+        "direction": {
+          "enum": [
+            "warp",
+            "weft",
+            "course",
+            "wale",
+            "multidirectional",
+            "not_applicable"
+          ]
+        },
+        "test_condition": {
+          "type": "string",
+          "minLength": 1
+        },
+        "method_version_id": {
+          "type": "string"
+        },
+        "measured_on_sample_id": {
+          "type": "string"
+        }
+      }
+    },
+    "compositionComponent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "fiber_revision_id",
+        "percentage",
+        "origin"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^composition-component:[A-Za-z0-9._:-]+$"
+        },
+        "fiber_revision_id": {
+          "enum": [
+            "fiber-concept-revision:cotton:v0.3",
+            "fiber-concept-revision:polyester:v0.3",
+            "fiber-concept-revision:viscose:v0.3",
+            "fiber-concept-revision:silk:v0.3",
+            "fiber-concept-revision:wool:v0.3",
+            "fiber-concept-revision:elastane:v0.3",
+            "fiber-concept-revision:flax:v0.3",
+            "fiber-concept-revision:hemp:v0.3",
+            "fiber-concept-revision:polyamide:v0.3",
+            "fiber-concept-revision:other:v0.3"
+          ]
+        },
+        "percentage": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 100
+        },
+        "origin": {
+          "enum": [
+            "virgin",
+            "recycled_pre_consumer",
+            "recycled_post_consumer",
+            "not_informed"
+          ]
+        }
+      }
+    },
+    "finishApplication": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "process_revision_id"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^finish-application:[A-Za-z0-9._:-]+$"
+        },
+        "process_revision_id": {
+          "enum": [
+            "concept-revision:structure.family.woven_fabric:v0.3",
+            "concept-revision:structure.family.weft_knit:v0.3",
+            "concept-revision:structure.family.warp_knit:v0.3",
+            "concept-revision:structure.family.nonwoven:v0.3",
+            "concept-revision:structure.family.interlaced_braided:v0.3",
+            "concept-revision:structure.family.stitch_bonded:v0.3",
+            "concept-revision:structure.family.composite_structure:v0.3",
+            "concept-revision:structure.family.indeterminate:v0.3",
+            "concept-revision:yarn.continuity.continuous_filament:v0.3",
+            "concept-revision:yarn.continuity.staple_fiber:v0.3",
+            "concept-revision:yarn.continuity.mixed:v0.3",
+            "concept-revision:yarn.continuity.indeterminate:v0.3",
+            "concept-revision:yarn.spinning_system.spun:v0.3",
+            "concept-revision:yarn.spinning_system.multifilament:v0.3",
+            "concept-revision:yarn.spinning_system.monofilament:v0.3",
+            "concept-revision:yarn.spinning_system.indeterminate:v0.3",
+            "concept-revision:yarn.twist.s_twist:v0.3",
+            "concept-revision:yarn.twist.z_twist:v0.3",
+            "concept-revision:yarn.twist.no_apparent_twist:v0.3",
+            "concept-revision:yarn.twist.indeterminate:v0.3",
+            "concept-revision:yarn.linear_density_system.tex:v0.3",
+            "concept-revision:yarn.linear_density_system.dtex:v0.3",
+            "concept-revision:yarn.linear_density_system.nm:v0.3",
+            "concept-revision:yarn.linear_density_system.ne:v0.3",
+            "concept-revision:yarn.linear_density_system.indeterminate:v0.3",
+            "concept-revision:yarn.texturization.textured:v0.3",
+            "concept-revision:yarn.texturization.not_textured:v0.3",
+            "concept-revision:yarn.texturization.indeterminate:v0.3",
+            "concept-revision:yarn.fancy_type.boucle:v0.3",
+            "concept-revision:yarn.fancy_type.chenille:v0.3",
+            "concept-revision:yarn.fancy_type.slub:v0.3",
+            "concept-revision:yarn.fancy_type.core_spun:v0.3",
+            "concept-revision:yarn.fancy_type.not_applicable:v0.3",
+            "concept-revision:yarn.fancy_type.indeterminate:v0.3",
+            "concept-revision:construction.primary.plain_weave:v0.3",
+            "concept-revision:construction.primary.twill:v0.3",
+            "concept-revision:construction.primary.satin:v0.3",
+            "concept-revision:construction.primary.leno_gauze:v0.3",
+            "concept-revision:construction.primary.jersey:v0.3",
+            "concept-revision:construction.primary.rib:v0.3",
+            "concept-revision:construction.primary.interlock:v0.3",
+            "concept-revision:construction.primary.purl:v0.3",
+            "concept-revision:construction.primary.knit_pique:v0.3",
+            "concept-revision:construction.primary.tricot:v0.3",
+            "concept-revision:construction.primary.raschel:v0.3",
+            "concept-revision:construction.primary.milanese:v0.3",
+            "concept-revision:construction.primary.indeterminate:v0.3",
+            "concept-revision:patterning.weave_derivation.basket:v0.3",
+            "concept-revision:patterning.weave_derivation.herringbone:v0.3",
+            "concept-revision:patterning.weave_derivation.broken_twill:v0.3",
+            "concept-revision:patterning.weave_derivation.cross_twill:v0.3",
+            "concept-revision:patterning.weave_derivation.compound_twill:v0.3",
+            "concept-revision:patterning.weave_derivation.derived_satin:v0.3",
+            "concept-revision:patterning.weave_derivation.indeterminate:v0.3",
+            "concept-revision:patterning.mechanism.dobby:v0.3",
+            "concept-revision:patterning.mechanism.jacquard:v0.3",
+            "concept-revision:patterning.mechanism.print:v0.3",
+            "concept-revision:patterning.mechanism.embroidery:v0.3",
+            "concept-revision:patterning.mechanism.indeterminate:v0.3",
+            "concept-revision:patterning.special_construction.ripstop:v0.3",
+            "concept-revision:patterning.special_construction.leno_technique:v0.3",
+            "concept-revision:patterning.special_construction.pique:v0.3",
+            "concept-revision:patterning.special_construction.structural_crepe:v0.3",
+            "concept-revision:patterning.special_construction.indeterminate:v0.3",
+            "concept-revision:patterning.surface_multilayer.cut_pile:v0.3",
+            "concept-revision:patterning.surface_multilayer.loop_pile:v0.3",
+            "concept-revision:patterning.surface_multilayer.fleece:v0.3",
+            "concept-revision:patterning.surface_multilayer.double_face:v0.3",
+            "concept-revision:patterning.surface_multilayer.double_layer:v0.3",
+            "concept-revision:patterning.surface_multilayer.spacer_fabric:v0.3",
+            "concept-revision:patterning.surface_multilayer.indeterminate:v0.3",
+            "concept-revision:visual.transparency.opaque:v0.3",
+            "concept-revision:visual.transparency.semi_opaque:v0.3",
+            "concept-revision:visual.transparency.semi_transparent:v0.3",
+            "concept-revision:visual.transparency.transparent:v0.3",
+            "concept-revision:visual.transparency.indeterminate:v0.3",
+            "concept-revision:visual.gloss.matte:v0.3",
+            "concept-revision:visual.gloss.semi_matte:v0.3",
+            "concept-revision:visual.gloss.satin_like:v0.3",
+            "concept-revision:visual.gloss.shiny:v0.3",
+            "concept-revision:visual.gloss.indeterminate:v0.3",
+            "concept-revision:visual.texture.smooth:v0.3",
+            "concept-revision:visual.texture.granular:v0.3",
+            "concept-revision:visual.texture.ribbed:v0.3",
+            "concept-revision:visual.texture.hairy:v0.3",
+            "concept-revision:visual.texture.velvety:v0.3",
+            "concept-revision:visual.texture.apparent_slub:v0.3",
+            "concept-revision:visual.texture.indeterminate:v0.3",
+            "concept-revision:visual.regularity.regular:v0.3",
+            "concept-revision:visual.regularity.irregular:v0.3",
+            "concept-revision:visual.regularity.indeterminate:v0.3",
+            "concept-revision:visual.color_appearance.apparently_solid:v0.3",
+            "concept-revision:visual.color_appearance.apparently_printed:v0.3",
+            "concept-revision:visual.color_appearance.apparently_multicolor_jacquard:v0.3",
+            "concept-revision:visual.color_appearance.indeterminate:v0.3",
+            "concept-revision:visual.color_uniformity.uniform:v0.3",
+            "concept-revision:visual.color_uniformity.apparent_variation:v0.3",
+            "concept-revision:visual.color_uniformity.indeterminate:v0.3",
+            "concept-revision:visual.warp_weft_contrast.high:v0.3",
+            "concept-revision:visual.warp_weft_contrast.low:v0.3",
+            "concept-revision:visual.warp_weft_contrast.indeterminate:v0.3",
+            "concept-revision:visual.coverage.closed:v0.3",
+            "concept-revision:visual.coverage.open:v0.3",
+            "concept-revision:visual.coverage.indeterminate:v0.3",
+            "concept-revision:visual.hairiness.present:v0.3",
+            "concept-revision:visual.hairiness.absent:v0.3",
+            "concept-revision:visual.hairiness.indeterminate:v0.3",
+            "concept-revision:visual.relief.flat:v0.3",
+            "concept-revision:visual.relief.raised:v0.3",
+            "concept-revision:visual.relief.indeterminate:v0.3",
+            "concept-revision:visual.face_reverse.yes:v0.3",
+            "concept-revision:visual.face_reverse.no:v0.3",
+            "concept-revision:visual.face_reverse.indeterminate:v0.3",
+            "concept-revision:tactile.hand.smooth_touch:v0.3",
+            "concept-revision:tactile.hand.rough:v0.3",
+            "concept-revision:tactile.hand.dry_hand:v0.3",
+            "concept-revision:tactile.hand.cool_touch:v0.3",
+            "concept-revision:tactile.hand.soft:v0.3",
+            "concept-revision:tactile.hand.indeterminate:v0.3",
+            "concept-revision:capture.quality.adequate:v0.3",
+            "concept-revision:capture.quality.limited:v0.3",
+            "concept-revision:capture.quality.insufficient:v0.3",
+            "concept-revision:composite.type.laminated:v0.3",
+            "concept-revision:composite.type.coated_structural:v0.3",
+            "concept-revision:composite.type.bonded:v0.3",
+            "concept-revision:composite.type.quilted:v0.3",
+            "concept-revision:composite.type.with_membrane:v0.3",
+            "concept-revision:composite.type.textile_sandwich:v0.3",
+            "concept-revision:composite.type.reinforced:v0.3",
+            "concept-revision:composite.type.with_film:v0.3",
+            "concept-revision:composite.type.with_foam:v0.3",
+            "concept-revision:composite.type.fiber_matrix_composite:v0.3",
+            "concept-revision:composite.type.indeterminate:v0.3",
+            "concept-revision:nonwoven.web_formation.carded:v0.3",
+            "concept-revision:nonwoven.web_formation.airlaid:v0.3",
+            "concept-revision:nonwoven.web_formation.wetlaid:v0.3",
+            "concept-revision:nonwoven.web_formation.spunlaid:v0.3",
+            "concept-revision:nonwoven.extrusion.spunbond:v0.3",
+            "concept-revision:nonwoven.extrusion.meltblown:v0.3",
+            "concept-revision:nonwoven.consolidation.needle_punched:v0.3",
+            "concept-revision:nonwoven.consolidation.hydroentangled:v0.3",
+            "concept-revision:nonwoven.consolidation.thermal:v0.3",
+            "concept-revision:nonwoven.consolidation.chemical:v0.3",
+            "concept-revision:nonwoven.orientation.oriented:v0.3",
+            "concept-revision:nonwoven.orientation.random:v0.3",
+            "concept-revision:nonwoven.orientation.indeterminate:v0.3",
+            "concept-revision:nonwoven.named_combination.sms:v0.3",
+            "concept-revision:nonwoven.named_combination.nonwoven_laminate:v0.3",
+            "concept-revision:nonwoven.named_combination.other:v0.3",
+            "concept-revision:finishing.process.mercerized:v0.3",
+            "concept-revision:finishing.process.calendered:v0.3",
+            "concept-revision:finishing.process.sanforized:v0.3",
+            "concept-revision:finishing.process.brushed:v0.3",
+            "concept-revision:finishing.process.sanded:v0.3",
+            "concept-revision:finishing.process.peached:v0.3",
+            "concept-revision:finishing.process.resin_finished:v0.3",
+            "concept-revision:finishing.process.coated:v0.3",
+            "concept-revision:finishing.process.heat_set:v0.3",
+            "concept-revision:finishing.process.enzymatic_biopolishing:v0.3",
+            "concept-revision:finishing.process.other:v0.3",
+            "concept-revision:finishing.process.not_informed:v0.3",
+            "concept-revision:finishing.declared_function.waterproof:v0.3",
+            "concept-revision:finishing.declared_function.repellent:v0.3",
+            "concept-revision:finishing.declared_function.antimicrobial:v0.3",
+            "concept-revision:finishing.declared_function.flame_retardant:v0.3",
+            "concept-revision:finishing.declared_function.anti_pilling:v0.3",
+            "concept-revision:finishing.declared_function.antistatic:v0.3",
+            "concept-revision:finishing.declared_function.hydrophilic:v0.3",
+            "concept-revision:finishing.declared_function.uv_protection:v0.3",
+            "concept-revision:finishing.declared_function.other:v0.3",
+            "concept-revision:finishing.declared_function.not_informed:v0.3",
+            "concept-revision:composition.status.absent:v0.3",
+            "concept-revision:composition.status.partial_non_publishable:v0.3",
+            "concept-revision:composition.status.complete:v0.3"
+          ]
+        }
+      }
+    },
+    "review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "assertion_id",
+        "outcome",
+        "notes",
+        "reviewed_at",
+        "performed_by_actor_id",
+        "review_policy_version_id"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^review:[A-Za-z0-9._:-]+$"
+        },
+        "assertion_id": {
+          "type": "string"
+        },
+        "outcome": {
+          "enum": [
+            "accepted",
+            "corrected",
+            "disputed",
+            "rejected"
+          ]
+        },
+        "notes": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "reviewed_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "performed_by_actor_id": {
+          "type": "string"
+        },
+        "review_policy_version_id": {
+          "const": "review-policy:phyllos-assertion:v1.0.0"
+        }
+      }
+    },
+    "publicationDecision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "assertion_id",
+        "outcome",
+        "reason_codes",
+        "decided_at",
+        "decided_by_actor_id",
+        "policy_version_id"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^publication-decision:[A-Za-z0-9._:-]+$"
+        },
+        "assertion_id": {
+          "type": "string"
+        },
+        "outcome": {
+          "enum": [
+            "publish",
+            "publish_with_status",
+            "withhold",
+            "request_more_evidence"
+          ]
+        },
+        "reason_codes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "decided_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "decided_by_actor_id": {
+          "type": "string"
+        },
+        "policy_version_id": {
+          "const": "publication-policy:phyllos-evidence:v1.0.0"
+        }
+      }
+    },
+    "conflict": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "assertion_ids",
+        "conflict_type",
+        "status",
+        "resolved_by_review_id"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^assertion-conflict:[A-Za-z0-9._:-]+$"
+        },
+        "assertion_ids": {
+          "type": "array",
+          "minItems": 2,
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        },
+        "conflict_type": {
+          "enum": [
+            "contradictory_value",
+            "source_disagreement",
+            "method_disagreement",
+            "temporal_change"
+          ]
+        },
+        "status": {
+          "enum": [
+            "open",
+            "resolved",
+            "accepted_coexistence"
+          ]
+        },
+        "resolved_by_review_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "benchmarkDecision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "benchmark_version_id",
+        "outcome",
+        "based_on_assertion_ids",
+        "reason_codes",
+        "decided_at",
+        "decided_by_actor_id"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^benchmark-decision:[A-Za-z0-9._:-]+$"
+        },
+        "benchmark_version_id": {
+          "const": "benchmark-version:benchmark-1:v1.0.0"
+        },
+        "outcome": {
+          "enum": [
+            "classify",
+            "abstain",
+            "request_new_evidence"
+          ]
+        },
+        "based_on_assertion_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        },
+        "reason_codes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "decided_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "decided_by_actor_id": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

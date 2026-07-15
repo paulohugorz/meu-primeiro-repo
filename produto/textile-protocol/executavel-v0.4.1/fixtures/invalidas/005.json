@@ -1,0 +1,357 @@
+{
+  "_test": {
+    "fixture_id": "invalid.005",
+    "expected_result": "invalid",
+    "expected_rule": "rule.publication.function_missing_context_withhold",
+    "description": "Função sem método publicada."
+  },
+  "classification_id": "classification:invalid.005",
+  "taxonomy": {
+    "taxonomy_id": "taxonomy:phyllos.textile",
+    "taxonomy_version_id": "taxonomy-version:phyllos.textile:v0.3",
+    "graph_model_version": "0.4.1"
+  },
+  "sample": {
+    "id": "sample:invalid.005",
+    "item_type": "sample",
+    "batch_id": null,
+    "supplier_id": null,
+    "captured_at": "2026-07-15T12:00:00-03:00"
+  },
+  "actors": [
+    {
+      "id": "actor:model",
+      "actor_type": "model",
+      "name": "PHYLLOS Visual Classifier"
+    },
+    {
+      "id": "actor:policy-engine",
+      "actor_type": "system",
+      "name": "PHYLLOS Policy Engine"
+    },
+    {
+      "id": "actor:photographer",
+      "actor_type": "human",
+      "name": "Capture operator"
+    },
+    {
+      "id": "actor:supplier",
+      "actor_type": "organization",
+      "name": "Supplier"
+    },
+    {
+      "id": "actor:reviewer",
+      "actor_type": "human",
+      "name": "Textile reviewer"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "evidence:valid.009:family",
+      "evidence_type": "image",
+      "artifact_uri": "urn:fixture:valid.009:family",
+      "artifact_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "artifact_integrity": "verified",
+      "source_authenticity": "verified",
+      "evidentiary_relevance": "sufficient",
+      "acceptance_status": "accepted",
+      "issued_at": "2026-07-15T12:00:00-03:00",
+      "issuer_actor_id": "actor:photographer"
+    },
+    {
+      "id": "evidence:valid.009:construction",
+      "evidence_type": "image",
+      "artifact_uri": "urn:fixture:valid.009:construction",
+      "artifact_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "artifact_integrity": "verified",
+      "source_authenticity": "verified",
+      "evidentiary_relevance": "sufficient",
+      "acceptance_status": "accepted",
+      "issued_at": "2026-07-15T12:00:00-03:00",
+      "issuer_actor_id": "actor:photographer"
+    },
+    {
+      "id": "evidence:valid.009:transparency",
+      "evidence_type": "image",
+      "artifact_uri": "urn:fixture:valid.009:transparency",
+      "artifact_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "artifact_integrity": "verified",
+      "source_authenticity": "verified",
+      "evidentiary_relevance": "sufficient",
+      "acceptance_status": "accepted",
+      "issued_at": "2026-07-15T12:00:00-03:00",
+      "issuer_actor_id": "actor:photographer"
+    },
+    {
+      "id": "evidence:valid.009:capture",
+      "evidence_type": "image",
+      "artifact_uri": "urn:fixture:valid.009:capture",
+      "artifact_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "artifact_integrity": "verified",
+      "source_authenticity": "verified",
+      "evidentiary_relevance": "sufficient",
+      "acceptance_status": "accepted",
+      "issued_at": "2026-07-15T12:00:00-03:00",
+      "issuer_actor_id": "actor:photographer"
+    },
+    {
+      "id": "evidence:valid.009:function",
+      "evidence_type": "supplier_declaration",
+      "artifact_uri": "urn:fixture:valid.009:function",
+      "artifact_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "artifact_integrity": "verified",
+      "source_authenticity": "verified",
+      "evidentiary_relevance": "sufficient",
+      "acceptance_status": "accepted",
+      "issued_at": "2026-07-15T12:00:00-03:00",
+      "issuer_actor_id": "actor:supplier"
+    }
+  ],
+  "methods": [],
+  "model_versions": [
+    {
+      "id": "model-version:visual:v1",
+      "model_id": "model:visual",
+      "version": "1.0.0"
+    }
+  ],
+  "prompt_versions": [
+    {
+      "id": "prompt-version:textile:v1",
+      "prompt_id": "prompt:textile",
+      "version": "1.0.0",
+      "immutable_hash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+    }
+  ],
+  "calibration_versions": [],
+  "executions": [
+    {
+      "id": "execution:valid.009:family",
+      "executed_by_actor_id": "actor:model",
+      "consumed_evidence_ids": [
+        "evidence:valid.009:family"
+      ],
+      "produced_assertion_ids": [
+        "assertion:valid.009:family"
+      ],
+      "model_version_id": "model-version:visual:v1",
+      "prompt_version_id": "prompt-version:textile:v1",
+      "calibration_version_id": null,
+      "executed_at": "2026-07-15T12:00:00-03:00"
+    },
+    {
+      "id": "execution:valid.009:construction",
+      "executed_by_actor_id": "actor:model",
+      "consumed_evidence_ids": [
+        "evidence:valid.009:construction"
+      ],
+      "produced_assertion_ids": [
+        "assertion:valid.009:construction"
+      ],
+      "model_version_id": "model-version:visual:v1",
+      "prompt_version_id": "prompt-version:textile:v1",
+      "calibration_version_id": null,
+      "executed_at": "2026-07-15T12:00:00-03:00"
+    }
+  ],
+  "assertions": [
+    {
+      "id": "assertion:valid.009:family",
+      "dimension_revision_id": "dimension-revision:structure.family:v0.3",
+      "assertion_kind": "inferred",
+      "evidence_status": "absent",
+      "confidence_level": "medium",
+      "confidence_is_calibrated": false,
+      "calibration_version_id": null,
+      "probability": null,
+      "capture_quality": "adequate",
+      "review_state": "unreviewed",
+      "status": "active",
+      "asserted_at": "2026-07-15T12:00:00-03:00",
+      "value": {
+        "concept_revision_id": "concept-revision:structure.family.woven_fabric:v0.3"
+      },
+      "evidence_ids": [
+        "evidence:valid.009:family"
+      ],
+      "method_version_id": null,
+      "execution_id": "execution:valid.009:family",
+      "review_ids": [],
+      "publication_decision_id": "publication-decision:valid.009:family",
+      "supersedes_assertion_id": null,
+      "derived_from_assertion_ids": []
+    },
+    {
+      "id": "assertion:valid.009:construction",
+      "dimension_revision_id": "dimension-revision:construction.primary:v0.3",
+      "assertion_kind": "inferred",
+      "evidence_status": "absent",
+      "confidence_level": "medium",
+      "confidence_is_calibrated": false,
+      "calibration_version_id": null,
+      "probability": null,
+      "capture_quality": "adequate",
+      "review_state": "unreviewed",
+      "status": "active",
+      "asserted_at": "2026-07-15T12:00:00-03:00",
+      "value": {
+        "concept_revision_id": "concept-revision:construction.primary.plain_weave:v0.3"
+      },
+      "evidence_ids": [
+        "evidence:valid.009:construction"
+      ],
+      "method_version_id": null,
+      "execution_id": "execution:valid.009:construction",
+      "review_ids": [],
+      "publication_decision_id": "publication-decision:valid.009:construction",
+      "supersedes_assertion_id": null,
+      "derived_from_assertion_ids": []
+    },
+    {
+      "id": "assertion:valid.009:transparency",
+      "dimension_revision_id": "dimension-revision:visual.transparency:v0.3",
+      "assertion_kind": "observed",
+      "evidence_status": "documented",
+      "confidence_level": "high",
+      "confidence_is_calibrated": false,
+      "calibration_version_id": null,
+      "probability": null,
+      "capture_quality": "adequate",
+      "review_state": "unreviewed",
+      "status": "active",
+      "asserted_at": "2026-07-15T12:00:00-03:00",
+      "value": {
+        "concept_revision_id": "concept-revision:visual.transparency.opaque:v0.3"
+      },
+      "evidence_ids": [
+        "evidence:valid.009:transparency"
+      ],
+      "method_version_id": null,
+      "execution_id": null,
+      "review_ids": [],
+      "publication_decision_id": "publication-decision:valid.009:transparency",
+      "supersedes_assertion_id": null,
+      "derived_from_assertion_ids": []
+    },
+    {
+      "id": "assertion:valid.009:capture",
+      "dimension_revision_id": "dimension-revision:capture.quality:v0.3",
+      "assertion_kind": "observed",
+      "evidence_status": "documented",
+      "confidence_level": "high",
+      "confidence_is_calibrated": false,
+      "calibration_version_id": null,
+      "probability": null,
+      "capture_quality": "adequate",
+      "review_state": "unreviewed",
+      "status": "active",
+      "asserted_at": "2026-07-15T12:00:00-03:00",
+      "value": {
+        "concept_revision_id": "concept-revision:capture.quality.adequate:v0.3"
+      },
+      "evidence_ids": [
+        "evidence:valid.009:capture"
+      ],
+      "method_version_id": null,
+      "execution_id": null,
+      "review_ids": [],
+      "publication_decision_id": "publication-decision:valid.009:capture",
+      "supersedes_assertion_id": null,
+      "derived_from_assertion_ids": []
+    },
+    {
+      "id": "assertion:valid.009:function",
+      "dimension_revision_id": "dimension-revision:finishing.declared_function:v0.3",
+      "assertion_kind": "declared",
+      "evidence_status": "declared",
+      "confidence_level": "low",
+      "confidence_is_calibrated": false,
+      "calibration_version_id": null,
+      "probability": null,
+      "capture_quality": "not_applicable",
+      "review_state": "unreviewed",
+      "status": "active",
+      "asserted_at": "2026-07-15T12:00:00-03:00",
+      "value": {
+        "declared_function_revision_id": "concept-revision:finishing.declared_function.repellent:v0.3"
+      },
+      "evidence_ids": [
+        "evidence:valid.009:function"
+      ],
+      "method_version_id": null,
+      "execution_id": null,
+      "review_ids": [],
+      "publication_decision_id": "publication-decision:valid.009:function",
+      "supersedes_assertion_id": null,
+      "derived_from_assertion_ids": []
+    }
+  ],
+  "measurements": [],
+  "composition_components": [],
+  "finish_applications": [],
+  "reviews": [],
+  "publication_decisions": [
+    {
+      "id": "publication-decision:valid.009:family",
+      "assertion_id": "assertion:valid.009:family",
+      "outcome": "publish_with_status",
+      "reason_codes": [],
+      "decided_at": "2026-07-15T12:00:00-03:00",
+      "decided_by_actor_id": "actor:policy-engine",
+      "policy_version_id": "publication-policy:phyllos-evidence:v1.0.0"
+    },
+    {
+      "id": "publication-decision:valid.009:construction",
+      "assertion_id": "assertion:valid.009:construction",
+      "outcome": "publish_with_status",
+      "reason_codes": [],
+      "decided_at": "2026-07-15T12:00:00-03:00",
+      "decided_by_actor_id": "actor:policy-engine",
+      "policy_version_id": "publication-policy:phyllos-evidence:v1.0.0"
+    },
+    {
+      "id": "publication-decision:valid.009:transparency",
+      "assertion_id": "assertion:valid.009:transparency",
+      "outcome": "publish_with_status",
+      "reason_codes": [],
+      "decided_at": "2026-07-15T12:00:00-03:00",
+      "decided_by_actor_id": "actor:policy-engine",
+      "policy_version_id": "publication-policy:phyllos-evidence:v1.0.0"
+    },
+    {
+      "id": "publication-decision:valid.009:capture",
+      "assertion_id": "assertion:valid.009:capture",
+      "outcome": "publish_with_status",
+      "reason_codes": [],
+      "decided_at": "2026-07-15T12:00:00-03:00",
+      "decided_by_actor_id": "actor:policy-engine",
+      "policy_version_id": "publication-policy:phyllos-evidence:v1.0.0"
+    },
+    {
+      "id": "publication-decision:valid.009:function",
+      "assertion_id": "assertion:valid.009:function",
+      "outcome": "publish",
+      "reason_codes": [
+        "missing_method"
+      ],
+      "decided_at": "2026-07-15T12:00:00-03:00",
+      "decided_by_actor_id": "actor:policy-engine",
+      "policy_version_id": "publication-policy:phyllos-evidence:v1.0.0"
+    }
+  ],
+  "conflicts": [],
+  "benchmark_decision": {
+    "id": "benchmark-decision:invalid.005",
+    "benchmark_version_id": "benchmark-version:benchmark-1:v1.0.0",
+    "outcome": "classify",
+    "based_on_assertion_ids": [
+      "assertion:valid.009:family",
+      "assertion:valid.009:construction",
+      "assertion:valid.009:transparency",
+      "assertion:valid.009:capture"
+    ],
+    "reason_codes": [],
+    "decided_at": "2026-07-15T12:00:00-03:00",
+    "decided_by_actor_id": "actor:policy-engine"
+  }
+}

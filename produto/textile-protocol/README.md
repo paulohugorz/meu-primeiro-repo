@@ -21,6 +21,18 @@ Toda sugestão visual permanece privada e recebe a proveniência auxiliar `infer
 - [Modelagem em grafo v0.4 — corrigida](modelagem-grafo-v0.4.md)
 - [Schema de asserção v0.4](schema/assertion-v0.4.schema.json)
 - [Fixtures de validação](fixtures/README.md)
+- [Pacote executável v0.4.1](executavel-v0.4.1/README.md)
+
+## Implementação executável vigente
+
+O diretório `executavel-v0.4.1/` é a implementação validável da taxonomia v0.3 sobre a modelagem em grafo v0.4.1. Ele contém o dicionário canônico, JSON Schema, validador semântico, 20 fixtures válidas, 20 inválidas, relatórios e manifesto de integridade.
+
+```bash
+python -m pip install -r produto/textile-protocol/executavel-v0.4.1/requirements.txt
+python produto/textile-protocol/executavel-v0.4.1/validate.py --all
+```
+
+Os arquivos mínimos em `schema/` e `fixtures/` permanecem como histórico da primeira iteração e não substituem o pacote executável v0.4.1.
 
 ## Gate central
 

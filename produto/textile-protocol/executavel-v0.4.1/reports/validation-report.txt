@@ -1,0 +1,62 @@
+PASS taxonomy dictionary integrity
+PASS JSON Schema Draft 2020-12 meta-validation
+PASS /mnt/data/phyllos_taxonomia_v0_3_executavel_v0_4_1/fixtures/validas/001.json expected=valid actual=valid
+PASS /mnt/data/phyllos_taxonomia_v0_3_executavel_v0_4_1/fixtures/validas/002.json expected=valid actual=valid
+PASS /mnt/data/phyllos_taxonomia_v0_3_executavel_v0_4_1/fixtures/validas/003.json expected=valid actual=valid
+PASS /mnt/data/phyllos_taxonomia_v0_3_executavel_v0_4_1/fixtures/validas/004.json expected=valid actual=valid
+PASS /mnt/data/phyllos_taxonomia_v0_3_executavel_v0_4_1/fixtures/validas/005.json expected=valid actual=valid
+PASS /mnt/data/phyllos_taxonomia_v0_3_executavel_v0_4_1/fixtures/validas/006.json expected=valid actual=valid
+PASS /mnt/data/phyllos_taxonomia_v0_3_executavel_v0_4_1/fixtures/validas/007.json expected=valid actual=valid
+PASS /mnt/data/phyllos_taxonomia_v0_3_executavel_v0_4_1/fixtures/validas/008.json expected=valid actual=valid
+PASS /mnt/data/phyllos_taxonomia_v0_3_executavel_v0_4_1/fixtures/validas/009.json expected=valid actual=valid
+PASS /mnt/data/phyllos_taxonomia_v0_3_executavel_v0_4_1/fixtures/validas/010.json expected=valid actual=valid
+PASS /mnt/data/phyllos_taxonomia_v0_3_executavel_v0_4_1/fixtures/validas/011.json expected=valid actual=valid
+PASS /mnt/data/phyllos_taxonomia_v0_3_executavel_v0_4_1/fixtures/validas/012.json expected=valid actual=valid
+PASS /mnt/data/phyllos_taxonomia_v0_3_executavel_v0_4_1/fixtures/validas/013.json expected=valid actual=valid
+PASS /mnt/data/phyllos_taxonomia_v0_3_executavel_v0_4_1/fixtures/validas/014.json expected=valid actual=valid
+PASS /mnt/data/phyllos_taxonomia_v0_3_executavel_v0_4_1/fixtures/validas/015.json expected=valid actual=valid
+PASS /mnt/data/phyllos_taxonomia_v0_3_executavel_v0_4_1/fixtures/validas/016.json expected=valid actual=valid
+PASS /mnt/data/phyllos_taxonomia_v0_3_executavel_v0_4_1/fixtures/validas/017.json expected=valid actual=valid
+PASS /mnt/data/phyllos_taxonomia_v0_3_executavel_v0_4_1/fixtures/validas/018.json expected=valid actual=valid
+PASS /mnt/data/phyllos_taxonomia_v0_3_executavel_v0_4_1/fixtures/validas/019.json expected=valid actual=valid
+PASS /mnt/data/phyllos_taxonomia_v0_3_executavel_v0_4_1/fixtures/validas/020.json expected=valid actual=valid
+PASS /mnt/data/phyllos_taxonomia_v0_3_executavel_v0_4_1/fixtures/invalidas/001.json expected=invalid actual=invalid expected_rule=rule.assertion.inferred_no_evidence_elevation
+ - rule.assertion.inferred_no_evidence_elevation
+PASS /mnt/data/phyllos_taxonomia_v0_3_executavel_v0_4_1/fixtures/invalidas/002.json expected=invalid actual=invalid expected_rule=rule.assertion.verified_requirements
+ - rule.assertion.verified_requirements
+PASS /mnt/data/phyllos_taxonomia_v0_3_executavel_v0_4_1/fixtures/invalidas/003.json expected=invalid actual=invalid expected_rule=rule.assertion.probability_requires_calibration
+ - rule.assertion.probability_requires_calibration
+PASS /mnt/data/phyllos_taxonomia_v0_3_executavel_v0_4_1/fixtures/invalidas/004.json expected=invalid actual=invalid expected_rule=rule.publication.composition_inferred_withhold
+ - rule.publication.composition_inferred_withhold
+PASS /mnt/data/phyllos_taxonomia_v0_3_executavel_v0_4_1/fixtures/invalidas/005.json expected=invalid actual=invalid expected_rule=rule.publication.function_missing_context_withhold
+ - rule.publication.function_missing_context_withhold
+PASS /mnt/data/phyllos_taxonomia_v0_3_executavel_v0_4_1/fixtures/invalidas/006.json expected=invalid actual=invalid expected_rule=rule.publication.function_missing_context_withhold
+ - rule.publication.function_missing_context_withhold
+PASS /mnt/data/phyllos_taxonomia_v0_3_executavel_v0_4_1/fixtures/invalidas/007.json expected=invalid actual=invalid expected_rule=rule.publication.capture_insufficient_request
+ - rule.publication.capture_insufficient_request
+PASS /mnt/data/phyllos_taxonomia_v0_3_executavel_v0_4_1/fixtures/invalidas/008.json expected=invalid actual=invalid expected_rule=rule.publication.commercial_high_ambiguity_request
+ - rule.publication.commercial_high_ambiguity_request
+PASS /mnt/data/phyllos_taxonomia_v0_3_executavel_v0_4_1/fixtures/invalidas/009.json expected=invalid actual=invalid expected_rule=rule.publication.open_conflict_block
+ - rule.publication.open_conflict_block
+PASS /mnt/data/phyllos_taxonomia_v0_3_executavel_v0_4_1/fixtures/invalidas/010.json expected=invalid actual=invalid expected_rule=rule.tactile.no_image_only
+ - rule.tactile.no_image_only
+PASS /mnt/data/phyllos_taxonomia_v0_3_executavel_v0_4_1/fixtures/invalidas/011.json expected=invalid actual=invalid expected_rule=schema.required_field
+ - schema.required_field: measurements.0: 'unit_id' is a required property
+PASS /mnt/data/phyllos_taxonomia_v0_3_executavel_v0_4_1/fixtures/invalidas/012.json expected=invalid actual=invalid expected_rule=rule.assertion.inferred_requires_execution
+ - rule.assertion.inferred_requires_execution
+PASS /mnt/data/phyllos_taxonomia_v0_3_executavel_v0_4_1/fixtures/invalidas/013.json expected=invalid actual=invalid expected_rule=semantic.execution_unknown_model
+ - semantic.execution_unknown_model
+PASS /mnt/data/phyllos_taxonomia_v0_3_executavel_v0_4_1/fixtures/invalidas/014.json expected=invalid actual=invalid expected_rule=schema.publication_policy
+ - schema.publication_policy: publication_decisions.0.policy_version_id: 'publication-policy:phyllos-evidence:v1.0.0' was expected
+PASS /mnt/data/phyllos_taxonomia_v0_3_executavel_v0_4_1/fixtures/invalidas/015.json expected=invalid actual=invalid expected_rule=semantic.publication_assertion_mismatch
+ - semantic.publication_assertion_mismatch
+PASS /mnt/data/phyllos_taxonomia_v0_3_executavel_v0_4_1/fixtures/invalidas/016.json expected=invalid actual=invalid expected_rule=rule.history.supersedes_preserves_old
+ - rule.history.supersedes_preserves_old
+PASS /mnt/data/phyllos_taxonomia_v0_3_executavel_v0_4_1/fixtures/invalidas/017.json expected=invalid actual=invalid expected_rule=rule.history.correction_requires_replacement
+ - rule.history.correction_requires_replacement
+PASS /mnt/data/phyllos_taxonomia_v0_3_executavel_v0_4_1/fixtures/invalidas/018.json expected=invalid actual=invalid expected_rule=rule.benchmark.versioned_capability
+ - rule.benchmark.versioned_capability
+PASS /mnt/data/phyllos_taxonomia_v0_3_executavel_v0_4_1/fixtures/invalidas/019.json expected=invalid actual=invalid expected_rule=rule.cardinality.dimension
+ - rule.cardinality.dimension
+PASS /mnt/data/phyllos_taxonomia_v0_3_executavel_v0_4_1/fixtures/invalidas/020.json expected=invalid actual=invalid expected_rule=schema.additional_property
+ - schema.additional_property: assertions.0: Additional properties are not allowed ('publicability' was unexpected)
