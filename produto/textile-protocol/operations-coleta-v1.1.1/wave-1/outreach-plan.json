@@ -1,0 +1,48 @@
+[
+  {
+    "wave_id": "wave-1-cedro",
+    "group": "Cedro Têxtil",
+    "candidate_count": 10,
+    "contact_route": "official_contact_form_and_regional_representative",
+    "source_url": "https://cedro.com.br/contato/",
+    "status": "prepared_not_sent",
+    "priority": 1,
+    "operations_package_version": "1.1.1",
+    "authorization_required_before_send": true
+  },
+  {
+    "wave_id": "wave-1-polartec-cordura",
+    "group": "Polartec / CORDURA",
+    "candidate_count": 35,
+    "contact_route": "official_contact_forms_partner_portals_and_fabric_finder",
+    "source_url": "https://www.polartec.com/",
+    "secondary_source_url": "https://cordura.com/find-your-match",
+    "status": "prepared_not_sent",
+    "priority": 2,
+    "operations_package_version": "1.1.1",
+    "authorization_required_before_send": true
+  },
+  {
+    "wave_id": "wave-1-ahlstrom-freudenberg",
+    "group": "Ahlstrom / Freudenberg Performance Materials",
+    "candidate_count": 20,
+    "contact_route": "official_product_contact_forms",
+    "source_url": "https://www.ahlstrom.com/products/",
+    "secondary_source_url": "https://www.freudenberg-pm.com/en",
+    "status": "prepared_not_sent",
+    "priority": 3,
+    "operations_package_version": "1.1.1",
+    "authorization_required_before_send": true
+  },
+  {
+    "wave_id": "wave-1-carrington",
+    "group": "Carrington Textiles",
+    "candidate_count": 5,
+    "contact_route": "official_contact_and_sample_guide_form",
+    "source_url": "https://www.carrington.co.uk/en/media/downloads/new-guides/",
+    "status": "prepared_not_sent",
+    "priority": 4,
+    "operations_package_version": "1.1.1",
+    "authorization_required_before_send": true
+  }
+]

@@ -1,0 +1,24 @@
+{
+  "id": "operations-policy:sample-collection:v1.1.1",
+  "version": "1.1.1",
+  "status": "prepared_not_sent",
+  "gates": {
+    "gold_set_acceptance": {
+      "required": [
+        "physical_sample_received",
+        "supplier_product_code_present",
+        "document_evidence_present",
+        "artifact_sha256_present",
+        "at_least_one_assertion",
+        "at_least_one_review",
+        "explicit_dataset_intake_decision"
+      ]
+    },
+    "supplier_concentration": {
+      "scope": "accepted_samples_only",
+      "maximum_share_per_supplier": 0.35,
+      "when_no_samples_accepted": "not_applicable",
+      "action_on_violation": "block_additional_acceptance_and_require_portfolio_review"
+    }
+  }
+}

@@ -22,6 +22,7 @@ Toda sugestão visual permanece privada e recebe a proveniência auxiliar `infer
 - [Schema de asserção v0.4](schema/assertion-v0.4.schema.json)
 - [Fixtures de validação](fixtures/README.md)
 - [Pacote executável v0.4.1](executavel-v0.4.1/README.md)
+- [Operations — coleta de amostras v1.1.1](operations-coleta-v1.1.1/README.md)
 
 ## Implementação executável vigente
 
@@ -33,6 +34,16 @@ python produto/textile-protocol/executavel-v0.4.1/validate.py --all
 ```
 
 Os arquivos mínimos em `schema/` e `fixtures/` permanecem como histórico da primeira iteração e não substituem o pacote executável v0.4.1.
+
+## Operação de coleta
+
+O diretório `operations-coleta-v1.1.1/` organiza 70 candidatas, os gates de entrada no conjunto ouro, as lacunas de cobertura e as mensagens da primeira onda. Seu status vigente é `prepared_not_sent`: não há amostras físicas recebidas, evidências validadas ou candidatas aceitas, e nenhum contato pode ser enviado sem autorização explícita.
+
+```bash
+python -m pip install -r produto/textile-protocol/operations-coleta-v1.1.1/requirements.txt
+python produto/textile-protocol/operations-coleta-v1.1.1/validate_operations.py \
+  --registry produto/textile-protocol/operations-coleta-v1.1.1/candidate-registry-v1.1.1.json
+```
 
 ## Gate central
 

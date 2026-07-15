@@ -1,0 +1,82 @@
+{
+  "record_version": "1.1.1",
+  "taxonomy_version_id": "taxonomy-version:phyllos.textile:v0.3",
+  "graph_contract_version": "0.4.1",
+  "benchmark_version_id": "benchmark-version:benchmark-1:v1.0.0",
+  "textile_sample": {
+    "id": "textile-sample:ops-tx-001",
+    "operational_sample_id": "OPS-TX-001",
+    "supplier_product_code": "CEDRO-RIP-STOP-SUPER",
+    "batch_or_lot": null,
+    "received": true,
+    "received_at": "2026-07-15T12:00:00-03:00",
+    "storage_location": "storage:sample-cabinet-a",
+    "supplier_id": "supplier:cedro"
+  },
+  "actors": [
+    {
+      "id": "actor:ops:001",
+      "actor_type": "human",
+      "display_name": "Operations Reviewer"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "evidence:doc-001",
+      "evidence_type": "document",
+      "artifact_uri": "file://technical-sheet.pdf",
+      "artifact_hash_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "artifact_integrity": "verified",
+      "source_authenticity": "verified",
+      "evidentiary_relevance": "sufficient",
+      "issued_at": "2026-07-01T00:00:00-03:00",
+      "issuer_actor_id": null
+    }
+  ],
+  "assertions": [
+    {
+      "id": "assertion:ops-tx-001:family:001",
+      "assertion_kind": "declared",
+      "evidence_status": "documented",
+      "confidence_level": "medium",
+      "capture_quality": "not_applicable",
+      "review_state": "accepted",
+      "status": "active",
+      "dimension_revision_id": "dimension-revision:structure.family:v0.3",
+      "concept_revision_id": "concept-revision:structure.family.woven_fabric:v0.3",
+      "literal_value": null,
+      "supported_by_evidence_ids": [
+        "evidence:doc-001"
+      ],
+      "generated_by_execution_id": null,
+      "uses_method_version_id": null,
+      "supersedes_assertion_id": null
+    }
+  ],
+  "reviews": [
+    {
+      "id": "review:001",
+      "assertion_id": "assertion:ops-tx-001:family:001",
+      "outcome": "accepted",
+      "performed_by_actor_id": "actor:ops:001",
+      "review_policy_version_id": "review-policy:phyllos-assertion:v1.0.0",
+      "notes": "Amostra e documento correspondentes."
+    }
+  ],
+  "assertion_conflicts": [],
+  "publication_decisions": [],
+  "dataset_intake_decision": {
+    "id": "dataset-intake-decision:001",
+    "outcome": "accept",
+    "reason_codes": [
+      "all_gates_satisfied"
+    ],
+    "decided_by_actor_id": "actor:ops:001",
+    "decided_at": "2026-07-15T13:00:00-03:00"
+  },
+  "policy_refs": {
+    "publication_policy_version_id": "publication-policy:phyllos-evidence:v1.0.0",
+    "review_policy_version_id": "review-policy:phyllos-assertion:v1.0.0",
+    "capability_policy_version_id": "capability-policy:benchmark-1:v1.0.0"
+  }
+}

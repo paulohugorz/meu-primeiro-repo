@@ -1,0 +1,601 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://phyllos.local/schemas/sample-intake-v1.1.1.schema.json",
+  "title": "PHYLLOS Operational Textile Sample Intake v1.1.1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "record_version",
+    "taxonomy_version_id",
+    "graph_contract_version",
+    "textile_sample",
+    "actors",
+    "evidence",
+    "assertions",
+    "reviews",
+    "publication_decisions",
+    "dataset_intake_decision",
+    "policy_refs"
+  ],
+  "properties": {
+    "record_version": {
+      "const": "1.1.1"
+    },
+    "taxonomy_version_id": {
+      "const": "taxonomy-version:phyllos.textile:v0.3"
+    },
+    "graph_contract_version": {
+      "const": "0.4.1"
+    },
+    "benchmark_version_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "textile_sample": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "operational_sample_id",
+        "received",
+        "supplier_id"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^textile-sample:"
+        },
+        "operational_sample_id": {
+          "type": "string",
+          "pattern": "^OPS-TX-[0-9]{3}$"
+        },
+        "supplier_product_code": {
+          "type": "string"
+        },
+        "batch_or_lot": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "received": {
+          "type": "boolean"
+        },
+        "received_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "storage_location": {
+          "type": "string"
+        },
+        "supplier_id": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "actors": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/actor"
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/evidence"
+      }
+    },
+    "assertions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/assertion"
+      }
+    },
+    "reviews": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/review"
+      }
+    },
+    "assertion_conflicts": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "publication_decisions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/publicationDecision"
+      }
+    },
+    "dataset_intake_decision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "outcome",
+        "reason_codes"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^dataset-intake-decision:"
+        },
+        "outcome": {
+          "enum": [
+            "pending",
+            "accept",
+            "reject",
+            "request_more_evidence"
+          ]
+        },
+        "reason_codes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "decided_by_actor_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "decided_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        }
+      }
+    },
+    "policy_refs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "publication_policy_version_id",
+        "review_policy_version_id",
+        "capability_policy_version_id"
+      ],
+      "properties": {
+        "publication_policy_version_id": {
+          "type": "string"
+        },
+        "review_policy_version_id": {
+          "type": "string"
+        },
+        "capability_policy_version_id": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "actor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "actor_type",
+        "display_name"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^actor:"
+        },
+        "actor_type": {
+          "enum": [
+            "human",
+            "model",
+            "system",
+            "organization"
+          ]
+        },
+        "display_name": {
+          "type": "string"
+        }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "evidence_type",
+        "artifact_integrity",
+        "source_authenticity",
+        "evidentiary_relevance"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^evidence:"
+        },
+        "evidence_type": {
+          "enum": [
+            "image",
+            "document",
+            "supplier_declaration",
+            "lab_report",
+            "certificate",
+            "physical_observation"
+          ]
+        },
+        "artifact_uri": {
+          "type": "string"
+        },
+        "artifact_hash_sha256": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "artifact_integrity": {
+          "enum": [
+            "verified",
+            "invalid",
+            "unknown"
+          ]
+        },
+        "source_authenticity": {
+          "enum": [
+            "verified",
+            "unverified",
+            "unknown"
+          ]
+        },
+        "evidentiary_relevance": {
+          "enum": [
+            "sufficient",
+            "limited",
+            "insufficient",
+            "unknown"
+          ]
+        },
+        "issued_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "issuer_actor_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "assertion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "assertion_kind",
+        "evidence_status",
+        "confidence_level",
+        "capture_quality",
+        "review_state",
+        "status",
+        "dimension_revision_id",
+        "supported_by_evidence_ids"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^assertion:"
+        },
+        "assertion_kind": {
+          "enum": [
+            "observed",
+            "measured",
+            "inferred",
+            "declared",
+            "derived"
+          ]
+        },
+        "evidence_status": {
+          "enum": [
+            "absent",
+            "declared",
+            "calculated",
+            "documented",
+            "verified"
+          ]
+        },
+        "confidence_level": {
+          "enum": [
+            "high",
+            "medium",
+            "low",
+            "indeterminate"
+          ]
+        },
+        "capture_quality": {
+          "enum": [
+            "adequate",
+            "limited",
+            "insufficient",
+            "not_applicable"
+          ]
+        },
+        "review_state": {
+          "enum": [
+            "unreviewed",
+            "accepted",
+            "corrected",
+            "disputed",
+            "rejected"
+          ]
+        },
+        "status": {
+          "enum": [
+            "active",
+            "superseded",
+            "rejected",
+            "under_review"
+          ]
+        },
+        "dimension_revision_id": {
+          "type": "string",
+          "pattern": "^dimension-revision:"
+        },
+        "concept_revision_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^concept-revision:"
+        },
+        "literal_value": {},
+        "supported_by_evidence_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^evidence:"
+          }
+        },
+        "generated_by_execution_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "uses_method_version_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "supersedes_assertion_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "assertion_kind": {
+                "const": "inferred"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "evidence_status": {
+                "const": "absent"
+              }
+            },
+            "required": [
+              "generated_by_execution_id"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "evidence_status": {
+                "const": "calculated"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "assertion_kind": {
+                "const": "derived"
+              }
+            },
+            "required": [
+              "uses_method_version_id"
+            ]
+          }
+        }
+      ]
+    },
+    "review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "assertion_id",
+        "outcome",
+        "performed_by_actor_id",
+        "review_policy_version_id"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^review:"
+        },
+        "assertion_id": {
+          "type": "string",
+          "pattern": "^assertion:"
+        },
+        "outcome": {
+          "enum": [
+            "accepted",
+            "corrected",
+            "disputed",
+            "rejected"
+          ]
+        },
+        "performed_by_actor_id": {
+          "type": "string",
+          "pattern": "^actor:"
+        },
+        "review_policy_version_id": {
+          "type": "string"
+        },
+        "notes": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "publicationDecision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "assertion_id",
+        "outcome",
+        "policy_version_id",
+        "reason_codes"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^publication-decision:"
+        },
+        "assertion_id": {
+          "type": "string",
+          "pattern": "^assertion:"
+        },
+        "outcome": {
+          "enum": [
+            "publish",
+            "publish_with_status",
+            "withhold",
+            "request_more_evidence"
+          ]
+        },
+        "policy_version_id": {
+          "type": "string"
+        },
+        "reason_codes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "dataset_intake_decision": {
+            "properties": {
+              "outcome": {
+                "const": "accept"
+              }
+            },
+            "required": [
+              "outcome"
+            ]
+          }
+        },
+        "required": [
+          "dataset_intake_decision"
+        ]
+      },
+      "then": {
+        "properties": {
+          "textile_sample": {
+            "properties": {
+              "received": {
+                "const": true
+              },
+              "received_at": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "supplier_product_code": {
+                "type": "string",
+                "minLength": 1
+              },
+              "storage_location": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "received",
+              "received_at",
+              "supplier_product_code",
+              "storage_location"
+            ]
+          },
+          "evidence": {
+            "type": "array",
+            "minItems": 1,
+            "contains": {
+              "type": "object",
+              "properties": {
+                "artifact_hash_sha256": {
+                  "type": "string",
+                  "pattern": "^[a-f0-9]{64}$"
+                }
+              },
+              "required": [
+                "artifact_hash_sha256"
+              ]
+            },
+            "minContains": 1
+          },
+          "assertions": {
+            "type": "array",
+            "minItems": 1
+          },
+          "reviews": {
+            "type": "array",
+            "minItems": 1
+          },
+          "dataset_intake_decision": {
+            "properties": {
+              "decided_by_actor_id": {
+                "type": "string",
+                "pattern": "^actor:"
+              },
+              "decided_at": {
+                "type": "string",
+                "format": "date-time"
+              }
+            },
+            "required": [
+              "decided_by_actor_id",
+              "decided_at"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

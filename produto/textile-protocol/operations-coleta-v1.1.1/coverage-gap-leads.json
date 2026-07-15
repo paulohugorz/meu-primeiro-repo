@@ -1,0 +1,61 @@
+[
+  {
+    "lead_id": "GAP-WK-001",
+    "target_family": "malha_urdume",
+    "supplier": "Baltex",
+    "product": "Solid Polyester Ref. 6282",
+    "document_status": "technical_data_public",
+    "source_url": "https://baltex.co.uk/product/solid-polyester-ref-6282/",
+    "proposed_family_concept_revision_id": "concept-revision:structure.family.warp_knit:v0.3",
+    "proposed_construction_concept_revision_ids": [
+      "concept-revision:construction.primary.tricot:v0.3"
+    ],
+    "status": "lead_not_candidate"
+  },
+  {
+    "lead_id": "GAP-WK-002",
+    "target_family": "malha_urdume",
+    "supplier": "Baltex",
+    "product": "Light Weight Polyester Ref. 7640",
+    "document_status": "technical_data_public",
+    "source_url": "https://baltex.co.uk/product/light-weight-polyester-ref-7640/",
+    "proposed_family_concept_revision_id": "concept-revision:structure.family.warp_knit:v0.3",
+    "proposed_construction_concept_revision_ids": [
+      "concept-revision:construction.primary.tricot:v0.3"
+    ],
+    "status": "lead_not_candidate"
+  },
+  {
+    "lead_id": "GAP-WK-003",
+    "target_family": "malha_urdume",
+    "supplier": "Heathcoat Fabrics",
+    "product": "High-Absorbency Viscose Fabric for Woundcare",
+    "document_status": "official_product_page",
+    "source_url": "https://www.heathcoat.co.uk/viscose-fabric-for-woundcare/",
+    "proposed_family_concept_revision_id": "concept-revision:structure.family.warp_knit:v0.3",
+    "proposed_construction_concept_revision_ids": [],
+    "status": "lead_not_candidate"
+  },
+  {
+    "lead_id": "GAP-SB-001",
+    "target_family": "costurado_stitch_bonded",
+    "supplier": "United Asphalt",
+    "product": "United Polyester Fabric",
+    "document_status": "technical_data_public",
+    "source_url": "https://unitedasphalt.com/united-polyester-fabric/",
+    "proposed_family_concept_revision_id": "concept-revision:structure.family.stitch_bonded:v0.3",
+    "proposed_construction_concept_revision_ids": [],
+    "status": "lead_not_candidate"
+  },
+  {
+    "lead_id": "GAP-SB-002",
+    "target_family": "costurado_stitch_bonded",
+    "supplier": "WINIW / PANONWOVEN",
+    "product": "Polyester Stitchbond Nonwoven Fabric",
+    "document_status": "supplier_specification_page",
+    "source_url": "https://www.panonwoven.com/products/polyester-stitchbond-nonwoven-fabric/",
+    "proposed_family_concept_revision_id": "concept-revision:structure.family.stitch_bonded:v0.3",
+    "proposed_construction_concept_revision_ids": [],
+    "status": "lead_not_candidate"
+  }
+]

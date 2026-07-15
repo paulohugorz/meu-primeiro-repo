@@ -1,0 +1,52 @@
+{
+  "record_version": "1.1.1",
+  "taxonomy_version_id": "taxonomy-version:phyllos.textile:v0.3",
+  "graph_contract_version": "0.4.1",
+  "benchmark_version_id": "benchmark-version:benchmark-1:v1.0.0",
+  "textile_sample": {
+    "id": "textile-sample:ops-tx-000",
+    "operational_sample_id": "OPS-TX-000",
+    "supplier_product_code": "",
+    "batch_or_lot": null,
+    "received": false,
+    "received_at": null,
+    "storage_location": "",
+    "supplier_id": "supplier:pending"
+  },
+  "actors": [
+    {
+      "id": "actor:operations:pending",
+      "actor_type": "human",
+      "display_name": ""
+    }
+  ],
+  "evidence": [
+    {
+      "id": "evidence:pending",
+      "evidence_type": "document",
+      "artifact_uri": "",
+      "artifact_hash_sha256": null,
+      "artifact_integrity": "unknown",
+      "source_authenticity": "unknown",
+      "evidentiary_relevance": "unknown",
+      "issued_at": null,
+      "issuer_actor_id": null
+    }
+  ],
+  "assertions": [],
+  "reviews": [],
+  "assertion_conflicts": [],
+  "publication_decisions": [],
+  "dataset_intake_decision": {
+    "id": "dataset-intake-decision:pending",
+    "outcome": "pending",
+    "reason_codes": [],
+    "decided_by_actor_id": null,
+    "decided_at": null
+  },
+  "policy_refs": {
+    "publication_policy_version_id": "publication-policy:phyllos-evidence:v1.0.0",
+    "review_policy_version_id": "review-policy:phyllos-assertion:v1.0.0",
+    "capability_policy_version_id": "capability-policy:benchmark-1:v1.0.0"
+  }
+}
