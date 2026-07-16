@@ -37,3 +37,13 @@ class UIContractTests(unittest.TestCase):
         self.assertIn('document.querySelectorAll(".capture-card.complete").length', js)
         self.assertIn('$("reviewButton").onclick=async()=>', js)
         self.assertIn("await refreshSession();renderReview()", js)
+
+    def test_visible_result_uses_natural_brazilian_portuguese(self):
+        js = (ROOT / "web" / "app.js").read_text(encoding="utf-8")
+        self.assertIn('woven_fabric:"tecido plano', js)
+        self.assertIn('plain_weave:"ligamento tela', js)
+        self.assertIn('twill:"ligamento sarja', js)
+        self.assertIn("Como o tecido parece ser construído", js)
+        self.assertIn("Quanto o tecido deixa ver através dele", js)
+        self.assertIn("Identificador da evidência", js)
+        self.assertNotIn("<small>Score</small>", js)
