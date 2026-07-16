@@ -38,6 +38,12 @@ class UIContractTests(unittest.TestCase):
         self.assertIn('$("reviewButton").onclick=async()=>', js)
         self.assertIn("await refreshSession();renderReview()", js)
 
+    def test_expired_render_session_returns_to_setup_in_plain_language(self):
+        js = (ROOT / "web" / "app.js").read_text(encoding="utf-8")
+        self.assertIn('includes("capture session not found")', js)
+        self.assertIn("cleanup(false)", js)
+        self.assertIn("A sessão expirou após a reinicialização do serviço", js)
+
     def test_visible_result_uses_natural_brazilian_portuguese(self):
         js = (ROOT / "web" / "app.js").read_text(encoding="utf-8")
         self.assertIn('woven_fabric:"tecido plano', js)
