@@ -1,0 +1,769 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://phyllos.local/schemas/sample-environmental-profile-v0.3.json",
+  "title": "PHYLLOS Sample Environmental Profile v0.3",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "sample_id",
+    "article_id",
+    "calculability_status",
+    "calculability_review_status",
+    "methodology_version",
+    "composition",
+    "physical_properties",
+    "supply_chain",
+    "environmental_factors",
+    "calculations",
+    "evidence",
+    "data_quality"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "0.3"
+    },
+    "sample_id": {
+      "type": "string",
+      "pattern": "^(OPS-TX-\\d{3}|textile-sample:[a-z0-9._:-]+)$"
+    },
+    "article_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "supplier_product_code": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "batch_or_lot": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "methodology_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "calculability_status": {
+      "enum": [
+        "not_calculable",
+        "material_estimate_only",
+        "secondary_estimate",
+        "process_adjusted_estimate",
+        "supplier_specific_estimate",
+        "verified_environmental_profile"
+      ]
+    },
+    "composition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "components"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "unknown",
+            "extracted_pending_review",
+            "documented_unverified",
+            "verified"
+          ]
+        },
+        "components": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "fiber_type",
+              "fiber_percentage",
+              "source_status"
+            ],
+            "properties": {
+              "fiber_type": {
+                "type": "string",
+                "minLength": 1
+              },
+              "virgin_or_recycled": {
+                "enum": [
+                  "virgin",
+                  "recycled",
+                  "mixed",
+                  "unknown"
+                ]
+              },
+              "recycled_content_percentage": {
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "minimum": 0,
+                "maximum": 100
+              },
+              "recycled_origin": {
+                "enum": [
+                  "pre_consumer",
+                  "post_consumer",
+                  "mixed",
+                  "unknown"
+                ]
+              },
+              "source_status": {
+                "enum": [
+                  "visual_observation",
+                  "text_extraction",
+                  "supplier_document",
+                  "laboratory_test",
+                  "unknown"
+                ]
+              },
+              "evidence_id": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "fiber_percentage": {
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "minimum": 0,
+                "maximum": 100
+              }
+            }
+          }
+        },
+        "sum_percentage": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 101
+        },
+        "review_status": {
+          "enum": [
+            "not_reviewed",
+            "accepted",
+            "corrected",
+            "rejected"
+          ]
+        }
+      }
+    },
+    "physical_properties": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "gsm": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "exclusiveMinimum": 0
+        },
+        "usable_width_cm": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "exclusiveMinimum": 0
+        },
+        "thickness_mm": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "exclusiveMinimum": 0
+        },
+        "elongation_percentage": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "evidence_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "supply_chain": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "stage",
+          "data_status"
+        ],
+        "properties": {
+          "stage": {
+            "enum": [
+              "raw_material",
+              "spinning",
+              "fabric_formation",
+              "dyeing",
+              "finishing",
+              "lamination",
+              "garment_manufacturing",
+              "distribution"
+            ]
+          },
+          "country": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "region": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "facility": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "technology": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "transport_mode": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "distance_km": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "minimum": 0
+          },
+          "data_status": {
+            "enum": [
+              "unknown",
+              "supplier_unverified",
+              "supplier_verified",
+              "secondary_proxy"
+            ]
+          },
+          "evidence_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "environmental_factors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "factor_id",
+          "impact_category",
+          "factor_value",
+          "factor_unit",
+          "functional_unit",
+          "source",
+          "source_version",
+          "quality_level"
+        ],
+        "properties": {
+          "factor_id": {
+            "type": "string"
+          },
+          "impact_category": {
+            "enum": [
+              "climate_change",
+              "water_use",
+              "energy_use",
+              "fossil_resource_use",
+              "waste",
+              "acidification",
+              "eutrophication",
+              "land_use",
+              "other"
+            ]
+          },
+          "functional_unit": {
+            "type": "string"
+          },
+          "geographic_scope": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "technology_scope": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "temporal_scope": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "source": {
+            "type": "string"
+          },
+          "source_version": {
+            "type": "string"
+          },
+          "quality_level": {
+            "enum": [
+              "A",
+              "B",
+              "C",
+              "D",
+              "E"
+            ]
+          },
+          "uncertainty": {
+            "type": [
+              "number",
+              "string",
+              "null"
+            ]
+          },
+          "factor_value": {
+            "type": "number"
+          },
+          "factor_unit": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "calculations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "calculation_id",
+          "impact_category",
+          "functional_unit",
+          "system_boundary",
+          "result",
+          "result_unit",
+          "factor_ids",
+          "calculated_at",
+          "calculation_status"
+        ],
+        "properties": {
+          "calculation_id": {
+            "type": "string"
+          },
+          "impact_category": {
+            "type": "string"
+          },
+          "functional_unit": {
+            "enum": [
+              "1_kg_textile",
+              "1_m2_textile",
+              "garment_quantity"
+            ]
+          },
+          "system_boundary": {
+            "enum": [
+              "raw_material_only",
+              "cradle_to_gate",
+              "cradle_to_customer",
+              "cradle_to_grave",
+              "custom"
+            ]
+          },
+          "result": {
+            "type": "number"
+          },
+          "result_unit": {
+            "type": "string"
+          },
+          "uncertainty_range": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "factor_ids": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string"
+            }
+          },
+          "calculated_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "review_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "calculation_status": {
+            "enum": [
+              "experimental",
+              "reviewed",
+              "approved_for_internal_use",
+              "approved_for_publication"
+            ]
+          }
+        }
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "evidence_id",
+          "source_type",
+          "authenticity",
+          "relevance"
+        ],
+        "properties": {
+          "evidence_id": {
+            "type": "string"
+          },
+          "source_type": {
+            "enum": [
+              "supplier_primary_verified",
+              "supplier_primary_unverified",
+              "laboratory_test",
+              "certification_document",
+              "third_party_database",
+              "scientific_literature",
+              "industry_average",
+              "proxy_estimate",
+              "visual_observation",
+              "unknown"
+            ]
+          },
+          "artifact_hash": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "pattern": "^[a-fA-F0-9]{64}$"
+          },
+          "authenticity": {
+            "enum": [
+              "verified",
+              "unverified",
+              "unknown"
+            ]
+          },
+          "relevance": {
+            "enum": [
+              "sufficient",
+              "limited",
+              "insufficient"
+            ]
+          },
+          "url": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uri"
+          },
+          "document_date": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date"
+          }
+        }
+      }
+    },
+    "data_quality": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "quality_level",
+        "completeness_score",
+        "limitations"
+      ],
+      "properties": {
+        "quality_level": {
+          "enum": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "E"
+          ]
+        },
+        "completeness_score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "uncertainty": {
+          "type": [
+            "number",
+            "string",
+            "null"
+          ]
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "review_status": {
+          "enum": [
+            "not_reviewed",
+            "accepted",
+            "corrected",
+            "rejected"
+          ]
+        },
+        "review_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "calculability_review_status": {
+      "enum": [
+        "not_applicable",
+        "pending_human_review",
+        "reviewed",
+        "approved",
+        "rejected"
+      ],
+      "description": "Gate humano do status de calculabilidade. Enquanto pending_human_review, rejected ou not_applicable, calculations deve permanecer vazio."
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "calculability_status": {
+            "enum": [
+              "material_estimate_only",
+              "secondary_estimate",
+              "process_adjusted_estimate",
+              "supplier_specific_estimate",
+              "verified_environmental_profile"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "composition": {
+            "properties": {
+              "components": {
+                "minItems": 1,
+                "items": {
+                  "required": [
+                    "fiber_type",
+                    "fiber_percentage",
+                    "source_status"
+                  ]
+                }
+              },
+              "sum_percentage": {
+                "type": "number",
+                "minimum": 99,
+                "maximum": 101
+              }
+            }
+          },
+          "physical_properties": {
+            "required": [
+              "gsm"
+            ],
+            "properties": {
+              "gsm": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              }
+            }
+          },
+          "calculability_review_status": {
+            "enum": [
+              "pending_human_review",
+              "reviewed",
+              "approved",
+              "rejected"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "calculability_status": {
+            "enum": [
+              "secondary_estimate",
+              "process_adjusted_estimate",
+              "supplier_specific_estimate",
+              "verified_environmental_profile"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "environmental_factors": {
+            "minItems": 1
+          },
+          "calculations": {
+            "minItems": 1
+          },
+          "calculability_review_status": {
+            "const": "approved"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "calculability_review_status": {
+            "enum": [
+              "pending_human_review",
+              "rejected",
+              "not_applicable"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "calculations": {
+            "maxItems": 0
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "calculability_status": {
+            "const": "supplier_specific_estimate"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "evidence": {
+            "minItems": 1,
+            "contains": {
+              "type": "object",
+              "required": [
+                "source_type"
+              ],
+              "properties": {
+                "source_type": {
+                  "enum": [
+                    "supplier_primary_verified",
+                    "supplier_primary_unverified",
+                    "laboratory_test",
+                    "certification_document"
+                  ]
+                }
+              }
+            },
+            "minContains": 1
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "calculability_status": {
+            "const": "verified_environmental_profile"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "evidence": {
+            "minItems": 1,
+            "contains": {
+              "type": "object",
+              "required": [
+                "authenticity",
+                "relevance"
+              ],
+              "properties": {
+                "authenticity": {
+                  "const": "verified"
+                },
+                "relevance": {
+                  "const": "sufficient"
+                }
+              }
+            },
+            "minContains": 1
+          },
+          "data_quality": {
+            "properties": {
+              "quality_level": {
+                "enum": [
+                  "A",
+                  "B"
+                ]
+              },
+              "review_status": {
+                "enum": [
+                  "accepted",
+                  "corrected"
+                ]
+              },
+              "review_id": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "quality_level",
+              "completeness_score",
+              "limitations",
+              "review_status",
+              "review_id"
+            ]
+          },
+          "calculability_review_status": {
+            "const": "approved"
+          }
+        }
+      }
+    }
+  ]
+}

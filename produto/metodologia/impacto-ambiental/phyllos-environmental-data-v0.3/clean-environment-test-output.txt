@@ -1,0 +1,21 @@
+test_all_calculability_review_statuses_have_explicit_coverage (test_environmental_profile_v0_3.EnvironmentalProfileTests.test_all_calculability_review_statuses_have_explicit_coverage) ... ok
+test_calculated_statuses_require_approved_review (test_environmental_profile_v0_3.EnvironmentalProfileTests.test_calculated_statuses_require_approved_review) ... ok
+test_calculations_are_blocked_for_non_approved_gate_states (test_environmental_profile_v0_3.EnvironmentalProfileTests.test_calculations_are_blocked_for_non_approved_gate_states) ... ok
+test_duplicate_evidence_ids_are_rejected (test_environmental_profile_v0_3.EnvironmentalProfileTests.test_duplicate_evidence_ids_are_rejected) ... ok
+test_duplicate_factor_definitions_are_rejected (test_environmental_profile_v0_3.EnvironmentalProfileTests.test_duplicate_factor_definitions_are_rejected) ... ok
+test_duplicate_factor_references_are_rejected (test_environmental_profile_v0_3.EnvironmentalProfileTests.test_duplicate_factor_references_are_rejected) ... ok
+test_missing_factor_reference_is_rejected (test_environmental_profile_v0_3.EnvironmentalProfileTests.test_missing_factor_reference_is_rejected) ... ok
+test_provisional_material_profile_is_valid_but_has_no_calculation (test_environmental_profile_v0_3.EnvironmentalProfileTests.test_provisional_material_profile_is_valid_but_has_no_calculation) ... ok
+test_schema_is_valid_draft_2020_12 (test_environmental_profile_v0_3.EnvironmentalProfileTests.test_schema_is_valid_draft_2020_12) ... ok
+test_supplier_specific_accepts_allowed_primary_evidence (test_environmental_profile_v0_3.EnvironmentalProfileTests.test_supplier_specific_accepts_allowed_primary_evidence) ... ok
+test_supplier_specific_rejects_non_specific_evidence (test_environmental_profile_v0_3.EnvironmentalProfileTests.test_supplier_specific_rejects_non_specific_evidence) ... ok
+test_supplier_specific_requires_evidence (test_environmental_profile_v0_3.EnvironmentalProfileTests.test_supplier_specific_requires_evidence) ... ok
+test_verified_profile_requires_high_quality_and_completed_review (test_environmental_profile_v0_3.EnvironmentalProfileTests.test_verified_profile_requires_high_quality_and_completed_review) ... ok
+test_verified_profile_requires_sufficient_relevance (test_environmental_profile_v0_3.EnvironmentalProfileTests.test_verified_profile_requires_sufficient_relevance) ... ok
+test_verified_profile_requires_verified_authenticity (test_environmental_profile_v0_3.EnvironmentalProfileTests.test_verified_profile_requires_verified_authenticity) ... ok
+test_verified_profile_valid_fixture (test_environmental_profile_v0_3.EnvironmentalProfileTests.test_verified_profile_valid_fixture) ... ok
+
+----------------------------------------------------------------------
+Ran 16 tests in 0.079s
+
+OK
