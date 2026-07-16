@@ -59,3 +59,5 @@ class UIContractTests(unittest.TestCase):
         self.assertIn('<p class="kicker">Possível tecido</p>', js)
         self.assertIn('[["Viscolinho",40]', js)
         self.assertIn("Percentuais experimentais e não calibrados", js)
+        self.assertIn("h=r.hypothesis,candidates=h?commercialCandidates(h):[]", js)
+        self.assertIn("Não foi possível mostrar o resultado", js)
