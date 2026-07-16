@@ -10,6 +10,8 @@ class UIContractTests(unittest.TestCase):
         for gate in ["correct_view", "sample_visible", "focus_ok", "lighting_ok",
                      "no_obstruction", "not_edited"]:
             self.assertIn(f'["{gate}"', js)
+        self.assertIn("Marcar todos os critérios", js)
+        self.assertIn('querySelectorAll("[data-quality]").forEach(box=>box.checked=true)', js)
 
     def test_real_candidate_default_is_not_used(self):
         html = (ROOT / "web" / "index.html").read_text(encoding="utf-8")
