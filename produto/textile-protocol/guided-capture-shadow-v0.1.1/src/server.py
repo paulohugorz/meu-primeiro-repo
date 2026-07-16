@@ -16,6 +16,7 @@ from task_service import (
     compare_shadow_decision, get_task, list_tasks, resolve_task, shadow_report
 )
 from recognition_service import get_recognition, get_recognition_result, start_recognition
+from validation_service import create_validation, get_validation, list_validations
 
 ROOT = Path(__file__).resolve().parents[1]
 WEB_ROOT = ROOT / "web"
@@ -71,6 +72,12 @@ class Handler(SimpleHTTPRequestHandler):
             m = re.fullmatch(r"/api/recognition-runs/([^/]+)/result", path)
             if m:
                 return self._json(200, get_recognition_result(self.db_path, unquote(m.group(1))))
+            m = re.fullmatch(r"/api/recognition-runs/([^/]+)/validations", path)
+            if m:
+                return self._json(200, list_validations(self.db_path, unquote(m.group(1))))
+            m = re.fullmatch(r"/api/professional-validations/([^/]+)", path)
+            if m:
+                return self._json(200, get_validation(self.db_path, unquote(m.group(1))))
             m = re.fullmatch(r"/api/recognition-runs/([^/]+)", path)
             if m:
                 return self._json(200, get_recognition(self.db_path, unquote(m.group(1))))
@@ -117,6 +124,9 @@ class Handler(SimpleHTTPRequestHandler):
                 return self._json(201, start_recognition(
                     self.db_path, payload["capture_session_id"]
                 ))
+            m = re.fullmatch(r"/api/recognition-runs/([^/]+)/validations", path)
+            if m:
+                return self._json(201, create_validation(self.db_path, unquote(m.group(1)), payload))
             m = re.fullmatch(r"/api/sessions/([^/]+)/captures", path)
             if m:
                 return self._json(201, add_capture_base64(

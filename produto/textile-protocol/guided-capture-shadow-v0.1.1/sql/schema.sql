@@ -114,6 +114,46 @@ CREATE TABLE IF NOT EXISTS recognition_runs (
     publication_decision_created INTEGER NOT NULL DEFAULT 0 CHECK(publication_decision_created=0)
 );
 
+CREATE TABLE IF NOT EXISTS professional_validations (
+    validation_id TEXT PRIMARY KEY,
+    recognition_run_id TEXT NOT NULL REFERENCES recognition_runs(recognition_run_id),
+    capture_session_id TEXT NOT NULL REFERENCES capture_sessions(session_id),
+    validator_actor_id TEXT NOT NULL,
+    validator_role TEXT NOT NULL,
+    status TEXT NOT NULL CHECK(status IN ('em_validacao','validada','divergencia','aguardando_segunda_revisao')),
+    commercial_name TEXT NOT NULL,
+    structure TEXT,
+    transparency TEXT,
+    weight_gsm REAL,
+    elasticity TEXT,
+    confirmation_source TEXT NOT NULL,
+    composition_status TEXT NOT NULL,
+    composition_json TEXT NOT NULL,
+    hypothesis_assessments_json TEXT NOT NULL,
+    no_hypothesis_correct INTEGER NOT NULL CHECK(no_hypothesis_correct IN (0,1)),
+    image_assessments_json TEXT NOT NULL,
+    recapture_request_json TEXT NOT NULL,
+    notes TEXT NOT NULL,
+    top1_correct INTEGER NOT NULL CHECK(top1_correct IN (0,1)),
+    top3_correct INTEGER NOT NULL CHECK(top3_correct IN (0,1)),
+    gold_set_eligible INTEGER NOT NULL CHECK(gold_set_eligible IN (0,1)),
+    gold_set_exclusion_reason TEXT,
+    form_version TEXT NOT NULL,
+    taxonomy_version TEXT NOT NULL,
+    created_at TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS validation_audit_events (
+    audit_event_id TEXT PRIMARY KEY,
+    validation_id TEXT NOT NULL REFERENCES professional_validations(validation_id),
+    author_actor_id TEXT NOT NULL,
+    event_kind TEXT NOT NULL,
+    previous_value_json TEXT,
+    new_value_json TEXT NOT NULL,
+    justification TEXT NOT NULL,
+    created_at TEXT NOT NULL
+);
+
 CREATE TABLE IF NOT EXISTS official_decision_snapshots (
     snapshot_id TEXT PRIMARY KEY,
     sample_id TEXT NOT NULL,
