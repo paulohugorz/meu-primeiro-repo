@@ -10,7 +10,23 @@ from capture_service import get_session
 from db import ROOT, connect, transaction, utcnow
 
 PREDICTIONS_PATH = ROOT / "data" / "synthetic_pilot" / "rule_predictions.csv"
-SCHEMA_VERSION = "recognition-result:shadow:v0.1"
+SCHEMA_VERSION = "recognition-result:shadow:v0.1.2"
+
+
+def _environmental_indicators() -> Dict[str, Any]:
+    """Publish the impact contract without fabricating environmental values."""
+    return {
+        "status": "not_calculated",
+        "methodology_version": "0.3.0-draft",
+        "formula_version": "impact-mixture-v1.1",
+        "functional_unit": "1 kg of finished fabric",
+        "reason": "missing_verified_composition_mass_and_approved_factors",
+        "items": [
+            {"indicator": "climate_change", "value": None, "unit": "kg_co2e"},
+            {"indicator": "water_consumption", "value": None, "unit": "litre"},
+            {"indicator": "energy_demand", "value": None, "unit": "MJ"},
+        ],
+    }
 
 
 def _prediction_for(service_sample_id: str) -> Dict[str, str]:
@@ -63,6 +79,7 @@ def _build_result(session: Dict[str, Any], prediction: Dict[str, str]) -> Dict[s
             "accepted_views": len(session["completion"]["accepted_shot_types"]),
             "complete": session["completion"]["complete"]
         },
+        "environmental_indicators": _environmental_indicators(),
         "official_mutation_applied": False,
         "publication_decision_created": False,
         "notice": (

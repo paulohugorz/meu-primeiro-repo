@@ -64,3 +64,13 @@ class UIContractTests(unittest.TestCase):
         self.assertIn("Validar resultado", js)
         self.assertIn("Nenhuma das sugestões estava correta", js)
         self.assertIn("gold_set_eligible", js)
+
+    def test_result_displays_environmental_indicators_without_invented_values(self):
+        js = (ROOT / "web" / "app.js").read_text(encoding="utf-8")
+        html = (ROOT / "web" / "index.html").read_text(encoding="utf-8")
+        self.assertIn("Mudança climática", js)
+        self.assertIn("Consumo de água", js)
+        self.assertIn("Demanda de energia", js)
+        self.assertIn("Aguardando dados verificados", js)
+        self.assertIn("environmentalPanel(r.environmental_indicators)", js)
+        self.assertIn('/environmental.css', html)

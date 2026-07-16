@@ -44,6 +44,13 @@ class RecognitionServiceTests(unittest.TestCase):
         result = get_recognition_result(self.db, run["recognition_run_id"])
         self.assertEqual(result["mode"], "shadow")
         self.assertEqual(result["hypothesis"]["family"], "woven_fabric")
+        impact = result["environmental_indicators"]
+        self.assertEqual(impact["status"], "not_calculated")
+        self.assertEqual(
+            [item["indicator"] for item in impact["items"]],
+            ["climate_change", "water_consumption", "energy_demand"],
+        )
+        self.assertTrue(all(item["value"] is None for item in impact["items"]))
         self.assertTrue(result["review_required"])
         self.assertFalse(result["official_mutation_applied"])
         self.assertFalse(result["publication_decision_created"])

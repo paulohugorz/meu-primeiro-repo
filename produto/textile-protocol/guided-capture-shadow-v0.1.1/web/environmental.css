@@ -1,0 +1,8 @@
+.environmental-card{margin-top:18px;background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:24px}
+.environmental-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:18px}
+.environmental-heading h2{font:500 1.8rem Georgia,serif;margin:4px 0 18px}
+.environmental-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.environmental-indicator{display:grid;gap:4px;padding:16px;background:#f4f5ef;border-radius:10px}
+.environmental-indicator small,.environmental-indicator span{color:var(--muted);font-size:.72rem}
+.environmental-indicator b{font-size:1.1rem}
+@media(max-width:800px){.environmental-grid{grid-template-columns:1fr}}
