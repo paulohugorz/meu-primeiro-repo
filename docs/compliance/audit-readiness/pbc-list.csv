@@ -1,0 +1,13 @@
+pbc_id,domain,request,owner,due_date,status,evidence_location,review_notes
+PBC-001,Governança,"Escopo, organograma, owners e modelo de três linhas",chief-compliance-risk-officer,,not_started,,
+PBC-002,Políticas,Registro mestre e políticas aprovadas,chief-compliance-risk-officer,,not_started,,
+PBC-003,Riscos e controles,Risk & Control Matrix vigente,chief-compliance-risk-officer,,not_started,,
+PBC-004,Segurança,Inventário de ativos e diagrama de arquitetura,devops-security,,not_started,,
+PBC-005,Acessos,"Usuários, privilégios, revisões e desligamentos",devops-security,,not_started,,
+PBC-006,Mudanças,"Amostra de releases, revisões, testes e rollback",software-architect,,not_started,,
+PBC-007,Incidentes,Registro de incidentes e CAPAs,devops-security,,not_started,,
+PBC-008,Privacidade,"Inventário de tratamento, retenção e direitos",privacy-data-protection-agent,,not_started,,
+PBC-009,IA,"Inventário, system cards, avaliações e monitoramento",ai-governance-model-risk-agent,,not_started,,
+PBC-010,Evidências e claims,"Catálogo, hashes, validade e cadeia de custódia",evidence-records-governance-agent,,not_started,,
+PBC-011,Terceiros,"Registro, due diligence, contratos e subprocessadores",third-party-risk-agent,,not_started,,
+PBC-012,Continuidade,"Backups, restauração, RPO/RTO e exercícios",devops-security,,not_started,,

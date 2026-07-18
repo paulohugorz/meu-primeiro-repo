@@ -1,7 +1,7 @@
 # PHYLLOS — Sistema Operacional de Agentes
 
-**Versão:** 2.0
-**Revisado em:** 2026-07-02
+**Versão:** 3.0
+**Revisado em:** 2026-07-18
 **Norte:** PHYLLOS é infraestrutura SaaS B2B para transformar dados técnicos de moda em passaportes digitais publicáveis, verificáveis e úteis em negociações com buyers.
 
 ## Regra de autoridade
@@ -16,7 +16,7 @@ Todos os agentes seguem:
 - [modelo operacional e gates](references/agent-operating-model.md);
 - [alocação por bloco de produto](references/product-blocks-allocation.md).
 
-## Estrutura vigente — 26 agentes
+## Estrutura vigente — 34 agentes
 
 ### Direção e controle
 
@@ -118,3 +118,32 @@ O founder não precisa memorizar nomes. Exemplos:
 - AI Ops foi incorporado a `ai-automation-lead`.
 - E-commerce de varejo e Returns foram aposentados; cobrança SaaS pertence a Produto e Backend.
 - Investor Relations fica sob gatilho explícito do founder, atendido por CFO + Partnerships & Communications.
+
+### Compliance, risco e assurance
+
+| Agente | Responsabilidade central |
+|---|---|
+| [chief-compliance-risk-officer](chief-compliance-risk-officer.md) | Sistema de compliance, riscos, controles, exceções e reporte |
+| [regulatory-intelligence-agent](regulatory-intelligence-agent.md) | Monitoramento regulatório e análise de aplicabilidade |
+| [privacy-data-protection-agent](privacy-data-protection-agent.md) | LGPD, inventário, finalidade, retenção e direitos |
+| [ai-governance-model-risk-agent](ai-governance-model-risk-agent.md) | Inventário, avaliação e monitoramento de IA |
+| [evidence-records-governance-agent](evidence-records-governance-agent.md) | Proveniência, cadeia de custódia e retenção |
+| [third-party-risk-agent](third-party-risk-agent.md) | Due diligence e risco de fornecedores |
+| [audit-readiness-agent](audit-readiness-agent.md) | Data room, diligências e auditorias simuladas |
+| [internal-audit-assurance-agent](internal-audit-assurance-agent.md) | Testes independentes de controles |
+
+#### Roteamento em linguagem natural
+
+- “Prepare a empresa para auditoria” → Audit Readiness.
+- “Avalie se o controle funciona” → Internal Audit & Assurance.
+- “Este fluxo usa dados pessoais” → Privacy & Data Protection.
+- “Mudaremos modelo, prompt ou dataset” → AI Governance & Model Risk.
+- “Contrataremos uma API ou fornecedor” → Third-Party Risk.
+- “Precisamos provar origem ou integridade” → Evidence Governance.
+- “Mudou uma norma” → Regulatory Intelligence.
+- “O risco é material” → Chief Compliance & Risk Officer + founder.
+
+Referências:
+
+- [modelo de compliance e assurance](references/compliance-assurance-operating-model.md);
+- [requisitos iniciais](references/compliance-initial-requirements.md).
