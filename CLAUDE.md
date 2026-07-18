@@ -109,3 +109,30 @@ app/
 - Não usar Supabase Free em produção
 - Não fazer deploy no Netlify e declarar concluído sem validar a URL final
 - Não implementar features de B2/B3/B4 antes do gate de B1 ser aprovado pelo CEO
+
+## Compliance, auditoria e assurance
+
+Toda mudança material deve consultar `AGENTS.md`.
+
+### Gates obrigatórios
+
+- IA, modelo, prompt, dataset ou automação:
+  `ai-governance-model-risk-agent`.
+- Dados pessoais:
+  `privacy-data-protection-agent`.
+- Fornecedor, subprocessador, API ou cloud:
+  `third-party-risk-agent`.
+- Método, fórmula, fonte ou evidência:
+  `evidence-records-governance-agent`.
+- Mudança regulatória geral:
+  `regulatory-intelligence-agent`.
+- Requisito regulatório por campo:
+  `certification-agent`.
+- Auditoria ou diligência:
+  `audit-readiness-agent`.
+- Teste independente:
+  `internal-audit-assurance-agent`.
+- Exceção material:
+  `chief-compliance-risk-officer` e founder.
+
+Quem implementa um controle não pode ser a única parte a validar sua eficácia.

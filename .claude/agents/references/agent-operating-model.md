@@ -122,3 +122,30 @@ Todo handoff deve informar:
 8. Pendente ou bloqueado.
 9. Próximas ações com owner.
 10. Decisões solicitadas ao founder.
+
+## 11. Compliance, risco e modelo das três linhas
+
+### Primeira linha
+
+Produto, Engenharia, Dados, DevOps/Security, Operações, Customer Success,
+Financeiro e Comercial operam controles e produzem evidências.
+
+### Segunda linha
+
+Compliance, Privacidade, Governança de IA, Evidências, Inteligência
+Regulatória e Risco de Terceiros definem requisitos, desafiam controles e
+monitoram riscos.
+
+### Terceira linha
+
+Auditoria interna testa desenho e eficácia sem operar o controle ou executar a
+correção. Audit Readiness organiza a interface com auditores, mas não substitui
+a avaliação independente.
+
+### Regras
+
+- ninguém audita sozinho o controle que desenhou ou executou;
+- exceções materiais possuem owner, prazo, mitigação e aprovação humana;
+- evidências possuem origem, versão, data, owner e retenção;
+- sistemas de IA possuem inventário, risco, avaliação e retirada;
+- fornecedores críticos possuem due diligence e plano de saída.

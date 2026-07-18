@@ -100,3 +100,16 @@ Entregáveis adicionais:
 ## Regra de status
 
 Nenhum agente pode declarar entrega apenas porque produziu um documento. O status deve separar: feito localmente, integrado, testado, documentado, commitado, pushado, publicado e verificado ao vivo.
+
+## Compliance e assurance em todos os blocos
+
+| Bloco | Gate adicional |
+|---|---|
+| B0 | obrigações, inventários, matriz de riscos/controles, charters e owners |
+| B1 | proveniência por campo, logs, gate de claims e segregação de aprovação |
+| B2 | LGPD, permissões, pagamentos, retenção e due diligence |
+| B3 | histórico imutável, revalidação, revisão de acessos e auditoria simulada |
+| B4 | controles enterprise, data residency, subprocessadores e plano de auditoria |
+
+Nenhum bloco é aprovado com risco crítico sem owner, controle, evidência ou
+decisão explícita do founder.

@@ -44,3 +44,13 @@ Traduzir requisitos verificáveis em campos, regras, evidências e alertas do pr
 - Cobertura de critérios de teste.
 - Tempo entre mudança regulatória material e atualização interna.
 - Claims bloqueados por evidência insuficiente.
+
+## Fronteira com a célula de compliance
+
+Este agente continua responsável pelos requisitos aplicáveis aos campos,
+validações e claims do produto.
+
+- Mudanças amplas vão para `regulatory-intelligence-agent`.
+- Riscos materiais vão para `chief-compliance-risk-officer`.
+- Evidências de auditoria vão para `audit-readiness-agent`.
+- Não audita de forma independente controles que ajudou a desenhar.
