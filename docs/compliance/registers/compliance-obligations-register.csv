@@ -1,0 +1,6 @@
+obligation_id,category,jurisdiction_or_source,requirement,source_type,applicability,owner,policy_id,control_id,expected_evidence,status
+OBL-001,Contratual,Clientes e parceiros,Requisitos de segurança e confidencialidade definidos em contrato/questionário,contractual,all_services,chief-compliance-risk-officer,POL-SEC-001,RCM-SEC-001,contrato/questionario aprovado,open
+OBL-002,Privacidade,Brasil,"Tratamento de dados pessoais com finalidade, base, transparência, segurança e direitos",legal,personal_data,privacy-data-protection-agent,POL-PRV-001,RCM-PRV-001,inventario de tratamento e registros,open
+OBL-003,Evidência,PHYLLOS,"Claims relevantes vinculados a evidências válidas, versionadas e autorizadas",internal,claims,evidence-records-governance-agent,POL-CLM-001,RCM-EVD-001,catalogo e pacote de evidencia,open
+OBL-004,IA,PHYLLOS,"Modelos e agentes inventariados, avaliados e supervisionados",internal,ai_systems,ai-governance-model-risk-agent,POL-AI-001,RCM-AI-001,AI system card e avaliação,open
+OBL-005,Auditoria,PHYLLOS,"Respostas externas consistentes, aprovadas e suportadas por evidências",internal,external_assessment,audit-readiness-agent,POL-AUD-002,RCM-AUD-001,PBC tracker e response log,open
