@@ -10,6 +10,9 @@ from app.api.fornecedores import router as router_fornecedores
 from app.api.modelagem import router as router_modelagem, router_banco as router_banco_modelagem
 from app.api.catalogo import router as router_catalogo
 from app.api.telemetry_dashboard import router as router_telemetry_dashboard
+from app.api.iam import router as router_iam
+from app.api.telemetry_dashboard import require_dashboard_access
+from fastapi import Depends
 from app.validators.dpp_validators import EVIDENCE_LABELS
 import os, json
 
@@ -43,6 +46,7 @@ app.include_router(router_modelagem)
 app.include_router(router_banco_modelagem)
 app.include_router(router_catalogo)
 app.include_router(router_telemetry_dashboard)
+app.include_router(router_iam)
 
 
 @app.get("/", response_class=HTMLResponse)
@@ -53,6 +57,7 @@ async def frontend(request: Request):
             studio_html = studio_file.read()
         instrumented_html = studio_html.replace(
             "</body>",
+            '<a href="/iam" style="position:fixed;right:18px;bottom:18px;z-index:9999;background:#172019;color:white;padding:11px 15px;border-radius:999px;text-decoration:none;font:600 11px system-ui;box-shadow:0 5px 18px #0003">Pessoas e Workspaces</a>'
             '<script src="/telemetry.js" defer></script></body>',
             1,
         )
@@ -64,6 +69,12 @@ async def frontend(request: Request):
 async def atelier(request: Request):
     """Ateliê SPA — gestão de peças, modelagens e DPP."""
     return templates.TemplateResponse(request, "index.html")
+
+
+@app.get("/iam", response_class=HTMLResponse)
+async def iam_console(request: Request, _user: str = Depends(require_dashboard_access)):
+    """Console administrativo persistente de Pessoas, Workspaces e Memberships."""
+    return templates.TemplateResponse(request, "iam_workspaces.html")
 
 
 def _dpp_context(peca, request):

@@ -146,6 +146,62 @@ class UsageEvent(Base):
     request_id = Column(String, index=True)
 
 
+class IamPerson(Base):
+    """Pessoa de domínio; não equivale automaticamente a usuário autenticado."""
+    __tablename__ = "iam_people"
+
+    id = Column(String, primary_key=True)
+    display_name = Column(String, nullable=False)
+    email = Column(String, unique=True, nullable=False, index=True)
+    category = Column(String, nullable=False, default="internal_collaborator")
+    status = Column(String, nullable=False, default="pending", index=True)
+    created_at = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
+    updated_at = Column(DateTime(timezone=True), onupdate=func.now())
+
+
+class IamWorkspace(Base):
+    __tablename__ = "iam_workspaces"
+
+    id = Column(String, primary_key=True)
+    name = Column(String, nullable=False)
+    workspace_type = Column(String, nullable=False, default="team")
+    status = Column(String, nullable=False, default="active", index=True)
+    created_at = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
+    updated_at = Column(DateTime(timezone=True), onupdate=func.now())
+
+
+class IamMembership(Base):
+    __tablename__ = "iam_memberships"
+    __table_args__ = (UniqueConstraint("person_id", "workspace_id", name="uq_iam_person_workspace"),)
+
+    id = Column(String, primary_key=True)
+    person_id = Column(String, ForeignKey("iam_people.id"), nullable=False, index=True)
+    workspace_id = Column(String, ForeignKey("iam_workspaces.id"), nullable=False, index=True)
+    role = Column(String, nullable=False)
+    status = Column(String, nullable=False, default="active", index=True)
+    created_at = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
+    updated_at = Column(DateTime(timezone=True), onupdate=func.now())
+
+    person = relationship("IamPerson")
+    workspace = relationship("IamWorkspace")
+
+
+class IamInvitation(Base):
+    __tablename__ = "iam_invitations"
+
+    id = Column(String, primary_key=True)
+    workspace_id = Column(String, ForeignKey("iam_workspaces.id"), nullable=False, index=True)
+    person_id = Column(String, ForeignKey("iam_people.id"), nullable=False, index=True)
+    role = Column(String, nullable=False)
+    token_hash = Column(String, unique=True, nullable=False, index=True)
+    status = Column(String, nullable=False, default="pending", index=True)
+    created_at = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
+    accepted_at = Column(DateTime(timezone=True))
+
+    person = relationship("IamPerson")
+    workspace = relationship("IamWorkspace")
+
+
 class EtapaProducao(Base):
     """Rastreabilidade por etapa da cadeia produtiva (Tier 1+)."""
     __tablename__ = "etapas_producao"

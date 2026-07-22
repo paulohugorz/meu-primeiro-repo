@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>PHYLLOS — Pessoas e Workspaces</title>
+  <link rel="stylesheet" href="/iam-workspaces.css">
+</head>
+<body>
+  <header class="topbar"><a href="/">← Evidence OS</a><span>Administração protegida</span></header>
+  <main class="iam-view">
+    <section class="iam-banner">
+      <div><p class="eyebrow">IDENTIDADE E ACESSO · MVP PERSISTENTE</p><h1>Pessoas certas, no ambiente certo.</h1><p>Cadastre pessoas de domínio, organize workspaces e gerencie convites e memberships com persistência PostgreSQL.</p></div>
+      <span class="iam-pilot-badge">Evidence OS · uso administrativo</span>
+    </section>
+    <section class="iam-summary" id="iamSummary"></section>
+    <nav class="iam-tabs" role="tablist" aria-label="Gestão de identidade">
+      <button class="active" data-iam-tab="people" role="tab">Pessoas</button>
+      <button data-iam-tab="workspaces" role="tab">Workspaces</button>
+      <button data-iam-tab="access" role="tab">Acessos</button>
+    </nav>
+
+    <section id="iamPeoplePanel" class="iam-panel">
+      <div class="iam-panel-head"><div><p class="eyebrow">PESSOAS DE DOMÍNIO</p><h2>Pessoas</h2><p>O cadastro operacional não equivale automaticamente a uma identidade autenticada.</p></div><button class="primary" id="openIamUser">+ Cadastrar pessoa</button></div>
+      <form id="iamUserForm" class="iam-form hidden">
+        <label>Nome de exibição<input name="display_name" required maxlength="120"></label>
+        <label>E-mail profissional<input name="email" type="email" required maxlength="254"></label>
+        <label>Categoria<select name="category"><option value="internal_collaborator">Colaborador interno</option><option value="supplier_contact">Contato de fornecedor</option><option value="production_contact">Contato de produção</option><option value="review_contact">Contato de revisão</option><option value="other">Outro</option></select></label>
+        <button class="primary" type="submit">Cadastrar</button><button class="link" type="button" data-iam-cancel>Cancelar</button>
+      </form>
+      <div class="iam-list" id="iamPeopleList"></div>
+    </section>
+
+    <section id="iamWorkspacesPanel" class="iam-panel hidden">
+      <div class="iam-panel-head"><div><p class="eyebrow">AMBIENTES DE TRABALHO</p><h2>Workspaces</h2><p>Separe equipes, projetos e evidências sem misturar contextos analíticos.</p></div><button class="primary" id="openIamWorkspace">+ Criar workspace</button></div>
+      <form id="iamWorkspaceForm" class="iam-form hidden"><label>Nome do workspace<input name="name" required maxlength="120"></label><label>Tipo<select name="workspace_type"><option value="team">Equipe</option><option value="individual">Individual</option></select></label><button class="primary" type="submit">Criar</button><button class="link" type="button" data-iam-cancel>Cancelar</button></form>
+      <div class="iam-workspace-grid" id="iamWorkspaceList"></div>
+    </section>
+
+    <section id="iamAccessPanel" class="iam-panel hidden">
+      <div class="iam-panel-head"><div><p class="eyebrow">MEMBERSHIPS</p><h2>Convites e acessos</h2><p>Crie um convite, compartilhe o token por canal seguro e confirme o aceite.</p></div></div>
+      <form id="iamAccessForm" class="iam-form iam-access-form"><label>Pessoa<select name="person_id" required></select></label><label>Workspace<select name="workspace_id" required></select></label><label>Papel<select name="role" required><option value="viewer">Viewer</option><option value="member">Member</option><option value="admin">Admin</option><option value="owner">Owner</option></select></label><button class="primary" type="submit">Criar convite</button></form>
+      <form id="iamAcceptForm" class="iam-form accept-form"><label>Token do convite<input name="token" required autocomplete="off"></label><button class="primary" type="submit">Aceitar convite</button></form>
+      <div id="invitationResult" class="invitation-result hidden"></div>
+      <div class="iam-list" id="iamAccessList"></div>
+    </section>
+  </main>
+  <div id="toast" role="status" aria-live="polite"></div>
+  <script src="/iam-workspaces.js" defer></script>
+</body>
+</html>

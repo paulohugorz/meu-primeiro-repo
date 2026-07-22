@@ -24,3 +24,5 @@ services:
         value: phyllos
       - key: TELEMETRY_DASHBOARD_PASSWORD
         sync: false
+      - key: PHYLLOS_ANALYTICS_HMAC_SECRET
+        sync: false
