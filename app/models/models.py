@@ -136,6 +136,14 @@ class UsageEvent(Base):
     metadata_json = Column(Text, nullable=False)
     occurred_at = Column(DateTime(timezone=True), nullable=False)
     received_at = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
+    event_version = Column(Integer, nullable=False, default=1)
+    anonymous_id = Column(String, index=True)
+    user_id_hash = Column(String, index=True)
+    workspace_id_hash = Column(String, index=True)
+    source = Column(String)
+    environment = Column(String)
+    application_version = Column(String)
+    request_id = Column(String, index=True)
 
 
 class EtapaProducao(Base):

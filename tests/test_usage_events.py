@@ -105,6 +105,46 @@ class UsageEventTests(unittest.TestCase):
             ), db=self.db)
         self.assertEqual(context.exception.status_code, 422)
 
+    def test_v3_records_workspace_event_with_pseudonymous_context(self):
+        registrar_evento_uso(self._event(
+            schema_version="usage-event-v3",
+            event_name="workspace_created",
+            component="workspace_creation",
+            action="complete",
+            metadata={"workspace_type": "team", "creation_source": "onboarding"},
+            workspace_id_hash="workspace_hash_123456",
+            anonymous_id="anonymous_123456",
+            source="backend",
+            environment="test",
+        ), db=self.db)
+
+        record = self.db.query(UsageEvent).one()
+        self.assertEqual(record.workspace_id_hash, "workspace_hash_123456")
+        self.assertEqual(record.source, "backend")
+        self.assertEqual(json.loads(record.metadata_json)["workspace_type"], "team")
+
+    def test_v3_rejects_personal_data_and_unknown_properties(self):
+        for metadata in ({"email": "pessoa@example.com"}, {"workspace_type": "team", "workspace_name": "Segredo"}):
+            with self.assertRaises(HTTPException) as context:
+                registrar_evento_uso(self._event(
+                    event_id=f"event-{len(metadata)}-{next(iter(metadata))}",
+                    schema_version="usage-event-v3",
+                    event_name="workspace_created",
+                    metadata=metadata,
+                    source="backend",
+                    environment="test",
+                ), db=self.db)
+            self.assertEqual(context.exception.status_code, 422)
+
+    def test_v3_rejects_unknown_event(self):
+        with self.assertRaises(HTTPException) as context:
+            registrar_evento_uso(self._event(
+                schema_version="usage-event-v3",
+                event_name="person_email_captured",
+                metadata={},
+            ), db=self.db)
+        self.assertEqual(context.exception.status_code, 422)
+
 
 if __name__ == "__main__":
     unittest.main()

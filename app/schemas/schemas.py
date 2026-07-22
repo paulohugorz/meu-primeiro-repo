@@ -454,3 +454,11 @@ class UsageEventCreate(BaseModel):
     action: Optional[str] = None
     metadata: dict[str, Any] = Field(default_factory=dict)
     occurred_at: datetime
+    event_version: int = 1
+    anonymous_id: Optional[str] = None
+    user_id_hash: Optional[str] = None
+    workspace_id_hash: Optional[str] = None
+    source: str = "web"
+    environment: str = "production"
+    application_version: Optional[str] = None
+    request_id: Optional[str] = None

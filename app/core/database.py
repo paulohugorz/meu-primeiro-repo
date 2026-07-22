@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine, text
+from sqlalchemy import create_engine, inspect, text
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 import os
@@ -113,6 +113,16 @@ def _migrate(conn):
     add_if_missing("impact_evidences", "nota_curadoria",    "TEXT")
     add_if_missing("impact_evidences", "energia_mj_por_kg", "FLOAT")
 
+    # usage_events v3 — contexto analítico pseudonimizado e versionado
+    add_if_missing("usage_events", "event_version", "INTEGER DEFAULT 1")
+    add_if_missing("usage_events", "anonymous_id", "VARCHAR")
+    add_if_missing("usage_events", "user_id_hash", "VARCHAR")
+    add_if_missing("usage_events", "workspace_id_hash", "VARCHAR")
+    add_if_missing("usage_events", "source", "VARCHAR")
+    add_if_missing("usage_events", "environment", "VARCHAR")
+    add_if_missing("usage_events", "application_version", "VARCHAR")
+    add_if_missing("usage_events", "request_id", "VARCHAR")
+
 
 def _table_exists(conn, name: str) -> bool:
     row = conn.execute(
@@ -123,10 +133,27 @@ def _table_exists(conn, name: str) -> bool:
 
 
 def run_migrations():
-    if engine.dialect.name != "sqlite":
-        return
     with engine.begin() as conn:
-        _migrate(conn)
+        if engine.dialect.name == "sqlite":
+            _migrate(conn)
+            return
+
+        # Migração aditiva segura para o PostgreSQL já criado no Render.
+        if inspect(conn).has_table("usage_events"):
+            existing = {column["name"] for column in inspect(conn).get_columns("usage_events")}
+            columns = {
+                "event_version": "INTEGER DEFAULT 1",
+                "anonymous_id": "VARCHAR",
+                "user_id_hash": "VARCHAR",
+                "workspace_id_hash": "VARCHAR",
+                "source": "VARCHAR",
+                "environment": "VARCHAR",
+                "application_version": "VARCHAR",
+                "request_id": "VARCHAR",
+            }
+            for name, typedef in columns.items():
+                if name not in existing:
+                    conn.execute(text(f"ALTER TABLE usage_events ADD COLUMN {name} {typedef}"))
 
 
 def get_db():
