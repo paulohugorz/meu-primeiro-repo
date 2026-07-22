@@ -54,6 +54,8 @@ python3 -m compileall app tests        # verificação de sintaxe
 DATABASE_URL=         # Supabase PostgreSQL em produção; SQLite local para dev
 DPP_BASE_URL=         # URL base para QR (ex: https://phyllos-production.up.railway.app)
 SECRET_KEY=           # chave para JWT/auth futuro
+TELEMETRY_DASHBOARD_USER=      # usuário HTTP Basic; padrão: phyllos
+TELEMETRY_DASHBOARD_PASSWORD=  # obrigatório para habilitar /telemetry/dashboard
 ```
 
 ---

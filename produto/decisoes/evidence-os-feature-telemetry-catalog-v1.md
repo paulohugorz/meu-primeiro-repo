@@ -32,6 +32,8 @@ O contrato `usage-event-v1` aceita oito eventos genéricos: `page_view`, `ui_cli
 
 Em 2026-07-22 foi implementado localmente o contrato `usage-event-v2`, mantendo compatibilidade de ingestão com a v1. A v2 adiciona eventos semânticos prioritários, normaliza rotas com identificadores, valida propriedades e enums no backend e correlaciona intenção, sucesso, bloqueio, falha e recuperação nos fluxos críticos. Esta implementação ainda não foi publicada nem verificada com uso real.
 
+O dashboard agregado de acompanhamento está disponível em `/telemetry/dashboard`. A rota exige HTTP Basic configurado por `TELEMETRY_DASHBOARD_USER` e `TELEMETRY_DASHBOARD_PASSWORD`, não funciona sem senha, deve ser exposta somente sobre HTTPS e envia `Cache-Control: no-store`. Nenhuma sessão individual ou identificador de produto é retornado pela API do dashboard.
+
 ### Cobertura comprovada
 
 - `page_view`, viewport e duração aproximada por página;
