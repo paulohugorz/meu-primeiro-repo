@@ -3,6 +3,7 @@ from fastapi.responses import FileResponse, HTMLResponse, JSONResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
+from app.security.pilot_access import PilotAccessMiddleware
 from sqlalchemy.orm import Session
 from app.core.database import Base, engine, run_migrations, SessionLocal
 from app.api.routes import public_dpp_url, router
@@ -24,6 +25,8 @@ app = FastAPI(
     description="Infraestrutura de dados para publicar passaportes digitais de produtos de moda.",
     version="0.1.0",
 )
+
+app.add_middleware(PilotAccessMiddleware)
 
 app.add_middleware(
     CORSMiddleware,
