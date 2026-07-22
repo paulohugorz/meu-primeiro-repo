@@ -44,10 +44,28 @@ router = APIRouter()
 
 DPP_BASE_URL = os.getenv("DPP_BASE_URL", "https://phyllos-production.up.railway.app").rstrip("/")
 DPP_PUBLICATION_GATE_VERSION = "dpp-publication-gate-v1"
-USAGE_EVENT_SCHEMA_VERSION = "usage-event-v1"
-USAGE_EVENT_NAMES = {
+USAGE_EVENT_SCHEMA_VERSION = "usage-event-v2"
+USAGE_EVENT_V1_NAMES = {
     "page_view", "ui_click", "form_submit", "field_change",
     "api_error", "js_error", "flow_complete", "visibility_end",
+}
+USAGE_EVENT_V2_NAMES = {
+    "workspace_viewed", "workflow_step_viewed",
+    "piece_create_started", "piece_created", "piece_create_failed",
+    "technical_sheet_saved", "technical_sheet_save_failed",
+    "material_sheet_saved", "material_sheet_save_failed",
+    "production_stage_add_started", "production_stage_added", "production_stage_add_failed",
+    "publication_readiness_viewed", "dpp_publication_started",
+    "dpp_publication_blocked", "dpp_published", "dpp_publication_recovered",
+    "dpp_link_copied", "dpp_link_copy_failed",
+    "qr_preview_opened", "qr_preview_closed", "qr_requested", "qr_served", "qr_request_failed",
+    "label_viewed", "label_print_requested",
+    "public_passport_viewed", "public_passport_section_viewed", "evidence_explanation_viewed",
+    "public_passport_session_ended", "api_action_failed", "js_error",
+}
+USAGE_EVENT_NAMES_BY_SCHEMA = {
+    "usage-event-v1": USAGE_EVENT_V1_NAMES,
+    "usage-event-v2": USAGE_EVENT_V2_NAMES,
 }
 
 
@@ -111,18 +129,75 @@ def _record_publication_attempt(
     return record
 
 
-def _safe_event_metadata(metadata: dict) -> dict:
+def _safe_event_metadata(metadata: dict, schema_version: str) -> dict:
     """Aceita apenas contexto técnico curto; conteúdo livre do usuário é descartado."""
-    allowed = {
+    v1_allowed = {
         "target_type", "field_type", "form_id", "status_code", "duration_ms",
         "viewport_width", "viewport_height", "visibility_state", "flow", "step",
+    }
+    v2_allowed = {
+        "surface", "flow", "step", "outcome", "error_code", "status_code",
+        "duration_ms", "validation_issue_count", "section", "method",
+    }
+    allowed = v1_allowed if schema_version == "usage-event-v1" else v2_allowed
+    unknown = set(metadata) - allowed
+    if schema_version == "usage-event-v2" and unknown:
+        raise HTTPException(status_code=422, detail="Propriedade de evento não permitida")
+
+    enums = {
+        "surface": {"studio", "atelier", "public_passport", "label", "api"},
+        "outcome": {"success", "failure", "blocked", "cancelled", "empty"},
+        "method": {"GET", "POST", "PATCH", "PUT", "DELETE"},
+        "section": {"identity", "composition", "impact", "circularity", "supply_chain", "evidence"},
+        "flow": {
+            "workspace", "piece_creation", "technical_sheet", "material_sheet",
+            "production_stage", "publication_readiness", "dpp_publication",
+            "qr_preview", "qr_access", "label", "public_passport",
+            "api_request", "interface",
+        },
+        "step": {
+            "entry", "view", "request", "validation", "complete", "recover",
+            "open", "close", "load", "print", "network", "runtime", "exit",
+        },
+        "error_code": {
+            "validation_failed", "invalid_request", "access_denied", "not_found",
+            "conflict", "unprocessable", "rate_limited", "server_error",
+            "request_failed", "network_error", "image_load_failed", "runtime_error",
+            "clipboard_error",
+        },
     }
     safe = {}
     for key, value in metadata.items():
         if key not in allowed or not isinstance(value, (str, int, float, bool)):
             continue
-        safe[key] = value[:120] if isinstance(value, str) else value
+        if key in enums and value not in enums[key]:
+            raise HTTPException(status_code=422, detail=f"Valor inválido para {key}")
+        if key in {"status_code", "duration_ms", "validation_issue_count"} and (
+            isinstance(value, bool) or value < 0
+        ):
+            raise HTTPException(status_code=422, detail=f"Valor inválido para {key}")
+        safe[key] = value[:80] if isinstance(value, str) else value
     return safe
+
+
+def _safe_event_page(page: str, schema_version: str) -> str:
+    if schema_version == "usage-event-v1":
+        return page
+    if page in {"/", "/atelier"}:
+        return page
+    if re.fullmatch(r"/p/[^/]+", page):
+        return "/p/:id"
+    if re.fullmatch(r"/pecas/[^/]+/etiqueta", page):
+        return "/pecas/:id/etiqueta"
+    raise HTTPException(status_code=422, detail="Página de evento não permitida")
+
+
+def _safe_event_token(value: str | None, field_name: str, schema_version: str) -> str | None:
+    if value is None or schema_version == "usage-event-v1":
+        return value
+    if not re.fullmatch(r"[a-z][a-z0-9_]{0,79}", value):
+        raise HTTPException(status_code=422, detail=f"{field_name} de evento inválido")
+    return value
 
 
 # ---------- Coleções ----------
@@ -642,9 +717,10 @@ def listar_publicacoes_dpp(codigo: str, db: Session = Depends(get_db)):
 
 @router.post("/events/usage", status_code=202, tags=["Telemetria"])
 def registrar_evento_uso(data: UsageEventCreate, db: Session = Depends(get_db)):
-    if data.schema_version != USAGE_EVENT_SCHEMA_VERSION:
+    allowed_names = USAGE_EVENT_NAMES_BY_SCHEMA.get(data.schema_version)
+    if allowed_names is None:
         raise HTTPException(status_code=422, detail="Versão do schema de evento não suportada")
-    if data.event_name not in USAGE_EVENT_NAMES:
+    if data.event_name not in allowed_names:
         raise HTTPException(status_code=422, detail="Nome de evento não permitido")
     if not (1 <= len(data.event_id) <= 64 and 1 <= len(data.session_id) <= 64):
         raise HTTPException(status_code=422, detail="Identificador de evento ou sessão inválido")
@@ -660,10 +736,14 @@ def registrar_evento_uso(data: UsageEventCreate, db: Session = Depends(get_db)):
         schema_version=data.schema_version,
         session_id=data.session_id,
         event_name=data.event_name,
-        page=data.page,
-        component=data.component[:120] if data.component else None,
-        action=data.action[:80] if data.action else None,
-        metadata_json=json.dumps(_safe_event_metadata(data.metadata), ensure_ascii=False, sort_keys=True),
+        page=_safe_event_page(data.page, data.schema_version),
+        component=_safe_event_token(data.component, "Componente", data.schema_version),
+        action=_safe_event_token(data.action, "Ação", data.schema_version),
+        metadata_json=json.dumps(
+            _safe_event_metadata(data.metadata, data.schema_version),
+            ensure_ascii=False,
+            sort_keys=True,
+        ),
         occurred_at=data.occurred_at,
     ))
     db.commit()
