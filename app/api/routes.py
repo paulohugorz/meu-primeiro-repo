@@ -39,6 +39,7 @@ from app.services.dpp_calculator import (
     calculate_dpp_indicators,
 )
 from app.validators.dpp_validators import validate_dpp_publication
+from app.telemetry_contract import EVENT_PROPERTIES, validate_v3_properties
 
 router = APIRouter()
 
@@ -66,6 +67,7 @@ USAGE_EVENT_V2_NAMES = {
 USAGE_EVENT_NAMES_BY_SCHEMA = {
     "usage-event-v1": USAGE_EVENT_V1_NAMES,
     "usage-event-v2": USAGE_EVENT_V2_NAMES,
+    "usage-event-v3": set(EVENT_PROPERTIES),
 }
 
 
@@ -131,6 +133,8 @@ def _record_publication_attempt(
 
 def _safe_event_metadata(metadata: dict, schema_version: str) -> dict:
     """Aceita apenas contexto técnico curto; conteúdo livre do usuário é descartado."""
+    if schema_version == "usage-event-v3":
+        raise RuntimeError("Eventos v3 devem usar o registro por evento")
     v1_allowed = {
         "target_type", "field_type", "form_id", "status_code", "duration_ms",
         "viewport_width", "viewport_height", "visibility_state", "flow", "step",
@@ -183,7 +187,10 @@ def _safe_event_metadata(metadata: dict, schema_version: str) -> dict:
 def _safe_event_page(page: str, schema_version: str) -> str:
     if schema_version == "usage-event-v1":
         return page
-    if page in {"/", "/atelier"}:
+    if page in {
+        "/", "/atelier", "/pessoas", "/workspace", "/workspace/settings",
+        "/workspace/members", "/invitation",
+    }:
         return page
     if re.fullmatch(r"/p/[^/]+", page):
         return "/p/:id"
@@ -726,11 +733,29 @@ def registrar_evento_uso(data: UsageEventCreate, db: Session = Depends(get_db)):
         raise HTTPException(status_code=422, detail="Identificador de evento ou sessão inválido")
     if not data.page.startswith("/") or len(data.page) > 200:
         raise HTTPException(status_code=422, detail="Página inválida")
+    if data.schema_version == "usage-event-v3":
+        if data.source not in {"web", "backend", "worker"}:
+            raise HTTPException(status_code=422, detail="Fonte de evento inválida")
+        if data.environment not in {"development", "test", "staging", "production"}:
+            raise HTTPException(status_code=422, detail="Ambiente de evento inválido")
+        for field_name, value in {
+            "anonymous_id": data.anonymous_id,
+            "user_id_hash": data.user_id_hash,
+            "workspace_id_hash": data.workspace_id_hash,
+            "request_id": data.request_id,
+        }.items():
+            if value is not None and not re.fullmatch(r"[A-Za-z0-9_-]{8,128}", value):
+                raise HTTPException(status_code=422, detail=f"{field_name} inválido")
 
     existing = db.query(UsageEvent).filter(UsageEvent.event_id == data.event_id).first()
     if existing:
         return {"accepted": True, "duplicate": True}
 
+    safe_metadata = (
+        validate_v3_properties(data.event_name, data.metadata)
+        if data.schema_version == "usage-event-v3"
+        else _safe_event_metadata(data.metadata, data.schema_version)
+    )
     db.add(UsageEvent(
         event_id=data.event_id,
         schema_version=data.schema_version,
@@ -739,12 +764,16 @@ def registrar_evento_uso(data: UsageEventCreate, db: Session = Depends(get_db)):
         page=_safe_event_page(data.page, data.schema_version),
         component=_safe_event_token(data.component, "Componente", data.schema_version),
         action=_safe_event_token(data.action, "Ação", data.schema_version),
-        metadata_json=json.dumps(
-            _safe_event_metadata(data.metadata, data.schema_version),
-            ensure_ascii=False,
-            sort_keys=True,
-        ),
+        metadata_json=json.dumps(safe_metadata, ensure_ascii=False, sort_keys=True),
         occurred_at=data.occurred_at,
+        event_version=data.event_version,
+        anonymous_id=data.anonymous_id,
+        user_id_hash=data.user_id_hash,
+        workspace_id_hash=data.workspace_id_hash,
+        source=data.source,
+        environment=data.environment,
+        application_version=data.application_version,
+        request_id=data.request_id,
     ))
     db.commit()
     return {"accepted": True, "duplicate": False}

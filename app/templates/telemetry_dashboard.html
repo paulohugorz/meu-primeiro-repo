@@ -56,6 +56,10 @@
     .quality-item strong { display:block; font-family:Georgia,serif; font-size:22px; }
     .quality-item span { color:var(--muted); font-size:10px; }
     .empty { color:var(--muted); text-align:center; padding:34px 0; font-size:12px; }
+    .metric-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; margin-top:16px; }
+    .metric { background:#f3f1ea; padding:12px; border-radius:9px; }
+    .metric strong { display:block; font-family:Georgia,serif; font-size:24px; }
+    .metric span { color:var(--muted); font-size:10px; }
     @media (max-width:980px) { .kpis{grid-template-columns:repeat(2,1fr)} .section-grid{grid-template-columns:1fr} }
     @media (max-width:560px) { .kpis{grid-template-columns:1fr} #updated{width:100%;margin-left:0}.funnel-row{grid-template-columns:130px 1fr 38px} }
   </style>
@@ -85,13 +89,61 @@
 
       <section class="grid section-grid">
         <article class="panel">
+          <h2>Formação do workspace</h2><p class="panel-sub">Da entrada à primeira ação colaborativa confirmada.</p>
+          <div id="collaboration-funnel"></div>
+        </article>
+        <article class="panel">
+          <h2>Workspace</h2><p class="panel-sub">Administração sem nomes ou identificadores brutos.</p>
+          <div class="metric-list">
+            <div class="metric"><strong id="workspace-team">—</strong><span>novos workspaces de time</span></div>
+            <div class="metric"><strong id="workspace-switches">—</strong><span>trocas concluídas</span></div>
+            <div class="metric"><strong id="workspace-settings">—</strong><span>configurações salvas</span></div>
+            <div class="metric"><strong id="workspace-failures">—</strong><span>falhas administrativas</span></div>
+          </div>
+        </article>
+      </section>
+
+      <section class="grid section-grid">
+        <article class="panel">
+          <h2>Adoção de Pessoas</h2><p class="panel-sub">Conversão do módulo sem conteúdo cadastral.</p>
+          <div id="people-funnel"></div>
+        </article>
+        <article class="panel">
+          <h2>Pessoas</h2><p class="panel-sub">Indicadores agregados por workspace pseudonimizado.</p>
+          <div class="metric-list">
+            <div class="metric"><strong id="people-created">—</strong><span>pessoas criadas</span></div>
+            <div class="metric"><strong id="people-success">—</strong><span>sucesso de criação</span></div>
+            <div class="metric"><strong id="people-workspaces">—</strong><span>workspaces com pessoas</span></div>
+            <div class="metric"><strong id="people-median">—</strong><span>mediana por workspace</span></div>
+          </div>
+        </article>
+      </section>
+
+      <section class="grid section-grid">
+        <article class="panel">
+          <h2>Administração da equipe</h2><p class="panel-sub">Convite, aceite e gestão de papel.</p>
+          <div id="team-funnel"></div>
+        </article>
+        <article class="panel">
+          <h2>Colaboração e concorrência</h2><p class="panel-sub">Ativação confiável e integridade das operações.</p>
+          <div class="metric-list">
+            <div class="metric"><strong id="invite-acceptance">—</strong><span>taxa de aceite</span></div>
+            <div class="metric"><strong id="collab-activation">—</strong><span>ativação colaborativa</span></div>
+            <div class="metric"><strong id="version-conflicts">—</strong><span>conflitos de versão</span></div>
+            <div class="metric"><strong id="duplicates-prevented">—</strong><span>duplicações impedidas</span></div>
+          </div>
+        </article>
+      </section>
+
+      <section class="grid section-grid">
+        <article class="panel">
           <h2>Funil de valor B1</h2><p class="panel-sub">Sessões únicas por marco; a base é a primeira etapa observada.</p>
           <div id="funnel"></div>
         </article>
         <article class="panel">
           <h2>Qualidade da coleta</h2><p class="panel-sub">Migração do contrato e completude técnica.</p>
           <div class="quality">
-            <div class="quality-item"><strong id="v2-events">—</strong><span>eventos v2</span></div>
+            <div class="quality-item"><strong id="v2-events">—</strong><span>eventos v2/v3</span></div>
             <div class="quality-item"><strong id="legacy-events">—</strong><span>eventos legados</span></div>
             <div class="quality-item"><strong id="missing-component">—</strong><span>sem componente</span></div>
           </div>
@@ -120,9 +172,9 @@
     const pct = (value) => `${Number(value || 0).toLocaleString('pt-BR', {maximumFractionDigits:1})}%`;
     let lastDailySeries = [];
 
-    function renderFunnel(items) {
+    function renderFunnel(items, target='funnel') {
       const max = Math.max(1, ...items.map(item => item.sessions));
-      $('funnel').innerHTML = items.map(item => `
+      $(target).innerHTML = items.map(item => `
         <div class="funnel-row">
           <div class="funnel-label">${item.label}</div>
           <div class="bar-track"><div class="bar" style="width:${(item.sessions/max)*100}%"></div></div>
@@ -170,9 +222,16 @@
         $('activation').textContent=pct(o.activation_rate); $('block-rate').textContent=pct(o.publication_block_rate);
         $('attempts-note').textContent=`${fmt.format(o.publication_attempts)} tentativas · recuperação ${pct(o.recovery_rate)}`;
         $('passport-views').textContent=fmt.format(o.public_passport_views); $('error-rate').textContent=`${pct(o.error_rate)} dos eventos indicam falha ou bloqueio.`;
-        $('v2-events').textContent=fmt.format(data.data_quality.v2_events); $('legacy-events').textContent=fmt.format(data.data_quality.legacy_events);
+        $('v2-events').textContent=fmt.format(data.data_quality.v2_events + data.data_quality.v3_events); $('legacy-events').textContent=fmt.format(data.data_quality.legacy_events);
         $('missing-component').textContent=fmt.format(data.data_quality.events_without_component);
-        renderFunnel(data.funnel); renderTable('errors',data.error_codes,'Nenhum erro observado.','code','count');
+        renderFunnel(data.funnel); renderFunnel(data.collaboration_funnel,'collaboration-funnel'); renderFunnel(data.people_funnel,'people-funnel'); renderFunnel(data.team_funnel,'team-funnel');
+        $('workspace-team').textContent=fmt.format(data.workspace.team_created); $('workspace-switches').textContent=fmt.format(data.workspace.switched);
+        $('workspace-settings').textContent=fmt.format(data.workspace.settings_saved); $('workspace-failures').textContent=fmt.format(data.workspace.failures);
+        $('people-created').textContent=fmt.format(data.people.created); $('people-success').textContent=pct(data.people.creation_success_rate);
+        $('people-workspaces').textContent=fmt.format(data.people.workspaces_with_people); $('people-median').textContent=fmt.format(data.people.people_per_workspace_median);
+        $('invite-acceptance').textContent=pct(data.collaboration.acceptance_rate); $('collab-activation').textContent=pct(data.collaboration.activation_rate);
+        $('version-conflicts').textContent=fmt.format(data.concurrency.version_conflicts); $('duplicates-prevented').textContent=fmt.format(data.concurrency.duplicates_prevented);
+        renderTable('errors',data.error_codes,'Nenhum erro observado.','code','count');
         lastDailySeries = data.daily;
         renderTable('top-events',data.top_events,'Nenhum evento observado.','event','count'); drawTrend(lastDailySeries);
         $('updated').textContent=`Atualizado ${new Date(data.generated_at).toLocaleString('pt-BR')}`; $('dashboard').hidden=false;

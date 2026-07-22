@@ -5,6 +5,7 @@ from datetime import datetime, timedelta, timezone
 import json
 import os
 import secrets
+import statistics
 
 from fastapi import APIRouter, Depends, HTTPException, Query, Request, Response, status
 from fastapi.responses import HTMLResponse
@@ -42,6 +43,31 @@ ERROR_EVENTS = {
     "api_action_failed",
     "js_error",
 }
+
+WORKSPACE_FAILURE_EVENTS = {"workspace_creation_failed", "workspace_switch_failed", "workspace_settings_save_failed", "workspace_archive_failed"}
+PEOPLE_FAILURE_EVENTS = {"person_creation_failed", "person_update_failed", "person_archive_failed"}
+MEMBERSHIP_FAILURE_EVENTS = {"workspace_member_invitation_failed", "workspace_member_role_change_failed", "workspace_member_removal_failed"}
+
+COLLABORATION_FUNNEL = [
+    ("workspace_viewed", "Workspace acessado"),
+    ("workspace_created", "Workspace de time criado"),
+    ("workspace_member_invited", "Primeiro convite enviado"),
+    ("workspace_member_invitation_accepted", "Primeiro convite aceito"),
+    ("workspace_first_collaborative_action_completed", "Primeira ação colaborativa"),
+]
+PEOPLE_FUNNEL = [
+    ("person_list_viewed", "Lista de pessoas acessada"),
+    ("person_creation_started", "Criação iniciada"),
+    ("person_created", "Pessoa criada"),
+    ("person_updated", "Pessoa atualizada"),
+]
+TEAM_FUNNEL = [
+    ("workspace_member_list_viewed", "Lista de membros acessada"),
+    ("workspace_member_invitation_started", "Convite iniciado"),
+    ("workspace_member_invited", "Convite enviado"),
+    ("workspace_member_invitation_accepted", "Convite aceito"),
+    ("workspace_member_role_changed", "Papel administrado"),
+]
 
 
 def require_dashboard_access(
@@ -87,6 +113,8 @@ def build_dashboard_summary(events: list[UsageEvent], days: int) -> dict:
         "passport_views": 0,
     })
     error_codes = Counter()
+    metadata_by_event: dict[str, list[dict]] = defaultdict(list)
+    workspaces_by_event: dict[str, set[str]] = defaultdict(set)
 
     for event in events:
         sessions_by_event[event.event_name].add(event.session_id)
@@ -101,12 +129,20 @@ def build_dashboard_summary(events: list[UsageEvent], days: int) -> dict:
         elif event.event_name == "public_passport_viewed":
             bucket["passport_views"] += 1
 
-        if event.event_name in ERROR_EVENTS:
+        if event.event_name in ERROR_EVENTS | WORKSPACE_FAILURE_EVENTS | PEOPLE_FAILURE_EVENTS | MEMBERSHIP_FAILURE_EVENTS:
             try:
                 metadata = json.loads(event.metadata_json or "{}")
             except json.JSONDecodeError:
                 metadata = {}
             error_codes[metadata.get("error_code", "unknown")] += 1
+        try:
+            event_metadata = json.loads(event.metadata_json or "{}")
+        except json.JSONDecodeError:
+            event_metadata = {}
+        metadata_by_event[event.event_name].append(event_metadata)
+        workspace_hash = getattr(event, "workspace_id_hash", None)
+        if workspace_hash:
+            workspaces_by_event[event.event_name].add(workspace_hash)
 
     all_sessions = {event.session_id for event in events}
     workspace_sessions = len(sessions_by_event["workspace_viewed"])
@@ -116,6 +152,7 @@ def build_dashboard_summary(events: list[UsageEvent], days: int) -> dict:
     published = event_counts["dpp_published"]
     recovered = event_counts["dpp_publication_recovered"]
     total_errors = sum(event_counts[name] for name in ERROR_EVENTS)
+    total_errors += sum(event_counts[name] for name in WORKSPACE_FAILURE_EVENTS | PEOPLE_FAILURE_EVENTS | MEMBERSHIP_FAILURE_EVENTS)
 
     funnel = []
     baseline = 0
@@ -142,6 +179,34 @@ def build_dashboard_summary(events: list[UsageEvent], days: int) -> dict:
         for date, values in sorted(daily.items())
     ]
 
+    def domain_funnel(definition):
+        baseline = 0
+        result = []
+        for event_name, label in definition:
+            count = len(workspaces_by_event[event_name]) or len(sessions_by_event[event_name])
+            if not baseline and count:
+                baseline = count
+            result.append({
+                "event": event_name,
+                "label": label,
+                "sessions": count,
+                "conversion_from_entry": _percentage(count, baseline),
+            })
+        return result
+
+    created_per_workspace = Counter(
+        getattr(event, "workspace_id_hash", None)
+        for event in events if event.event_name == "person_created" and getattr(event, "workspace_id_hash", None)
+    )
+    created_counts = list(created_per_workspace.values())
+    team_created = sum(
+        1 for metadata in metadata_by_event["workspace_created"]
+        if metadata.get("workspace_type") == "team"
+    )
+    invited = event_counts["workspace_member_invited"]
+    accepted = event_counts["workspace_member_invitation_accepted"]
+    collaborative = event_counts["workspace_first_collaborative_action_completed"]
+
     return {
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "window_days": days,
@@ -157,6 +222,44 @@ def build_dashboard_summary(events: list[UsageEvent], days: int) -> dict:
             "error_rate": _percentage(total_errors, len(events)),
         },
         "funnel": funnel,
+        "collaboration_funnel": domain_funnel(COLLABORATION_FUNNEL),
+        "people_funnel": domain_funnel(PEOPLE_FUNNEL),
+        "team_funnel": domain_funnel(TEAM_FUNNEL),
+        "workspace": {
+            "viewed": event_counts["workspace_viewed"],
+            "individual_created": sum(1 for item in metadata_by_event["workspace_created"] if item.get("workspace_type") == "individual"),
+            "team_created": team_created,
+            "switched": event_counts["workspace_switched"],
+            "settings_saved": event_counts["workspace_settings_saved"],
+            "archived": event_counts["workspace_archived"],
+            "failures": sum(event_counts[name] for name in WORKSPACE_FAILURE_EVENTS),
+        },
+        "people": {
+            "module_viewed": event_counts["person_list_viewed"],
+            "created": event_counts["person_created"],
+            "updated": event_counts["person_updated"],
+            "archived": event_counts["person_archived"],
+            "creation_success_rate": _percentage(event_counts["person_created"], event_counts["person_created"] + event_counts["person_creation_failed"]),
+            "workspaces_with_people": len(created_per_workspace),
+            "people_per_workspace_mean": round(statistics.mean(created_counts), 1) if created_counts else 0.0,
+            "people_per_workspace_median": statistics.median(created_counts) if created_counts else 0.0,
+        },
+        "collaboration": {
+            "invitations_sent": invited,
+            "invitations_accepted": accepted,
+            "acceptance_rate": _percentage(accepted, invited),
+            "first_collaborative_actions": collaborative,
+            "activation_rate": _percentage(collaborative, team_created),
+            "membership_failures": sum(event_counts[name] for name in MEMBERSHIP_FAILURE_EVENTS),
+            "last_owner_blocks": event_counts["last_owner_change_blocked"],
+        },
+        "concurrency": {
+            "version_conflicts": event_counts["resource_version_conflict_detected"],
+            "resolved_conflicts": event_counts["resource_conflict_resolved"],
+            "duplicates_prevented": event_counts["duplicate_command_prevented"],
+            "idempotency_replays": event_counts["idempotency_replay_detected"],
+            "sync_failures": event_counts["workspace_sync_refresh_failed"],
+        },
         "daily": daily_series,
         "top_events": [
             {"event": name, "count": count}
@@ -167,8 +270,9 @@ def build_dashboard_summary(events: list[UsageEvent], days: int) -> dict:
             for code, count in error_codes.most_common(8)
         ],
         "data_quality": {
+            "v3_events": sum(1 for event in events if event.schema_version == "usage-event-v3"),
             "v2_events": sum(1 for event in events if event.schema_version == "usage-event-v2"),
-            "legacy_events": sum(1 for event in events if event.schema_version != "usage-event-v2"),
+            "legacy_events": sum(1 for event in events if event.schema_version == "usage-event-v1"),
             "events_without_component": sum(1 for event in events if not event.component),
         },
     }
