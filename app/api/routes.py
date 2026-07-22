@@ -42,7 +42,7 @@ from app.validators.dpp_validators import validate_dpp_publication
 
 router = APIRouter()
 
-DPP_BASE_URL = os.getenv("DPP_BASE_URL", "https://phyllos-production.up.railway.app").rstrip("/")
+DPP_BASE_URL = os.getenv("DPP_BASE_URL", "https://phyllos-evidence-os.onrender.com").rstrip("/")
 DPP_PUBLICATION_GATE_VERSION = "dpp-publication-gate-v1"
 USAGE_EVENT_SCHEMA_VERSION = "usage-event-v2"
 USAGE_EVENT_V1_NAMES = {

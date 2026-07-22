@@ -28,7 +28,7 @@ Não é CAD, PLM, ERP, ferramenta de modelagem, ACV oficial ou auditoria ambient
 | ORM | SQLAlchemy |
 | DB dev | SQLite |
 | DB produção | Supabase (PostgreSQL) |
-| Deploy backend | Railway (`railway.toml`) |
+| Deploy backend | Render (`render.yaml`) |
 | Deploy frontend | Netlify (`phyllos/`) |
 | Edge/CDN | Cloudflare (obrigatório) |
 | QR | GS1 Digital Link + qrcode[pil] |
