@@ -174,7 +174,7 @@ def build_dashboard_summary(events: list[UsageEvent], days: int) -> dict:
     }
 
 
-@router.get("", response_class=HTMLResponse)
+@router.get("/", response_class=HTMLResponse)
 def telemetry_dashboard(
     request: Request,
     _user: str = Depends(require_dashboard_access),
