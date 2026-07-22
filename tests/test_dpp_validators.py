@@ -158,6 +158,8 @@ class DppValidatorTests(unittest.TestCase):
             fonte_agua_litros_kg="Fator interno agua",
             fonte_energia_kwh_kg="Fator interno energia",
             fonte_carbono_kgco2e_kg="Fator interno carbono",
+            agua_unit_source="L/kg",
+            energia_unit_source="kWh/kg",
             instrucoes_reparo="Lavar a frio",
             instrucoes_fim_de_vida="Encaminhar para reciclagem textil quando possivel",
         )
@@ -237,6 +239,8 @@ class DppValidatorTests(unittest.TestCase):
             fonte_agua_litros_kg="Fator interno agua",
             fonte_energia_kwh_kg="Fator interno energia",
             fonte_carbono_kgco2e_kg="Fator interno carbono",
+            agua_unit_source="L/kg",
+            energia_unit_source="kWh/kg",
             instrucoes_reparo="Lavar a frio",
             instrucoes_fim_de_vida="Encaminhar para reciclagem textil quando possivel",
         )
@@ -306,6 +310,8 @@ class DppValidatorTests(unittest.TestCase):
             fonte_agua_litros_kg="Fator interno agua",
             fonte_energia_kwh_kg="Fator interno energia",
             fonte_carbono_kgco2e_kg="Fator interno carbono",
+            agua_unit_source="L/kg",
+            energia_unit_source="kWh/kg",
             metodologia_fatores_impacto="Estimativa calculada; nao substitui ACV oficial",
             instrucoes_reparo="Lavar a frio",
             instrucoes_fim_de_vida="Encaminhar para reciclagem textil quando possivel",

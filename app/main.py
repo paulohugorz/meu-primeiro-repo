@@ -47,7 +47,14 @@ app.include_router(router_catalogo)
 async def frontend(request: Request):
     dpp_studio_path = os.path.join(phyllos_site_dir, "dpp-studio.html")
     if os.path.exists(dpp_studio_path):
-        return FileResponse(dpp_studio_path, media_type="text/html")
+        with open(dpp_studio_path, "r", encoding="utf-8") as studio_file:
+            studio_html = studio_file.read()
+        instrumented_html = studio_html.replace(
+            "</body>",
+            '<script src="/telemetry.js" defer></script></body>',
+            1,
+        )
+        return HTMLResponse(instrumented_html)
     return templates.TemplateResponse(request, "index.html")
 
 

@@ -50,6 +50,7 @@ class Peca(Base):
     etapas_producao = relationship("EtapaProducao", back_populates="peca")
     materiais = relationship("PecaMaterial", back_populates="peca", cascade="all, delete-orphan")
     modelagem_spec = relationship("ModelagemSpec", back_populates="peca", uselist=False)
+    publicacoes_dpp = relationship("DppPublicationRecord", back_populates="peca")
 
 
 class FichaTecnica(Base):
@@ -98,6 +99,43 @@ class FichaTecnica(Base):
     criado_em = Column(DateTime(timezone=True), server_default=func.now())
 
     peca = relationship("Peca", back_populates="ficha_tecnica")
+
+
+class DppPublicationRecord(Base):
+    """Registro append-only de cada execução do gate de publicação do DPP."""
+    __tablename__ = "dpp_publication_records"
+
+    id = Column(Integer, primary_key=True, index=True)
+    peca_id = Column(Integer, ForeignKey("pecas.id"), nullable=False, index=True)
+    dpp_uuid = Column(String, nullable=True, index=True)
+    dpp_version = Column(String, nullable=False)
+    gate_version = Column(String, nullable=False)
+    resultado = Column(String, nullable=False)  # aprovado | bloqueado
+    evidence_statuses = Column(Text, nullable=False)
+    errors = Column(Text, nullable=False)
+    warnings = Column(Text, nullable=False)
+    snapshot_json = Column(Text)
+    snapshot_sha256 = Column(String)
+    criado_em = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
+
+    peca = relationship("Peca", back_populates="publicacoes_dpp")
+
+
+class UsageEvent(Base):
+    """Evento de telemetria minimizado; não armazena conteúdo de campos."""
+    __tablename__ = "usage_events"
+
+    id = Column(Integer, primary_key=True, index=True)
+    event_id = Column(String, unique=True, nullable=False, index=True)
+    schema_version = Column(String, nullable=False)
+    session_id = Column(String, nullable=False, index=True)
+    event_name = Column(String, nullable=False, index=True)
+    page = Column(String, nullable=False, index=True)
+    component = Column(String)
+    action = Column(String)
+    metadata_json = Column(Text, nullable=False)
+    occurred_at = Column(DateTime(timezone=True), nullable=False)
+    received_at = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
 
 
 class EtapaProducao(Base):

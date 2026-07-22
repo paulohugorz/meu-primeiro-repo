@@ -1,12 +1,13 @@
 import json
 import unittest
 
+from fastapi import HTTPException
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from app.api.routes import publicar_dpp
+from app.api.routes import listar_publicacoes_dpp, publicar_dpp
 from app.core.database import Base
-from app.models.models import EtapaProducao, FichaTecnica, Peca
+from app.models.models import DppPublicationRecord, EtapaProducao, FichaTecnica, Peca
 
 
 class DppRouteTests(unittest.TestCase):
@@ -49,6 +50,8 @@ class DppRouteTests(unittest.TestCase):
             fonte_agua_litros_kg="Fator interno agua",
             fonte_energia_kwh_kg="Fator interno energia",
             fonte_carbono_kgco2e_kg="Fator interno carbono",
+            agua_unit_source="L/kg",
+            energia_unit_source="kWh/kg",
         ))
         self.db.add(EtapaProducao(
             peca_id=peca.id,
@@ -69,6 +72,10 @@ class DppRouteTests(unittest.TestCase):
         self.assertEqual(second.dpp_uuid, "uuid-idempotente")
         self.assertEqual(second.data_publicacao, first_publication_date)
         self.assertGreaterEqual(second.data_atualizacao, first_update_date)
+        records = self.db.query(DppPublicationRecord).all()
+        self.assertEqual(len(records), 2)
+        self.assertTrue(all(record.resultado == "aprovado" for record in records))
+        self.assertTrue(all(len(record.snapshot_sha256) == 64 for record in records))
 
     def test_publicar_dpp_accepts_tier1_with_uuid_without_gtin(self):
         peca = Peca(
@@ -100,6 +107,31 @@ class DppRouteTests(unittest.TestCase):
         self.assertEqual(result.gtin, None)
         self.assertEqual(result.dpp_uuid, "uuid-tier1")
         self.assertEqual(result.ficha_tecnica.agua_peca_litros, None)
+
+        history = listar_publicacoes_dpp("DPP-TIER1", db=self.db)
+        self.assertEqual(len(history), 1)
+        self.assertEqual(history[0]["resultado"], "aprovado")
+        self.assertEqual(history[0]["snapshot"]["dpp_uuid"], "uuid-tier1")
+        self.assertEqual(history[0]["snapshot"]["evidence_statuses"]["composicao_fibras"], "declarado")
+
+    def test_publicar_dpp_records_blocked_gate_without_generating_uuid(self):
+        peca = Peca(codigo="DPP-BLOCK", nome="Peça incompleta")
+        self.db.add(peca)
+        self.db.flush()
+        self.db.add(FichaTecnica(peca_id=peca.id))
+        self.db.commit()
+
+        with self.assertRaises(HTTPException) as context:
+            publicar_dpp("DPP-BLOCK", db=self.db)
+        self.assertEqual(context.exception.status_code, 422)
+
+        self.db.refresh(peca)
+        record = self.db.query(DppPublicationRecord).one()
+        self.assertEqual(record.resultado, "bloqueado")
+        self.assertIsNone(record.snapshot_json)
+        self.assertIsNone(record.snapshot_sha256)
+        self.assertIsNone(peca.dpp_uuid)
+        self.assertTrue(json.loads(record.errors))
 
 
 if __name__ == "__main__":

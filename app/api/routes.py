@@ -7,6 +7,7 @@ from typing import List
 from datetime import datetime, timezone
 from types import SimpleNamespace
 import json
+import hashlib
 import os
 import uuid
 import io
@@ -18,6 +19,7 @@ from app.models.models import (
     Colecao, Peca, FichaTecnica, VisualReference,
     PecaVisualReference, EtapaProducao,
     PecaMaterial, ProdutoFornecedor,
+    DppPublicationRecord, UsageEvent,
 )
 from app.schemas.schemas import (
     ColecaoCreate, ColecaoOut,
@@ -28,6 +30,7 @@ from app.schemas.schemas import (
     EtapaProducaoCreate, EtapaProducaoOut,
     PecaMaterialCreate, PecaMaterialOut,
     ISCMOut,
+    UsageEventCreate,
 )
 from app.api.fornecedores import _produto_para_materia_prima
 from app.services.dpp_calculator import (
@@ -40,6 +43,12 @@ from app.validators.dpp_validators import validate_dpp_publication
 router = APIRouter()
 
 DPP_BASE_URL = os.getenv("DPP_BASE_URL", "https://phyllos-production.up.railway.app").rstrip("/")
+DPP_PUBLICATION_GATE_VERSION = "dpp-publication-gate-v1"
+USAGE_EVENT_SCHEMA_VERSION = "usage-event-v1"
+USAGE_EVENT_NAMES = {
+    "page_view", "ui_click", "form_submit", "field_change",
+    "api_error", "js_error", "flow_complete", "visibility_end",
+}
 
 
 def public_dpp_url(dpp_uuid: str) -> str:
@@ -52,6 +61,68 @@ def _find_peca_by_public_identifier(db: Session, identifier: str):
         | (Peca.dpp_uuid == identifier)
         | (Peca.codigo == identifier)
     ).first()
+
+
+def _publication_snapshot(peca, ficha, evidence_statuses: dict[str, str]) -> str:
+    payload = {
+        "dpp_uuid": peca.dpp_uuid,
+        "dpp_version": peca.dpp_version,
+        "codigo": peca.codigo,
+        "nome": peca.nome,
+        "gtin": peca.gtin,
+        "pais_fabricacao": peca.pais_fabricacao,
+        "composicao_fibras": json.loads(ficha.composicao_fibras) if ficha.composicao_fibras else [],
+        "certificacoes": json.loads(ficha.certificacoes) if ficha.certificacoes else [],
+        "indicadores": {
+            "peso_peca_kg": ficha.peso_peca_kg,
+            "agua_peca_litros": ficha.agua_peca_litros,
+            "energia_peca_kwh": ficha.energia_peca_kwh,
+            "pegada_carbono_kgco2e": ficha.pegada_carbono_kgco2e,
+        },
+        "evidence_statuses": evidence_statuses,
+    }
+    return json.dumps(payload, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+
+
+def _record_publication_attempt(
+    db: Session,
+    peca,
+    validation,
+    resultado: str,
+    snapshot_json: str | None = None,
+) -> DppPublicationRecord:
+    record = DppPublicationRecord(
+        peca_id=peca.id,
+        dpp_uuid=peca.dpp_uuid,
+        dpp_version=peca.dpp_version or "1.0",
+        gate_version=DPP_PUBLICATION_GATE_VERSION,
+        resultado=resultado,
+        evidence_statuses=json.dumps(validation.evidence_statuses, ensure_ascii=False, sort_keys=True),
+        errors=json.dumps(validation.errors, ensure_ascii=False),
+        warnings=json.dumps(validation.warnings, ensure_ascii=False),
+        snapshot_json=snapshot_json,
+        snapshot_sha256=(
+            hashlib.sha256(snapshot_json.encode("utf-8")).hexdigest()
+            if snapshot_json is not None
+            else None
+        ),
+    )
+    db.add(record)
+    return record
+
+
+def _safe_event_metadata(metadata: dict) -> dict:
+    """Aceita apenas contexto técnico curto; conteúdo livre do usuário é descartado."""
+    allowed = {
+        "target_type", "field_type", "form_id", "status_code", "duration_ms",
+        "viewport_width", "viewport_height", "visibility_state", "flow", "step",
+    }
+    safe = {}
+    for key, value in metadata.items():
+        if key not in allowed or not isinstance(value, (str, int, float, bool)):
+            continue
+        safe[key] = value[:120] if isinstance(value, str) else value
+    return safe
 
 
 # ---------- Coleções ----------
@@ -457,9 +528,6 @@ def publicar_dpp(codigo: str, db: Session = Depends(get_db)):
     peca = db.query(Peca).filter(Peca.codigo == codigo).first()
     if not peca:
         raise HTTPException(status_code=404, detail="Peça não encontrada")
-    if not peca.dpp_uuid:
-        peca.dpp_uuid = str(uuid.uuid4())
-
     ficha = peca.ficha_tecnica
     if not ficha:
         raise HTTPException(status_code=422, detail={"errors": ["Ficha tecnica obrigatoria para publicar DPP"]})
@@ -513,6 +581,8 @@ def publicar_dpp(codigo: str, db: Session = Depends(get_db)):
 
     validation = validate_dpp_publication(validation_peca, validation_ficha)
     if not validation.can_publish:
+        _record_publication_attempt(db, peca, validation, "bloqueado")
+        db.commit()
         raise HTTPException(
             status_code=422,
             detail={
@@ -526,15 +596,78 @@ def publicar_dpp(codigo: str, db: Session = Depends(get_db)):
         setattr(ficha, field, value)
 
     now = datetime.now(timezone.utc)
+    if not peca.dpp_uuid:
+        peca.dpp_uuid = str(uuid.uuid4())
     peca.dpp_status = "publicado"
     peca.dpp_version = peca.dpp_version or "1.0"
     peca.data_publicacao = peca.data_publicacao or now
     peca.data_atualizacao = now
     ficha.evidencia_statuses = json.dumps(validation.evidence_statuses, ensure_ascii=False)
+    snapshot_json = _publication_snapshot(peca, ficha, validation.evidence_statuses)
+    _record_publication_attempt(db, peca, validation, "aprovado", snapshot_json)
 
     db.commit()
     db.refresh(peca)
     return peca
+
+
+@router.get("/pecas/{codigo}/dpp/publicacoes", tags=["DPP"])
+def listar_publicacoes_dpp(codigo: str, db: Session = Depends(get_db)):
+    peca = db.query(Peca).filter(Peca.codigo == codigo).first()
+    if not peca:
+        raise HTTPException(status_code=404, detail="Peça não encontrada")
+    records = (
+        db.query(DppPublicationRecord)
+        .filter(DppPublicationRecord.peca_id == peca.id)
+        .order_by(DppPublicationRecord.id.asc())
+        .all()
+    )
+    return [
+        {
+            "id": record.id,
+            "dpp_uuid": record.dpp_uuid,
+            "dpp_version": record.dpp_version,
+            "gate_version": record.gate_version,
+            "resultado": record.resultado,
+            "evidence_statuses": json.loads(record.evidence_statuses),
+            "errors": json.loads(record.errors),
+            "warnings": json.loads(record.warnings),
+            "snapshot": json.loads(record.snapshot_json) if record.snapshot_json else None,
+            "snapshot_sha256": record.snapshot_sha256,
+            "criado_em": record.criado_em,
+        }
+        for record in records
+    ]
+
+
+@router.post("/events/usage", status_code=202, tags=["Telemetria"])
+def registrar_evento_uso(data: UsageEventCreate, db: Session = Depends(get_db)):
+    if data.schema_version != USAGE_EVENT_SCHEMA_VERSION:
+        raise HTTPException(status_code=422, detail="Versão do schema de evento não suportada")
+    if data.event_name not in USAGE_EVENT_NAMES:
+        raise HTTPException(status_code=422, detail="Nome de evento não permitido")
+    if not (1 <= len(data.event_id) <= 64 and 1 <= len(data.session_id) <= 64):
+        raise HTTPException(status_code=422, detail="Identificador de evento ou sessão inválido")
+    if not data.page.startswith("/") or len(data.page) > 200:
+        raise HTTPException(status_code=422, detail="Página inválida")
+
+    existing = db.query(UsageEvent).filter(UsageEvent.event_id == data.event_id).first()
+    if existing:
+        return {"accepted": True, "duplicate": True}
+
+    db.add(UsageEvent(
+        event_id=data.event_id,
+        schema_version=data.schema_version,
+        session_id=data.session_id,
+        event_name=data.event_name,
+        page=data.page,
+        component=data.component[:120] if data.component else None,
+        action=data.action[:80] if data.action else None,
+        metadata_json=json.dumps(_safe_event_metadata(data.metadata), ensure_ascii=False, sort_keys=True),
+        occurred_at=data.occurred_at,
+    ))
+    db.commit()
+    return {"accepted": True, "duplicate": False}
 
 
 @router.get("/dpp/{identifier}", tags=["DPP"])

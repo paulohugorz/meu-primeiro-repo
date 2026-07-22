@@ -1,5 +1,5 @@
-from pydantic import BaseModel
-from typing import Optional, List
+from pydantic import BaseModel, Field
+from typing import Any, Optional, List
 from datetime import datetime
 
 
@@ -442,3 +442,15 @@ class PecaMaterialOut(BaseModel):
 
     class Config:
         from_attributes = True
+
+
+class UsageEventCreate(BaseModel):
+    event_id: str
+    schema_version: str = "usage-event-v1"
+    session_id: str
+    event_name: str
+    page: str
+    component: Optional[str] = None
+    action: Optional[str] = None
+    metadata: dict[str, Any] = Field(default_factory=dict)
+    occurred_at: datetime

@@ -41,6 +41,34 @@ Decisao operacional recebida em 2026-06-25:
 
 ## 3. Proxima execucao no Codex
 
+### C8 - Ledger de publicação do Evidence OS
+
+Status: concluído localmente em 2026-07-21; commit, push e deploy pendentes.
+
+- Cada execução do gate gera um registro append-only em `dpp_publication_records`.
+- Tentativas aprovadas preservam snapshot canônico, status de evidência, versão do gate e SHA-256.
+- Tentativas bloqueadas preservam erros, alertas e status de evidência sem gerar UUID público.
+- `GET /pecas/{codigo}/dpp/publicacoes` expõe o histórico para operação e auditoria.
+- O endpoint não oferece alteração ou exclusão dos registros.
+- Suite local: 43 testes passando no ambiente Python do projeto.
+
+Limites do ciclo:
+
+- o controle é append-only na aplicação, mas ainda não possui proteção contra alteração direta no banco;
+- identidade do publicador, segregação de aprovação e retenção formal dependem de autenticação e desenho posterior;
+- validação independente do controle permanece pendente conforme o modelo de três linhas.
+
+### C9 - Telemetria transversal da interface
+
+Status: concluído localmente em 2026-07-21; revisão de privacidade, commit, push e deploy pendentes.
+
+- Contrato versionado `usage-event-v1` e endpoint `POST /events/usage`.
+- Captura transversal de page view, clique, submit, mudança de campo, erro de API/JavaScript, conclusão de publicação e fim de visibilidade.
+- Instrumentação aplicada ao DPP Studio, Ateliê, passaporte público e etiqueta.
+- Conteúdo digitado, valores de campos, query strings, texto visível e stack traces não são coletados.
+- Sessão pseudônima em `sessionStorage`; eventos deduplicados por `event_id`.
+- Política e taxonomia documentadas em `evidence-os-usage-events-v1.md`.
+
 ### C0 - Pendencias antes de push/deploy
 
 - Concluido: `phyllos/dpp-studio.html` foi substituido pela versao canonica fornecida pelo founder em `/Users/paulonascimento/Downloads/dpp-studio.html`.
