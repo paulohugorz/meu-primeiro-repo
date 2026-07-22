@@ -26,6 +26,7 @@ class UsageEventTests(unittest.TestCase):
     def _event(self, **overrides):
         payload = {
             "event_id": "event-1",
+            "schema_version": "usage-event-v1",
             "session_id": "session-1",
             "event_name": "ui_click",
             "page": "/atelier",
@@ -59,6 +60,49 @@ class UsageEventTests(unittest.TestCase):
     def test_rejects_unknown_event_name(self):
         with self.assertRaises(HTTPException) as context:
             registrar_evento_uso(self._event(event_name="raw_input_capture"), db=self.db)
+        self.assertEqual(context.exception.status_code, 422)
+
+    def test_records_v2_semantic_event_with_minimized_metadata(self):
+        result = registrar_evento_uso(self._event(
+            schema_version="usage-event-v2",
+            event_name="dpp_publication_blocked",
+            component="dpp_publication",
+            action="blocked",
+            metadata={
+                "surface": "atelier",
+                "flow": "dpp_publication",
+                "step": "validation",
+                "outcome": "blocked",
+                "error_code": "validation_failed",
+                "status_code": 422,
+                "validation_issue_count": 3,
+                "method": "POST",
+            },
+        ), db=self.db)
+
+        self.assertEqual(result, {"accepted": True, "duplicate": False})
+        record = self.db.query(UsageEvent).one()
+        metadata = json.loads(record.metadata_json)
+        self.assertEqual(metadata["validation_issue_count"], 3)
+        self.assertNotIn("value", metadata)
+
+    def test_v2_rejects_unknown_metadata_instead_of_storing_content(self):
+        with self.assertRaises(HTTPException) as context:
+            registrar_evento_uso(self._event(
+                schema_version="usage-event-v2",
+                event_name="piece_created",
+                metadata={"surface": "atelier", "piece_name": "Segredo comercial"},
+            ), db=self.db)
+        self.assertEqual(context.exception.status_code, 422)
+        self.assertEqual(self.db.query(UsageEvent).count(), 0)
+
+    def test_v2_rejects_invalid_enum(self):
+        with self.assertRaises(HTTPException) as context:
+            registrar_evento_uso(self._event(
+                schema_version="usage-event-v2",
+                event_name="workspace_viewed",
+                metadata={"surface": "unknown_surface"},
+            ), db=self.db)
         self.assertEqual(context.exception.status_code, 422)
 
 

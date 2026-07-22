@@ -2938,7 +2938,21 @@
 
     copiarLinkPassaporte() {
       const linkEl = document.getElementById('pass-link');
-      navigator.clipboard.writeText(linkEl.href).then(() => toast('Link copiado.'));
+      navigator.clipboard.writeText(linkEl.href).then(() => {
+        window.PhyllosTelemetry?.track('dpp_link_copied', {
+          component: 'pass_link', action: 'copy',
+          metadata: { flow: 'dpp_publication', step: 'complete', outcome: 'success' }
+        });
+        toast('Link copiado.');
+      }).catch(() => {
+        window.PhyllosTelemetry?.track('dpp_link_copy_failed', {
+          component: 'pass_link', action: 'copy',
+          metadata: {
+            flow: 'dpp_publication', step: 'complete', outcome: 'failure', error_code: 'clipboard_error'
+          }
+        });
+        toast('Não foi possível copiar o link.', 'err');
+      });
     },
 
     irParaPainel() {

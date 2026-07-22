@@ -446,7 +446,7 @@ class PecaMaterialOut(BaseModel):
 
 class UsageEventCreate(BaseModel):
     event_id: str
-    schema_version: str = "usage-event-v1"
+    schema_version: str = "usage-event-v2"
     session_id: str
     event_name: str
     page: str

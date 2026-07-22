@@ -9,6 +9,7 @@ from app.api.routes import public_dpp_url, router
 from app.api.fornecedores import router as router_fornecedores
 from app.api.modelagem import router as router_modelagem, router_banco as router_banco_modelagem
 from app.api.catalogo import router as router_catalogo
+from app.api.telemetry_dashboard import router as router_telemetry_dashboard
 from app.validators.dpp_validators import EVIDENCE_LABELS
 import os, json
 
@@ -41,6 +42,7 @@ app.include_router(router_fornecedores)
 app.include_router(router_modelagem)
 app.include_router(router_banco_modelagem)
 app.include_router(router_catalogo)
+app.include_router(router_telemetry_dashboard)
 
 
 @app.get("/", response_class=HTMLResponse)
