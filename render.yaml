@@ -1,0 +1,26 @@
+databases:
+  - name: phyllos-evidence-os-db
+    plan: free
+    databaseName: phyllos
+    user: phyllos
+
+services:
+  - type: web
+    name: phyllos-evidence-os
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /api/status
+    autoDeployTrigger: commit
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: phyllos-evidence-os-db
+          property: connectionString
+      - key: DPP_BASE_URL
+        sync: false
+      - key: TELEMETRY_DASHBOARD_USER
+        value: phyllos
+      - key: TELEMETRY_DASHBOARD_PASSWORD
+        sync: false
