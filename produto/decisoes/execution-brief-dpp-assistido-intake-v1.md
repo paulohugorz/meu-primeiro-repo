@@ -1,7 +1,7 @@
 # Execution Brief — DPP Assistido / Intake v1
 
-**Decision ID:** `DPP-ASSISTIDO-INTAKE-2026-07-31`  
-**Bloco:** B0 → B1  
+**Decision ID:** `DPP-ASSISTIDO-INTAKE-2026-07-31`
+**Bloco:** B0 → B1
 **Direcionamento:** implementar primeiro o schema e a validação de intake descritos
 na especificação do serviço DPP Assistido.
 
@@ -40,4 +40,3 @@ na especificação do serviço DPP Assistido.
 
 **Critério de aceite local:** payload incompleto recebe 422 e lista cada campo com
 seu ponto; payload completo recebe 200; suíte existente continua passando.
-

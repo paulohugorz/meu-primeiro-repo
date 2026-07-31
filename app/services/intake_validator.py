@@ -94,4 +94,3 @@ def validate_intake(payload: dict) -> IntakeValidationResult:
         issues=issues,
         received_points=received,
     )
-
