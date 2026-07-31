@@ -1,0 +1,26 @@
+{
+  "registry_version": "1.0.0",
+  "methods": [
+    {
+      "method_id": "phyllos-impact-5",
+      "version": "0.1.0",
+      "status": "experimental_legacy",
+      "canonical_legacy_repository": "paulohugorz/phyllos-evidence-os-demo",
+      "frozen_commit": "31f1508",
+      "publication_allowed": false,
+      "known_limitations": [
+        "missing carbon and water can become favorable scores",
+        "coverage and confidence are user-provided",
+        "benchmarks lack complete source and uncertainty metadata"
+      ],
+      "replacement": "phyllos-impact-v2@2.0.0-experimental"
+    },
+    {
+      "method_id": "iscm",
+      "status": "experimental_legacy",
+      "publication_allowed": false,
+      "compatibility_only": true,
+      "replacement": "phyllos-impact-v2@2.0.0-experimental"
+    }
+  ]
+}

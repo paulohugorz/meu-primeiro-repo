@@ -410,6 +410,8 @@ class ISCMDimensaoOut(BaseModel):
 
 
 class ISCMOut(BaseModel):
+    legacy_status: str = "experimental_legacy"
+    disclaimer: str = "Compatibilidade apenas; não é indicador oficial nem resultado calibrado."
     peca_codigo: str
     score_total: float
     nivel: str              # insuficiente | basico | intermediario | avancado | referencia

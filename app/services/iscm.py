@@ -1,5 +1,5 @@
 """
-ISCM — Índice de Sustentabilidade da Cadeia de Moda (PHYLLOS)
+ISCM — experimental_legacy; compatibilidade apenas, não é score oficial.
 
 Três camadas:
   Camada 1: score interno 0–100 por dimensão (gestão/comparação)
@@ -233,7 +233,7 @@ def calcular_iscm(peca: Peca, db: Session) -> ISCMResult:
             "Registre pegada_carbono_kgco2e na ficha técnica para nota primária."
         )
     else:
-        c_pts = 25.0
+        c_pts = 0.0
         c_fonte = "ausente"
         c_metodo = "Sem materiais ou pegada de carbono"
         c_refs = ["ISO 14067"]
@@ -292,7 +292,7 @@ def calcular_iscm(peca: Peca, db: Session) -> ISCMResult:
             "Solicite consumo_agua_litros_kg ao fornecedor para dado primário."
         )
     else:
-        a_pts   = 45.0
+        a_pts   = 0.0
         a_fonte = "ausente"
         a_metodo = "Sem dados de tingimento ou consumo hídrico"
         a_refs  = ["Higg FEM"]
@@ -338,7 +338,7 @@ def calcular_iscm(peca: Peca, db: Session) -> ISCMResult:
             "Solicite RSL/MRSL e certificação dos fornecedores."
         )
     else:
-        q_pts   = 28.0
+        q_pts   = 0.0
         q_fonte = "ausente"
         q_metodo = "Sem dados de processo químico ou certificação"
         q_refs  = ["ZDHC MRSL v3.1"]
@@ -399,7 +399,7 @@ def calcular_iscm(peca: Peca, db: Session) -> ISCMResult:
             "Solicite GOTS/OCS/GRS ao fornecedor para dado primário."
         )
     else:
-        m_pts   = 22.0
+        m_pts   = 0.0
         m_fonte = "ausente"
         m_metodo = "Sem materiais ou certificações vinculados"
         m_refs  = ["GOTS", "Textile Exchange"]
@@ -435,7 +435,7 @@ def calcular_iscm(peca: Peca, db: Session) -> ISCMResult:
             r_ind_p.append(f"{ficha.durabilidade_ciclos_lavagem} ciclos lavagem")
         r_ind   = "; ".join(r_ind_p) or None
     else:
-        r_pts   = 28.0
+        r_pts   = 0.0
         r_fonte = "ausente"
         r_metodo = "Sem dados de circularidade ou durabilidade"
         r_refs  = ["ISO 14040/14044 LCA", "PEF/PEFCR Apparel & Footwear"]
@@ -494,7 +494,7 @@ def calcular_iscm(peca: Peca, db: Session) -> ISCMResult:
             "Incentive fornecedores a obter certificação ABVTEX ou SA8000."
         )
     else:
-        s_pts   = 28.0
+        s_pts   = 0.0
         s_fonte = "ausente"
         s_metodo = "Sem fornecedores ou dados de conformidade social"
         s_refs  = ["ABVTEX", "Higg FSLM"]
@@ -543,7 +543,7 @@ def calcular_iscm(peca: Peca, db: Session) -> ISCMResult:
                 "Adicione etapas em /pecas/{codigo}/etapas-producao."
             )
     else:
-        t_pts  = 10.0
+        t_pts  = 0.0
         t_fonte = "ausente"
         t_metodo = "Sem materiais nem etapas vinculadas"
         t_refs = ["GS1 Digital Link v1.1"]

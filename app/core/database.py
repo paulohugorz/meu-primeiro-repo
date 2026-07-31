@@ -156,6 +156,15 @@ def run_migrations():
                     conn.execute(text(f"ALTER TABLE usage_events ADD COLUMN {name} {typedef}"))
 
 
+def initialize_schema_if_enabled() -> bool:
+    """Compatibilidade local explícita; DDL no startup é proibido por padrão."""
+    if os.getenv("ALLOW_STARTUP_SCHEMA_DDL", "false").lower() != "true":
+        return False
+    run_migrations()
+    Base.metadata.create_all(bind=engine)
+    return True
+
+
 def get_db():
     db = SessionLocal()
     try:

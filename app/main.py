@@ -5,20 +5,20 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from app.security.pilot_access import PilotAccessMiddleware
 from sqlalchemy.orm import Session
-from app.core.database import Base, engine, run_migrations, SessionLocal
+from app.core.database import initialize_schema_if_enabled, SessionLocal
 from app.api.routes import public_dpp_url, router
 from app.api.fornecedores import router as router_fornecedores
 from app.api.modelagem import router as router_modelagem, router_banco as router_banco_modelagem
 from app.api.catalogo import router as router_catalogo
 from app.api.telemetry_dashboard import router as router_telemetry_dashboard
 from app.api.iam import router as router_iam
+from app.api.impact_v2 import router as router_impact_v2
 from app.api.telemetry_dashboard import require_dashboard_access
 from fastapi import Depends
 from app.validators.dpp_validators import EVIDENCE_LABELS
 import os, json
 
-run_migrations()
-Base.metadata.create_all(bind=engine)
+initialize_schema_if_enabled()
 
 app = FastAPI(
     title="PHYLLOS DPP",
@@ -50,6 +50,7 @@ app.include_router(router_banco_modelagem)
 app.include_router(router_catalogo)
 app.include_router(router_telemetry_dashboard)
 app.include_router(router_iam)
+app.include_router(router_impact_v2)
 
 
 @app.get("/", response_class=HTMLResponse)

@@ -882,12 +882,12 @@ def qr_peca(codigo: str, db: Session = Depends(get_db)):
     return StreamingResponse(io.BytesIO(png), media_type="image/png")
 
 
-# ---------- ISCM — Índice de Sustentabilidade da Cadeia de Moda ----------
+# ---------- ISCM — experimental_legacy; compatibilidade apenas ----------
 
 @router.get("/pecas/{codigo}/iscm", response_model=ISCMOut, tags=["ISCM"])
 def calcular_iscm_peca(codigo: str, db: Session = Depends(get_db)):
     """
-    Calcula o ISCM (Índice de Sustentabilidade da Cadeia de Moda) para a peça.
+    Calcula o legado ISCM somente para compatibilidade e comparação.
 
     Score 0–100 por 7 dimensões ponderadas:
       carbono (25%), água (15%), químicos (15%), materiais (15%),
